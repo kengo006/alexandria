@@ -33,11 +33,11 @@ Alexandria is not a library or a server. It is a set of role definitions, method
 
 | Role | Does | Never does |
 |---|---|---|
-| **Librarian** | Ingests sources, writes literature notes, maintains vault structure, runs integrity gates | Writes your prose |
-| **Writer** | Drafts and revises your text through a six-phase pipeline; orchestrates the other roles | Reads source PDFs directly; fabricates citations |
-| **Searcher** | Finds sources in your vault and returns **verbatim quotes with real page numbers**, verified three ways | Writes anything; paraphrases quotes |
-| **Critic** | Reviews your drafts blind, under an explicit anti-sycophancy rule | Rewrites your text; softens valid criticism |
-| **Researcher** | Upstream planning: topic development, structure design | Detailed literature search; final prose |
+| **[Librarian](roles/librarian.md)** | Ingests sources, writes literature notes, maintains vault structure, runs integrity gates | Writes your prose |
+| **[Writer](roles/writer.md)** | Drafts and revises your text through a six-phase pipeline; orchestrates the other roles | Reads source PDFs directly; fabricates citations |
+| **[Searcher](roles/searcher.md)** | Finds sources in your vault and returns **verbatim quotes with real page numbers**, verified three ways | Writes anything; paraphrases quotes |
+| **[Critic](roles/critic.md)** | Reviews your drafts blind, under an explicit anti-sycophancy rule | Rewrites your text; softens valid criticism |
+| **[Researcher](roles/researcher.md)** | Upstream planning: topic development, structure design | Detailed literature search; final prose |
 
 One permission rule anchors the whole system: **only the Librarian writes to the vault.** The Writer drafts in a project folder; the Searcher and Critic are read-only. This prevents working drafts from contaminating your source of truth, and prevents the echo chamber where a model ends up citing its own earlier output.
 
@@ -85,7 +85,7 @@ Prompt systems rot: definitions drift apart across copies, numbers go stale, "te
 
 ## Getting started
 
-Three adoption tiers, in `GETTING-STARTED.md`:
+Three adoption tiers, in [GETTING-STARTED.md](GETTING-STARTED.md):
 
 | Tier | You get | You need |
 |---|---|---|
@@ -101,8 +101,8 @@ The skeleton's prompts are English and deliberately voice-neutral. Language- and
 
 ## Optional integrations
 
-Documented as interfaces, not shipped as dependencies: a **full-text corpus layer** (searchable text extracted alongside each PDF), **semantic recall** (an embedding index for cross-lingual candidate discovery, always recall-only, never a citation source), and an **OCR escalation path** for scanned sources. `optional-integrations.md` describes what each contributes, the contract it must satisfy, and where it plugs in. Equivalents are straightforward to build with common tools.
+Documented as interfaces, not shipped as dependencies: a **full-text corpus layer** (searchable text extracted alongside each PDF), **semantic recall** (an embedding index for cross-lingual candidate discovery, always recall-only, never a citation source), and an **OCR escalation path** for scanned sources. [optional-integrations.md](optional-integrations.md) describes what each contributes, the contract it must satisfy, and where it plugs in. Equivalents are straightforward to build with common tools.
 
 ## Status
 
-Extracted from a live system (2026). The upstream continues to evolve; this skeleton is a curated snapshot, not a mirror. Issues and adaptations are welcome; the licence is noted in `LICENSE`.
+Extracted from a live system (2026). The upstream continues to evolve; this skeleton is a curated snapshot, not a mirror. Issues and adaptations are welcome; the licence is [MIT](LICENSE).
