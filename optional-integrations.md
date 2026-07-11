@@ -24,6 +24,8 @@ Three capabilities the upstream system runs as local tools. They are **documente
 - Index freshness is owned by the Librarian's routine (update on ingestion; note that a stale index means *semantic silence never proves absence* — grep remains the backstop).
 - Prefer small local embedding models (multilingual if you work across languages); keep the whole thing offline.
 
+**Reference recipe** (the upstream production stack, shared so you don't have to guess): [fastembed](https://github.com/qdrant/fastembed) running an ONNX multilingual model (`paraphrase-multilingual-MiniLM-L12-v2`) for embeddings — CPU-only, no PyTorch — over [LanceDB](https://github.com/lancedb/lancedb) as the vector store. Chunk the text layer with its page markers preserved, so every fragment maps back to `{file, page}`. In upstream production this combination indexes ~400k chunks on a 16 GB laptop, with incremental updates running in about 90 seconds. A minimal MCP server exposing a single `search(query, k)` tool is all the roles need.
+
 **Plugs into**: Searcher search path D; Researcher's coverage scans. Degrades to grep when absent — every role treats it as a bonus, not a dependency.
 
 ## 3. OCR escalation path
