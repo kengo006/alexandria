@@ -2,7 +2,7 @@
 
 **A citation-integrity-first academic writing system for Claude Code and Obsidian.**
 
-Large language models fabricate citations. A recent [cross-model audit](https://arxiv.org/abs/2603.03299) put reference-fabrication rates between 14% and 95% across thirteen models, and most tooling attacks the problem *after* the text is written, by detecting hallucinated references. Alexandria attacks it *before*: it is a five-role writing system whose workflow makes fabrication structurally difficult. Every verbatim quote must be read back from the source PDF at a real page number, pass three verification layers, survive a blind review, and be audited line-by-line before a draft is allowed to call itself done.
+Large language models fabricate citations. A recent [cross-model audit](https://arxiv.org/abs/2603.03299) of ten models measured reference-fabrication rates between 11.4% and 56.8%, and most tooling attacks the problem *after* the text is written, by detecting hallucinated references. Alexandria attacks it *before*: it is a five-role writing system whose workflow makes fabrication structurally difficult. Every verbatim quote must be read back from the source PDF at a real page number, pass three verification layers, survive a blind review, and be audited line-by-line before a draft is allowed to call itself done.
 
 Alexandria is not a library or a server. It is a set of role definitions, methods, and governance files you drop into [Claude Code](https://claude.com/claude-code), pointed at your own [Obsidian](https://obsidian.md) vault.
 
