@@ -5,7 +5,7 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 | Tier | You get | You need |
 |---|---|---|
 | **A — Minimal** | Writer + Searcher + Critic: the citation integrity pipeline over a folder of PDFs and notes | Claude Code |
-| **B — Vault** | All five roles over a structured Obsidian vault: note schema, two-end mirror, ingestion gates | + an Obsidian vault |
+| **B — Vault** | All six roles over a structured Obsidian vault: note schema, two-end mirror, ingestion gates | + an Obsidian vault |
 | **C — Full** | Governance: sync matrix, health checks, summon templates, style modules, optional integrations | + Python 3 for the scripts |
 
 ---
@@ -41,9 +41,9 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 
 ---
 
-## Tier B — Vault (five roles on Obsidian)
+## Tier B — Vault (six roles on Obsidian)
 
-**Adds.** The **Librarian** — the only role allowed to write into the vault — handles ingestion: new PDF → quality gates → literature note in a consistent schema → filed into the taxonomy with wikilinks and MOC updates. The **Researcher** handles upstream planning: topic development and structure design before writing starts.
+**Adds.** The **Librarian** — the only role allowed to write into the vault — handles ingestion: new PDF → quality gates → literature note in a consistent schema → filed into the taxonomy with wikilinks and MOC updates. The **Researcher** handles upstream planning: topic development and structure design before writing starts, and doubles as the role you talk an idea through with. The **Deep-reader** turns a whole book into a structured close-read note (optional — add it when you have a text worth metabolising rather than quoting).
 
 **Setup on top of Tier A.**
 
@@ -56,13 +56,13 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
    ```
    The **two-end mirror** — matched folder structure between `notes/` and `sources/` — is what lets every note trace to its source and every source be discoverable from notes.
 
-2. Copy `roles/librarian.md` and `roles/researcher.md` into your skills directory as in Tier A.
+2. Copy `roles/librarian.md`, `roles/researcher.md`, and (optionally) `roles/deep-reader.md` into your skills directory as in Tier A.
 
 3. Fill in `vault-map.md` from the template in `obsidian/vault-map-template.md` (a synthetic example is included — replace it with your own taxonomy).
 
 4. Ingest a first batch: summon the Librarian and hand it a few PDFs. Inspect the notes it produces against `obsidian/note-schema.md`; correct the schema file if your field needs different metadata. The schema is a contract between you and the roles, not a straitjacket.
 
-**Write-permission rule (now enforced).** From this tier on, only the Librarian writes inside `notes/` and `sources/`. The Writer works in a separate project folder; Searcher and Critic are read-only everywhere. This is what keeps working drafts from contaminating your source of truth.
+**Write-permission rule (now enforced).** From this tier on, only the Librarian writes inside `notes/` and `sources/`. The Writer works in a separate project folder; the Deep-reader adds only its own notes under `notes/close-reads/`; Searcher and Critic are read-only everywhere. This is what keeps working drafts from contaminating your source of truth.
 
 ---
 

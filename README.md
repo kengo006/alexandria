@@ -2,7 +2,7 @@
 
 **A citation-integrity-first academic writing system for Claude Code and Obsidian.**
 
-Large language models fabricate citations. A recent [cross-model audit](https://arxiv.org/abs/2603.03299) of ten models measured reference-fabrication rates between 11.4% and 56.8%, and most tooling attacks the problem *after* the text is written, by detecting hallucinated references. Alexandria attacks it *before*: it is a five-role writing system whose workflow makes fabrication structurally difficult. Every verbatim quote must be read back from the source PDF at a real page number, pass three verification layers, survive a blind review, and be audited line-by-line before a draft is allowed to call itself done.
+Large language models fabricate citations. A recent [cross-model audit](https://arxiv.org/abs/2603.03299) of ten models measured reference-fabrication rates between 11.4% and 56.8%, and most tooling attacks the problem *after* the text is written, by detecting hallucinated references. Alexandria attacks it *before*: it is a six-role writing system whose workflow makes fabrication structurally difficult. Every verbatim quote must be read back from the source PDF at a real page number, pass three verification layers, survive a blind review, and be audited line-by-line before a draft is allowed to call itself done.
 
 Alexandria is not a library or a server. It is a set of role definitions, methods, and governance files you drop into [Claude Code](https://claude.com/claude-code), pointed at your own [Obsidian](https://obsidian.md) vault.
 
@@ -19,7 +19,7 @@ Alexandria is not a library or a server. It is a set of role definitions, method
 ## What it is, and is not
 
 **It is:**
-- A **role architecture**: five specialised roles with strict separation of duties and write permissions.
+- A **role architecture**: six specialised roles with strict separation of duties and write permissions.
 - A **citation integrity pipeline**: the discipline that runs through every role, from ingestion to final audit.
 - An **Obsidian-native workflow**: your notes and your sources form a mirrored pair the system maintains and verifies.
 - A **governance layer**: mechanical defences against the slow drift that kills every complex prompt system.
@@ -29,7 +29,7 @@ Alexandria is not a library or a server. It is a set of role definitions, method
 - An autonomous researcher that writes papers while you sleep. What matters most to me is the preservation of human agency — full participation in the thinking and in the work. The finished text represents *you*; that is why I refuse to build a fully automated text-production system. The human is a working part of this system, not its audience.
 - A citation manager. It complements Zotero/BibTeX-style tools; it does not replace them.
 
-## The five roles
+## The six roles
 
 | Role | Does | Never does |
 |---|---|---|
@@ -37,9 +37,12 @@ Alexandria is not a library or a server. It is a set of role definitions, method
 | **[Writer](roles/writer.md)** | Drafts and revises your text through a six-phase pipeline; orchestrates the other roles | Reads source PDFs directly; fabricates citations |
 | **[Searcher](roles/searcher.md)** | Finds sources in your vault and returns **verbatim quotes with real page numbers**, verified three ways | Writes anything; paraphrases quotes |
 | **[Critic](roles/critic.md)** | Reviews your drafts blind, under an explicit anti-sycophancy rule | Rewrites your text; softens valid criticism |
-| **[Researcher](roles/researcher.md)** | Upstream planning: topic development, structure design | Detailed literature search; final prose |
+| **[Researcher](roles/researcher.md)** | Upstream planning: topic development, structure design — and talking an idea through when nothing will be written yet | Detailed literature search; final prose; deciding your position for you |
+| **[Deep-reader](roles/deep-reader.md)** | Reads a whole book or lecture series into a structured, page-anchored note — a map of the argument, not a summary | Discusses ideas (the Researcher's job); writes your prose |
 
-One permission rule anchors the whole system: **only the Librarian writes to the vault.** The Writer drafts in a project folder; the Searcher and Critic are read-only. This prevents working drafts from contaminating your source of truth, and prevents the echo chamber where a model ends up citing its own earlier output.
+One permission rule anchors the whole system: **only the Librarian writes to the vault.** The Writer drafts in its own project folder; the Deep-reader adds only its own notes to one dedicated folder; the Searcher and Critic are read-only. This prevents working drafts from contaminating your source of truth, and prevents the echo chamber where a model ends up citing its own earlier output.
+
+**One article, one Writer, one folder.** Every project gets a scaffold whose front door orients anyone who opens it — you after a week away, a review seat, the Critic — in thirty seconds. The rule underneath: *a product that lives only in the conversation does not exist.*
 
 ## The citation integrity pipeline
 
@@ -90,7 +93,7 @@ Three adoption tiers, in [GETTING-STARTED.md](GETTING-STARTED.md):
 | Tier | You get | You need |
 |---|---|---|
 | **A — Minimal** | Writer + Searcher + Critic: the citation pipeline on a folder of PDFs and notes | Claude Code only |
-| **B — Vault** | All five roles on a structured Obsidian vault with the note schema and two-end mirror | + an Obsidian vault |
+| **B — Vault** | All six roles on a structured Obsidian vault with the note schema and two-end mirror | + an Obsidian vault |
 | **C — Full** | Governance layer, health checks, summon templates, optional integrations | + Python for the scripts |
 
 Start at A. Everything above it is additive.

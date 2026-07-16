@@ -9,6 +9,7 @@ Three capabilities the upstream system runs as local tools. They are **documente
 **Contract**:
 - A `text-layer/` tree mirroring `sources/` file-for-file: `text-layer/<branch>/<same-name>.txt`.
 - Produced by any extractor (`pdftotext` works well for born-digital; OCR for scans); include page markers (e.g. `===== page N =====`) so hits map back to pages.
+- **Known trap — footer pagination shifts by one**: when a work prints its page numbers at the foot, extractors attribute the number to the *following* page's text flow, so the layer's "page N" is printed page N−1, consistently through the whole book. Header-paginated works are unaffected. The layer stays a *locator* either way (the page you cite is the one printed on the PDF page you opened — `roles/searcher.md` §1), but knowing the offset saves a batch of false "wrong page" audit failures.
 - Git-ignored (derived data, and your sources' copyright stays local).
 - Re-extract on PDF replacement; rename together with the source (it is step 8 of the rename chain).
 
@@ -23,6 +24,8 @@ Three capabilities the upstream system runs as local tools. They are **documente
 - Fragments are **pointers**: roles follow file+page back to the PDF. Recall-only; never a citation source.
 - Index freshness is owned by the Librarian's routine (update on ingestion; note that a stale index means *semantic silence never proves absence* — grep remains the backstop).
 - Prefer small local embedding models (multilingual if you work across languages); keep the whole thing offline.
+
+**A runnable implementation** of this contract is published as a companion: [alexandria-semantic-recall](https://github.com/kengo006/alexandria-semantic-recall) (MIT) — the recipe below, packaged. Read on if you would rather build your own.
 
 **Reference recipe** (the upstream production stack, shared so you don't have to guess): [fastembed](https://github.com/qdrant/fastembed) running an ONNX multilingual model (`paraphrase-multilingual-MiniLM-L12-v2`) for embeddings — CPU-only, no PyTorch — over [LanceDB](https://github.com/lancedb/lancedb) as the vector store. Chunk the text layer with its page markers preserved, so every fragment maps back to `{file, page}`. In upstream production this combination indexes ~400k chunks on a 16 GB laptop, with incremental updates running in about 90 seconds. A minimal MCP server exposing a single `search(query, k)` tool is all the roles need.
 
