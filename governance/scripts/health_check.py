@@ -21,14 +21,15 @@ SKELETON = Path(__file__).resolve().parents[2]   # repo root
 REQUIRED = [
     "README.md", "GETTING-STARTED.md",
     "roles/librarian.md", "roles/writer.md", "roles/searcher.md",
-    "roles/critic.md", "roles/researcher.md",
+    "roles/critic.md", "roles/researcher.md", "roles/deep-reader.md",
     "shared/report-mode.md", "shared/council-mode.md", "shared/scholar-evaluation.md",
     "shared/correction-report.md", "shared/search-patterns.md",
     "shared/naming-conventions.md", "shared/summon-templates.md",
+    "shared/page-offset-registry.md",
     "obsidian/vault-structure.md", "obsidian/note-schema.md",
     "obsidian/wikilinks-and-mocs.md", "obsidian/vault-map-template.md",
     "governance/system-overview.md", "governance/role-division.md",
-    "governance/sync-matrix.md",
+    "governance/sync-matrix.md", "governance/claims-and-evidence.md",
 ]
 
 # pattern -> why it is banned (checked case-insensitively in all live .md files;
@@ -39,9 +40,15 @@ FORBIDDEN = {
     r"wear(ing)? the (sceptic|critic|assessor)'?s? hat":
         "abolished self-played review (council mode uses independent seats)",
 }
-ALLOW_MARKERS = ("banned", "abolished")   # a line containing the pattern AND one of these words is the ban's own documentation
+ALLOW_MARKERS = ("banned", "abolished", "ban on")   # a line containing the pattern AND one of these is the ban's own documentation
+# ("ban on" added after the gate flagged the README's own sentence about the ban — the marker
+#  list was narrower than the idiom actually used to document it. Keep markers narrow: a bare
+#  "ban" would also match "urban".)
 
 # optional: {"source_file": (header_regex, [("mirror_file", mirror_regex), ...])}
+# If you version a file in two places (front-matter field AND the H1 title), mirror BOTH
+# here. In production a title version once drifted nine releases behind the front matter
+# while the gate stayed green — it was only comparing the one place it knew about.
 VERSION_MIRRORS = {}
 # ────────────────────────────────────────────────────────────────────
 
@@ -55,19 +62,26 @@ else:
     ok.append(f"required files present ({len(REQUIRED)})")
 
 # 2. forbidden patterns
+# A passing scan reports its denominator ("across N files"): "0 hits" alone cannot be
+# told apart from "the scan saw nothing" — checks die most often by passing over an
+# empty sample (see governance/claims-and-evidence.md §5).
 hits = []
+scanned = 0
 for md in SKELETON.rglob("*.md"):
     rel = md.relative_to(SKELETON).as_posix()
     if rel.startswith((".git", "_")):
         continue
+    scanned += 1
     for i, line in enumerate(md.read_text(encoding="utf-8").splitlines(), 1):
         for pat, why in FORBIDDEN.items():
             if re.search(pat, line, re.I) and not any(a in line.lower() for a in ALLOW_MARKERS):
                 hits.append(f"{rel}:{i}  [{why}]")
-if hits:
+if scanned == 0:
+    fail.append("forbidden-pattern scan saw zero files — empty sample; a green over nothing is not green")
+elif hits:
     fail.append("forbidden patterns found:\n     " + "\n     ".join(hits[:10]))
 else:
-    ok.append(f"forbidden-pattern scan clean ({len(FORBIDDEN)} patterns)")
+    ok.append(f"forbidden-pattern scan clean ({len(FORBIDDEN)} patterns across {scanned} files)")
 
 # 3. version mirrors (if configured)
 for src, (src_re, mirrors) in VERSION_MIRRORS.items():

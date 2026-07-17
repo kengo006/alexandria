@@ -31,7 +31,7 @@ Six roles, strictly separated. Crossing a boundary is a violation, not initiativ
 
 ## Project scaffold (a Writer's first act)
 
-**One article, one Writer, one folder.** Before writing, the Writer builds the project scaffold (`roles/writer.md` §0) — entry file, working source, citation library and ledger, audit folder, history — in one of two tiers (full / minimal). The rule behind it: **a product that lives only in the conversation does not exist**; conversations get compacted, and an audit nobody can open never happened.
+**One article, one Writer, one folder.** Before writing, the Writer builds the project scaffold (`roles/writer.md` §0) — entry file, working source, citation ledger, audit folder, history — in one of two tiers (full / minimal). The rule behind it: **a product that lives only in the conversation does not exist**; conversations get compacted, and an audit nobody can open never happened.
 
 The **entry file is the project's front door**, and it is a *governance* object, not just the Writer's convenience: any role entering the project — a council seat, the Critic, the Deep-reader delivering a note, the human — is oriented from it in thirty seconds. It routes (to the working source's pinned status anchor) and carries no position, which is what keeps it compatible with blind review.
 
@@ -43,6 +43,8 @@ Any handover artifact — a plan, a skeleton, a history file, a status report �
 - 🟡 **reported only** — asserted in a conversation, no file behind it. **The receiver may not write a 🟡 into a downstream document as fact**; verify first.
 
 **The receiver's first act is an existence check.** This exists because a handover once stated "three audit rounds, all green" as plain fact; it had been a conversational report, no file existed, and the next role built on it until a human grew suspicious. Marks cost one character and stop the class of error where an assertion silently becomes a citation.
+
+**Audit-summary coverage** (the marks' sibling rule): any audit or check **summary** states *what was and was not checked*. A trace proves the work happened; only the stated scope proves how much of it happened. **A summary without scope may not be cited downstream as a credential** — an unscoped "no fabrications found" over a partial sample once functioned as a health certificate for exactly the region it had not read. The claim-level machinery — the rendered-page credential, credential tiering, the negative-conclusion rule, the four ways a check dies — lives in [`claims-and-evidence.md`](claims-and-evidence.md).
 
 ### Why "only the Librarian writes the vault" (the five reasons)
 
@@ -64,7 +66,7 @@ Any handover artifact — a plan, a skeleton, a history file, a status report �
             Phase 0  build the project scaffold      ← no folder, no writing
             Phase 1  independent draft (placeholders; no notes)
             Phase 2  per-family parallel Searcher spawns → merged evidence
-            Phase 3  integrate; citations enter library + ledger  ← filing is the exit gate
+            Phase 3  integrate; citations enter the ledger      ← filing is the exit gate
             Phase 4  Critic (blind) → located criticisms
             Phase 5  selective revision (rejections need reasons)
             Phase 6  Searcher audit → support-status list, filed  ← delivery gate

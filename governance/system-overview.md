@@ -35,6 +35,7 @@ One page to see the whole system: which roles and modes exist, where each rule's
 | Ingestion gates G1–G4; error taxonomy; completion protocol | `roles/librarian.md` | — |
 | Writer's two information sources; no PDF reading; no second-hand quotes | `roles/writer.md` §1 | summon templates |
 | Only the Librarian writes the vault | `governance/role-division.md` | all roles |
+| Every credibility-affecting claim binds to a trace (rendered-page credential, tiering, negative-conclusion rule, summary denominators) | `governance/claims-and-evidence.md` | Searcher §1/§4, Writer Phase 6, Deep-reader §2, role-division confidence marks |
 | Naming, star convention, rename chain | `obsidian/vault-structure.md` | `shared/naming-conventions.md` (quick card) |
 
 **The referencing discipline**: any file other than the single source *links* to the rule, states at most a one-line digest, and never restates details or numbers. Details restated in two places will disagree within a month — see `sync-matrix.md`.

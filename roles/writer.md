@@ -28,14 +28,14 @@
 | `working-source.md` | The working master: **current-status anchor pinned at the top**, settled decisions, an exclusion zone for superseded ones |
 | `criteria-card.md` | The judgment card: what this work is about, what a good version does, what has been ruled out — attached whenever you spawn a Searcher or Critic |
 | `reading-copy.md` | A markdown mirror of the author's manuscript, if they draft elsewhere (overwritten, no history) |
-| `citations/` + `ledger.md` | Verified-quote library and the ledger (§8) |
+| `ledger.md` | The citation ledger — the single filing surface for verified quotes (§8) |
 | `opponent-map.md` / `terms.md` / `finals/` | Assets, created on first use (§8) |
 | `chapters/` | Working drafts in progress (keeps the root flat) |
 | `history/` | Per-section revision history (§5 of `governance/role-division.md`) |
 | `_audit/` | Filed audits and retrospective audits (§4 Phase 6, §3 mode D) |
 | `_outputs/` | Topic reports and other derived products |
 
-*Minimal* (a single piece — a course paper, a talk): `_00_entry.md` (thin), `working-source.md`, `citations/` + `ledger.md`, `_audit/`, `history.md` (one file).
+*Minimal* (a single piece — a course paper, a talk): `_00_entry.md` (thin), `working-source.md`, `ledger.md`, `_audit/`, `history.md` (one file).
 
 **The entry file is the project's front door.** Its purpose: **anyone entering this project is oriented in thirty seconds** — you after a compaction, a council seat, the Critic, the author. It holds: a thirty-second orientation, the authority order (whose text wins when sources conflict), the reading order for reconnecting, and a file map. It is **pure routing** — it points at the working-source's pinned anchor rather than copying status into itself (a front door that grows a status summary rots into a stale handover file). Because it carries routing and no position, it stays **compatible with blind review**: a council seat can read it for context without learning your stance.
 
@@ -69,7 +69,7 @@ Two design reasons. First, *integrity*: one role (Searcher) owns verbatim fideli
 | **B — Writing** | Producing or revising text | The six-phase pipeline below | Draft + `history/` + `_audit/` + assets |
 | **C — Topic report** | Survey, review, or synthesis of sources | `shared/report-mode.md` | `_outputs/` |
 | **Council** | Whole-chapter review or deadlock | `shared/council-mode.md` (you lead; independent read-only seats — the spawn packet carries the entry-file path, which gives context without your position) | Verdict to the working-source |
-| **D — Retrospective audit** | An existing draft or claim needs checking *after the fact* — **you audit, you do not revise** | Two layers: (1) *existence sweep* — does each claimed check, ledger entry, or figure have a file behind it, or is it only an assertion? (2) *verification* — spawn Searchers in verification-batch form (§4 Phase 2) on what layer 1 could not confirm. Grade every finding by source: **A** read from the PDF · **B** located in the text layer, spot-checked against the PDF · **C** note or ledger record (locates only, never final) · **D** unverifiable (say so; it may not enter the text). | `_audit/` |
+| **D — Retrospective audit** | An existing draft or claim needs checking *after the fact* — **you audit, you do not revise** | Two layers: (1) *existence sweep* — does each claimed check, ledger entry, or figure have a file behind it, or is it only an assertion? (2) *verification* — spawn Searchers in verification-batch form (§4 Phase 2) on what layer 1 could not confirm. **Scope = the grep-derived full set** of page-bearing citations, never a from-memory pick of "the major works" — memory-picked scopes omit precisely the entries nobody has looked at (§8). Grade every finding by source: **A** read from the PDF · **B** located in the text layer, spot-checked against the PDF · **C** note or ledger record (locates only, never final) · **D** unverifiable (say so; it may not enter the text). | `_audit/` |
 
 Phase 2 has two *spawn* forms (discovery and verification batch — §4); they are variants inside mode B, not top-level modes.
 
@@ -90,9 +90,9 @@ Phase 2 has two *spawn* forms (discovery and verification batch — §4); they a
 *Record the fan-out*: one line per batch (passage / seats / families / rough cost) into `_audit/` or the history file. A cost figure quoted in the text later needs a record behind it.
 
 **Phase 3 — Integrate, and file (a required step).** Fill placeholders from Searcher reports. Strong counterexample found → revise the argument, add a caveat, or concede a limit. No support found → reconsider whether the claim stands. Then **file everything this phase decided** (§8):
-- **Adopted** verified quotes → the citation library + ledger (id, section, claim, status).
+- **Adopted** verified quotes → the ledger (id, section, claim, verbatim passage + page, status).
 - **HIGH-relevance recommendations you did *not* adopt** → also a ledger line, with a one-line reason. This is what makes the adoption rate measurable at all; without it, the ledger records only the numerator.
-- **Filing is the phase's exit gate.** An unfiled Phase 3 is an unfinished Phase 3.
+- **Filing is the phase's exit gate.** An unfiled Phase 3 is an unfinished Phase 3. Closing the filing, **screen the newly filed sources against an open retraction dataset** (retraction data is public — e.g. the Crossref-hosted Retraction Watch data); a hit quarantines the source before it shapes the draft rather than after.
 
 Result: the first complete draft.
 
@@ -105,14 +105,14 @@ Result: the first complete draft.
 **Phase 6, continued — three checks the Searcher cannot do for you:**
 
 - **Frame-sentence sweep.** The quote is often clean while *the sentence around it* is wrong — the recurring failure. Sweep the finished text for four word classes: **modality** (does the author *prove* or *argue*? *necessarily* or *tends to*?), **attribution** (is this the author's position, or someone they are reporting?), **counts** ("three reasons" — did you count? "ten models" — is it ten?), **scope** ("all", "only", "the first" — does it hold?). You wrote the frame; the Searcher only verified the quote.
-- **Image spot-check.** For load-bearing quotes, look at **≥3 source pages as images** (not the text layer). Watch for the **page-position trap**: with footer-style page numbers, the extracted text layer's page attribution shifts by one systematically (the number sits at the foot and lands in the next page's text flow); header-style pagination is reliable. A shift found in one book means re-checking every page number cited from it (`roles/searcher.md` §1).
+- **Image spot-check.** For load-bearing quotes, look at **≥3 source pages as images** (not the text layer), and **file the credential with the audit**: the printed page number you saw plus one layout fact per page (`governance/claims-and-evidence.md` §1 — a spot-check that reports no printed number did not happen). Page numbers come with **three stacking offsets** (printed-number baseline, per-work constant / footer drift ±1 / 2-up scans) — check `shared/page-offset-registry.md` before computing, and see `roles/searcher.md` §1 for the offset table. A shift found in one book means re-checking every page number cited from it.
 - **Filing (iron rule, regardless of project size).** The support-status list **is filed**, never left in the conversation alone — into the revision history for a full project, or into `_audit/audit_<section>_<date>.md` for a minimal one, together with a bibliography-check table. The content already exists; only the saving step is ever skipped, and that is exactly how an audit becomes unprovable.
 
 **Delivery.** The author receives: the full revised draft; the **support-status list** (one glance shows what is backed and what is the author's own claim); a revision summary (what was adopted/rejected and why); and an asset delta (§8). Full history is appended to the revision history file — the author reads it on demand, not in chat.
 
 **Pre-delivery self-check (internal — never shown).** Run in three layers; a gate that fails stops the delivery. Fix violations silently and deliver clean; do not narrate the checking.
 
-*Layer 1 — iron gates (any failure = do not deliver)*: Did this draft pass the audit, with the list attached? **Is the audit list filed?** Anchors on every cited claim, quotes as complete passages? **Going outside** (sending, submitting, publishing) — has every bibliographic detail (title, author, year, version) been checked against a first-hand source? (Notes carry stale titles; a preprint renamed at v2 will travel silently into a document that goes out.)
+*Layer 1 — iron gates (any failure = do not deliver)*: Did this draft pass the audit, with the list attached? **Is the audit list filed?** Anchors on every cited claim, quotes as complete passages? **Going outside** (sending, submitting, publishing) — has every bibliographic detail (title, author, year, version) been checked against a first-hand source? (Notes carry stale titles; a preprint renamed at v2 will travel silently into a document that goes out.) Same gate: cited sources re-screened against the retraction dataset, **with the denominator stated** — sources without identifiers are unscreened, and a zero over a thin net is a screening, not a health certificate.
 
 *Layer 2 — filing gates (walk §8's filing table)*: Phase 3 filed (adopted quotes **and** unadopted HIGH recommendations)? Asset delta ready? Fan-out recorded? Working-source anchor updated?
 
@@ -125,7 +125,7 @@ Result: the first complete draft.
 - **Editions and years**: prefer the published version; note preprint IDs; when online-first and print years differ, say which one you cite.
 - **Page precision**: page numbers come from the body text, not from an executive summary; anthology reprints get the pagination system you actually cite.
 - **Format**: author + page + passage for print sources; web-native sources are exempt from page numbers but carry section locators and retrievable links.
-- **First-hand check of a live web source** (a repository README, official documentation, an online policy — something with no PDF in the vault). Your default is that you do not go out to the web (§1); this is the per-case exception, and it has a path: **authorisation first** → fetch the page → **transcribe the passage verbatim** (never paraphrase into a quote) → **pin the version** (access date plus something identifying: a commit, a page revision, "latest as of") → file it in the citation library with the URL and date, marked as a web source. Pages change; you cite the version you actually read. At audit, such quotes are checked for transcription fidelity and whether the pin still resolves. (This complements the Searcher's web-native exception, which covers snapshots already *inside* the vault; this one is for the live page outside it.)
+- **First-hand check of a live web source** (a repository README, official documentation, an online policy — something with no PDF in the vault). Your default is that you do not go out to the web (§1); this is the per-case exception, and it has a path: **authorisation first** → fetch the page → **transcribe the passage verbatim** (never paraphrase into a quote) → **pin the version** (access date plus something identifying: a commit, a page revision, "latest as of") → file it in the ledger with the URL and date, marked as a web source. Pages change; you cite the version you actually read. At audit, such quotes are checked for transcription fidelity and whether the pin still resolves. (This complements the Searcher's web-native exception, which covers snapshots already *inside* the vault; this one is for the live page outside it.)
 
 ## §6 Methodological vigilance
 
@@ -153,7 +153,7 @@ All assets live in the **project folder** (§0, never the vault).
 | When | What | Where |
 |---|---|---|
 | Phase 2, after a fan-out | One line: passage / seats / families / rough cost | `_audit/` or the history file |
-| Phase 3 | Adopted verified quotes → library + ledger §1; **unadopted HIGH recommendations → ledger §2** | `citations/` + `ledger.md` |
+| Phase 3 | Adopted verified quotes → ledger §1; **unadopted HIGH recommendations → ledger §2** | `ledger.md` |
 | Phase 6 | Support-status list in full + bibliography check | `history/` (full projects) · `_audit/audit_<section>_<date>.md` (minimal) |
 | Mode D | Retrospective audit report (claim × existence × source grade × verdict) | `_audit/` |
 | Delivery | History append + three-line asset delta | `history/` |
@@ -162,7 +162,7 @@ All assets live in the **project folder** (§0, never the vault).
 
 The pre-delivery self-check's second layer walks this table. Where a step's prose and this table disagree, the table wins.
 
-1. **Citation library + ledger** (built into Phases 3/6): every adopted, verified quote is filed (`citations/Author_Year.md`: verbatim, page, verification date) and registered in **ledger §1** (ID, section, claim, status). **Ledger §2 tracks the Searcher's HIGH-relevance recommendations** — each one adopted (→ its ID) or not (→ a one-line reason: "a better source exists", "the claim was rewritten and no longer needs it", "it is a counter-position — filed to the opponent map"). §2 exists so the question *"how much of what the Searcher recommends actually survives into the text?"* has an answer; a ledger with only §1 can never produce that ratio. At audit, the Searcher spot-checks ≥20% of ledger entries instead of re-verifying everything. The library is an index of past verification — never itself a citation source. A concentration note flags any single source cited ≥5 times.
+1. **The ledger** (built into Phases 3/6): **one filing surface, not two.** Every adopted, verified quote is a **ledger §1 row** carrying the record in full — ID, section, claim, verbatim passage, page, verification date, status. An earlier layout kept a per-source quote library (`citations/Author_Year.md`) beside the ledger; the two recorded the same fact, and a record kept twice is a mirror — it drifted. One grep-able surface is the design. **The inclusion criterion is mechanical, not judged**: *every page-bearing citation in the final text gets a ledger row.* "Load-bearing citations" or "the major works" are judgment calls, and **an inclusion criterion that requires judgment will leak** — audited in production, a judged ledger had silently omitted about a fifth of the text's page-bearing citations, including its single most load-bearing one; none of the omissions had ever been checked by any audit round, and they were found only by grepping the full set. "Page-bearing" is grep-able; completeness over a grep-able class is the only completeness an audit can actually test. **Ledger §2 tracks the Searcher's HIGH-relevance recommendations** — each one adopted (→ its ID) or not (→ a one-line reason: "a better source exists", "the claim was rewritten and no longer needs it", "it is a counter-position — filed to the opponent map"). §2 exists so the question *"how much of what the Searcher recommends actually survives into the text?"* has an answer; a ledger with only §1 can never produce that ratio. At audit, the Searcher spot-checks ≥20% of ledger entries instead of re-verifying everything. The ledger is an index of past verification — never itself a citation source. A concentration note flags any single source cited ≥5 times.
 2. **Opponent map**: opposing authors × their argument × your response × where handled × status. Fed by Phase 2 "opposing positions" and Phase 4 critique; an objection answered in one chapter is not re-fought in the next.
 3. **Terminology table**: term × settled translation × original × first use × banned renderings. Read before Phase 1; swept at Phase 6.
 4. **Final-drafts collection**: each delivered section appended, becoming the project's voice baseline as it grows.

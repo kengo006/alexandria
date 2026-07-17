@@ -21,6 +21,8 @@ List every fact that *must* live in more than one place, with all its mirror loc
 | Naming / star / rename chain | `obsidian/vault-structure.md` | `shared/naming-conventions.md` card · `governance/system-overview.md` rules table |
 | Role boundaries | `governance/role-division.md` | each `roles/*.md` boundary section · wrapper digests |
 | Note schema fields | `obsidian/note-schema.md` | `roles/librarian.md` pointers · `governance/scripts/vault_verify.py` regexes |
+| Rendered-page credential + tiering | `governance/claims-and-evidence.md` | `roles/searcher.md` §1 honest-downgrade · `roles/writer.md` Phase 6 image spot-check · `roles/deep-reader.md` §2 · `governance/role-division.md` audit-summary coverage · README governance list |
+| Page offsets (three kinds, stacking) | `roles/searcher.md` §1 | `shared/page-offset-registry.md` iron rules · `roles/writer.md` Phase 6 · `roles/deep-reader.md` §2 |
 
 Adopters extending the system: **add a row the moment a new fact gains a second home.**
 

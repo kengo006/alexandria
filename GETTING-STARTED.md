@@ -71,6 +71,7 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 **Adds.** The machinery that keeps a growing system honest with itself:
 
 - **`governance/system-overview.md`** — the single entry point: roles, modes, iron rules, and where each rule's single source of truth lives.
+- **Claims and evidence** (`governance/claims-and-evidence.md`) — the credential layer: every claim that affects credibility is bound to a trace that could only exist if the work was actually done. The rendered-page credential, credential tiering, the negative-conclusion rule, and the four ways a check dies.
 - **Sync matrix** (`governance/sync-matrix.md`) — every fact that exists in more than one file, with its mirror locations. When you upgrade a rule, walk its row.
 - **Health check** (`governance/scripts/health_check.py`) — mechanical verification: version mirrors consistent, forbidden patterns absent, expected files present. Run it at logical boundaries.
 - **Summon templates** (`shared/summon-templates.md`) — standard prompts for launching each role with the right reading list.

@@ -37,7 +37,8 @@ The full rules live in `roles/searcher.md` §1 (source tiers) and §2 (three-lay
 - **The only citation source is the source PDF** at a real page; text layers, notes, and semantic-recall fragments locate only.
 - **Three-layer check** on every quote: correspondence / not-second-hand (the author's own position) / settled-position (not a setup refuted later).
 - **Web-native exception**: reference-work entries with no PDF cite the faithful snapshot with section (§) locators.
-- **Page-position trap**: with footer-style page numbers, `pdftotext`'s page attribution shifts by one systematically; take the page from the PDF's printed number, not the text layer's paragraph boundary.
+- **Page offsets stack** (three kinds: printed-number baseline, per-work constant / text-layer footer drift ±1 / 2-up scans): see the offset table in `roles/searcher.md` §1, and check `shared/page-offset-registry.md` before taking page numbers from a work — append a verified row when you compute a new offset. For a whole-book role this compounds favourably: compute the offset once, and every page-anchored quote in the note inherits it.
+- **The rendered-page credential** (`governance/claims-and-evidence.md` §1): where the note claims a quote was verified on the page, the note carries the printed page number you saw. A page-anchored note whose anchors were never looked at is the exact failure this system was built against.
 - Page-anchoring habit: every substantive statement carries a page; short quotes are checked against the original.
 
 ## §3 The deep-note (specification)

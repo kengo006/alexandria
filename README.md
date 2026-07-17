@@ -84,6 +84,7 @@ Prompt systems rot: definitions drift apart across copies, numbers go stale, "te
 - **Single source of truth** per rule, with everything else linking rather than copying.
 - **A sync matrix** that lists every fact that lives in more than one place, and where its mirrors are.
 - **A health-check script** that mechanically verifies version mirrors, forbidden-pattern usage, and structural invariants.
+- **A claims-and-evidence layer**: "verified" must be bound to a trace that could only exist if the looking actually happened — rendered-page credentials on quotes, denominators on every passing summary, and no negative conclusion until the page has been read whole ([claims-and-evidence.md](governance/claims-and-evidence.md)).
 - **Exclusion-zone versioning**: superseded rules are moved to a marked zone with a note on what replaced them, never silently deleted. The system remembers why it changed.
 
 ## Getting started

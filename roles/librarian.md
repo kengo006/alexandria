@@ -61,6 +61,8 @@ Per batch: pass G1–G4 → write the note (schema in `obsidian/note-schema.md`)
 
 **Web-native sources** (reference works with no PDF — e.g. online encyclopedia entries): capture a faithful text snapshot at ingestion (direct HTML→markdown conversion, not a model summary), store it in the text layer with source URL and access date in the note's metadata, and cite by section number. Mark the note `source: web-native` so the Searcher applies the right citation rule. Everything else follows the normal template.
 
+**Registry check and retraction screening.** At ingestion, resolve the work against an open bibliographic registry (CrossRef and its siblings): confirm title/author/year and file the DOI when one exists — with a **conservative match threshold** (a wrong auto-match is worse than an honest blank; log near-misses for a human eye). The DOIs you file are what make the collection screenable later: at maintenance cadence, screen them against the open retraction dataset (the Crossref-hosted Retraction Watch data). A hit → the note enters the correction queue, marked, downstream use stopped. Report screenings **with the denominator** — "0 hits across *n* checkable (*m* without DOIs unscreened)" — a thin net is a screening, not a health certificate.
+
 ## §4 Mode B — rewriting existing notes
 
 Strictly serial, one note at a time:
@@ -111,6 +113,8 @@ Only when ⚠️ and ❌ are empty may the report collapse to "done". Three ques
 ## §7 Deletion and quality review
 
 Suspect notes (empty shells, duplicates, naming violations, mirror mismatches) → assess, propose keep/rewrite/delete/move, **act only after confirmation**. Deletions are moves into a single top-level trash zone that preserves relative paths (restorable) — outside the vault root so deleted notes vanish from graph and search. **Nothing is permanently deleted.**
+
+**Removing a source is ingestion run backwards — plus one thing ingestion never needs: the back-reference check.** A new work arrives as an island; by removal time it has grown edges. Before touching files: search every project's citation ledger for the work (**a ledger hit is a stop** — report and wait; removal severs a live citation's evidence chain), then enumerate inbound wikilinks. Execution: move all layers (source, text layer, note) into the trash zone; unlink the inbound references and the MOC row; update the search indexes (a semantic index still serving chunks of a removed file is a citation path to nowhere); re-run the dead-link scan expecting zero; log the removal — what, why, what was unlinked, how to restore.
 
 ## §8 Boundaries
 
