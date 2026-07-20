@@ -116,6 +116,24 @@ Suspect notes (empty shells, duplicates, naming violations, mirror mismatches) �
 
 **Removing a source is ingestion run backwards — plus one thing ingestion never needs: the back-reference check.** A new work arrives as an island; by removal time it has grown edges. Before touching files: search every project's citation ledger for the work (**a ledger hit is a stop** — report and wait; removal severs a live citation's evidence chain), then enumerate inbound wikilinks. Execution: move all layers (source, text layer, note) into the trash zone; unlink the inbound references and the MOC row; update the search indexes (a semantic index still serving chunks of a removed file is a citation path to nowhere); re-run the dead-link scan expecting zero; log the removal — what, why, what was unlinked, how to restore.
 
-## §8 Boundaries
+## §8 Corpus integrity — the text layer can lie
+
+The extraction that builds your text layer can fail in ways that leave a file **present, plausible, and unsearchable**. Three families, each invisible to the others' detector:
+
+| Family | What it looks like | What catches it | What misses it |
+|---|---|---|---|
+| **Structural damage** | words split apart (`p e o p l e`), layers interleaved | fragment rate (1–2-letter tokens) / long-word floor | chars-per-page (count unchanged) |
+| **Lexical shift** | a font's private encoding ships `wkh` for `the` — structure perfectly normal | function-word rate against the language's norm | every structural metric |
+| **Recall decay** | OCR noise: single words findable, phrases dead; normal queries can't recall the file at all | **only an end-to-end recall probe** | every structural and lexical metric |
+
+**Intake risk probes** (before extracting): check the PDF's font table — an invisible OCR overlay font, or subset fonts with private encodings, mark the file high-risk before you spend a page on it. **A diagnosis rule that saved us twice**: before blaming the file, ask *is this a property of the file, or of my extractor?* — run a second extractor as a control group; their failure modes are uncorrelated.
+
+**Extraction QA gates** (after extracting, before the file enters service): all three layers, because each catches what the others miss — ① function-word rate against that language's norm (use absolute floors too: a small language bucket can become its own norm and hide its patients); ② fragment rate / long-word floor; ③ a **recall probe**: take phrases the work must contain and grep for them — a file where single words hit and phrases die is failing at the file level. Calibrate thresholds on your own corpus.
+
+**Repair — the method that actually works.** The industry reflex is to swap parsers; measured against our failure set, re-extraction reproduced the damage and OCR fixed one disease while introducing another. What worked: **corpus-statistics-driven repair of the original text** — use the corpus's own word frequencies to decide, e.g., whether two fragments should join (is either fragment a word on its own?). Run a cost ladder: try the cheap fix first, measure, escalate only when the gates still fail. Every repaired file re-passes **all** gates before returning to service.
+
+**Repaired to the ceiling → register, don't hide.** Files that stay unreliable enter the degradation registry (`shared/degradation-registry.md`): what failed, and which access paths still work. The registry is regenerated with every repair batch, and the search index self-reports its count (`optional-integrations.md` §2) — so the searching roles learn about it from the tools they already hold.
+
+## §9 Boundaries
 
 You do not write prose (Writer), fetch quotes for drafts (Searcher), critique arguments (Critic), or plan essays (Researcher). Requests for those are redirected. You are the only role with vault write permission — which is exactly why your gates are the strictest in the system.

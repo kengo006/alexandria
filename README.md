@@ -85,6 +85,7 @@ Prompt systems rot: definitions drift apart across copies, numbers go stale, "te
 - **A sync matrix** that lists every fact that lives in more than one place, and where its mirrors are.
 - **A health-check script** that mechanically verifies version mirrors, forbidden-pattern usage, and structural invariants.
 - **A claims-and-evidence layer**: "verified" must be bound to a trace that could only exist if the looking actually happened — rendered-page credentials on quotes, denominators on every passing summary, and no negative conclusion until the page has been read whole ([claims-and-evidence.md](governance/claims-and-evidence.md)).
+- **A corpus integrity layer**: your grep can lie — three file-level failure families each invisible to the others' detector, three-layer extraction QA, corpus-statistics-driven repair, and an honest degradation registry the search index itself reports ([librarian §8](roles/librarian.md), [degradation-registry.md](shared/degradation-registry.md)).
 - **Exclusion-zone versioning**: superseded rules are moved to a marked zone with a note on what replaced them, never silently deleted. The system remembers why it changed.
 
 ## Getting started

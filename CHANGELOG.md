@@ -2,6 +2,16 @@
 
 The skeleton is extracted from a live production system; each release is a **curated snapshot**, not a mirror. Releases are named after the upstream snapshot they carry — the system was already in its third generation when first published, hence the repo's first release was tagged v0.1 and later releases adopt the upstream `v3.x` numbering.
 
+## v3.3 — 2026-07-20 · The corpus integrity layer
+
+**Your grep can lie.** A file can pass every size check and still be unsearchable — words split apart character by character, a font's private encoding storing `wkh` for `the`, OCR noise that leaves single words findable while every phrase is dead. Three failure families, each invisible to the others' detector. This release ships the counter-machinery.
+
+- **New** `shared/degradation-registry.md` — the honest-degradation pattern: files repaired to their ceiling are **registered, never hidden**; every entry carries which access paths still work; the search index self-reports the degraded count, and an unreadable registry returns *unknown*, never zero.
+- **Librarian §8 (new section)**: the three failure families and their detectors; intake risk probes (font-table checks before extraction; the extractor-as-control-group diagnosis rule); three-layer extraction QA (structure / lexicon / **recall** — each catches what the others miss); and the repair method that actually worked — **corpus-statistics-driven repair of the original text** (use the corpus's own word frequencies), where re-extraction reproduced the damage and OCR traded one disease for another.
+- **Searcher**: file-level failure judged by the phrase-probe test (single words hit, phrases dead = every negative conclusion about that file is void); a mechanical pre-step before any "not in the vault" ships — consult the registry and the index's `degraded` self-report.
+- **optional-integrations**: the self-report contract (living file, read fresh; *unknown-not-zero*; count mismatches surfaced, never silently resolved).
+- 41 files.
+
 ## v3.2 — 2026-07-17 · The claims-and-evidence layer
 
 The governance release: **"verified" must be bound to a trace that could only exist if the looking actually happened.**

@@ -23,6 +23,7 @@ Three capabilities the upstream system runs as local tools. They are **documente
 - An index over the text layer, exposed to read-only agents as a search tool (an MCP server works well): `search(query, k) → fragments with {file, page_start, page_end, score, text}`.
 - Fragments are **pointers**: roles follow file+page back to the PDF. Recall-only; never a citation source.
 - Index freshness is owned by the Librarian's routine (update on ingestion; note that a stale index means *semantic silence never proves absence* — grep remains the backstop).
+- **The index self-reports its degraded set**: the info endpoint reads the degradation registry (`shared/degradation-registry.md` — a living file; read fresh, never cached) and returns `degraded: {status, degraded_files, generated, meaning}`. **Unreadable registry → `status: "unknown"` with no count — never `0`**: "zero degraded files" asserts negative conclusions are safe everywhere; "couldn't read the registry" asserts nothing. If the registry's own `count` disagrees with its row count, report the measured value and surface the discrepancy — don't silently pick one.
 - Prefer small local embedding models (multilingual if you work across languages); keep the whole thing offline.
 
 **A runnable implementation** of this contract is published as a companion: [alexandria-semantic-recall](https://github.com/kengo006/alexandria-semantic-recall) (MIT) — the recipe below, packaged. Read on if you would rather build your own.
