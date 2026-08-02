@@ -1,6 +1,6 @@
 # Claims and evidence (the credential layer)
 
-Every gate in this system — source tiers, three-layer verification, anchor grades — checks the *quality* of a citation. None of them, originally, asked a simpler question: **did the looking actually happen?**
+Every gate in this system — source tiers, four-layer verification, anchor grades — checks the *quality* of a citation. None of them, originally, asked a simpler question: **did the looking actually happen?**
 
 This file exists because of a production incident. Four search seats ran the same audit batch in parallel; three reported quotes as "image-verified" from books they could not, at that moment, physically render — the rendering path was broken and failed *silently*. Nothing in their reports looked wrong. The one honest seat had marked its results "text-layer candidates, not PDF-verified": less useful-looking, and the only report that was true. Later re-verification found most of the *content* correct — and one ledger entry pure fabrication: right page, right argument, and a paraphrase laundered into quotation marks. Had "image-verified" been believed, that invented sentence would have entered a final text carrying the strongest credential the system can award.
 
@@ -19,6 +19,8 @@ No printed number, no verification — the quote is downgraded honestly (the Sea
 - it is **spot-checkable** — the receiving role can render the same page and compare.
 
 **The credential's own weakness — reported by a seat complying with it.** The printed number often *also* survives in the text layer, so as proof-of-looking it is not airtight. One seat delivered its credential and added, unprompted: "if you want to audit me, layout facts are stronger evidence than the page number." It was right. **Prefer traces the text layer cannot carry**: layout facts (a table spanning both columns; the column count; whether the page opens a chapter) and visual attributes (what is actually italicised — including the seemingly-emphatic phrase that turns out to be set roman; only looking tells). Chapter-opening pages often suppress the printed number entirely: render an adjacent page, compute, and *say* "the number is not printed on this page". Never claim to have read a number that is not there.
+
+**The credential's range — it proves you saw the page, not that the sentence is on it.** A ✅ requires three things *together*: ① the printed-number credential, ② a **verbatim anchor** — that sentence really is printed on that page — and ③ where on the page it sits. Missing ② is a downgrade, not a pass. And a verification does not extrapolate: "same work, same source, already verified" licenses nothing about the next quote. This was learned by having two entries marked ✅ overturned — the page genuinely *had* been rendered (it is the very page the offset registry cites as its verification anchor), and both sentences turned out to live on adjacent pages. One consequence for notation: if one sentence sits on p. 9 and another on p. 11, write **`pp. 9, 11`** — `pp. 9–11` asserts a span the evidence does not cover.
 
 ## §2 Tiering: the boundary is the failure mode, not importance
 
@@ -41,6 +43,19 @@ Rules alone do not survive the moment of delivery — the errors cluster exactly
 3. **Mark the untested "untested" — never write an inference as a rule.** Roles follow rules literally; an inference written in rule form becomes a false instruction that the next reader executes.
 
 ⭐ And the counterintuitive act that catches the most: **engineer chances to be proven wrong.** Send a test against your own new rule. Ask another role what it found in your lane. Make every gate demonstrate it can fail — inject a fault it must catch; a gate that has only ever shown green has proven nothing.
+
+**Its executable form: a self-declared convergence gets its final confirming round ordered by whoever receives the report, not by whoever wrote it.** A stopping condition is self-referential — the one judging "clean" is the one who has been looking, and their detector and their attention are the same set. In this system a completion was announced twice and overturned twice, both times by an instruction to run one more round, and both times the extra round found real defects.
+
+### The vocabulary rule: sentences that cannot be falsified
+
+**Banned: "final state", "no problems left", "all clean", "fully processed."** They disguise the edge of your detector as the edge of the world. Say two falsifiable things instead:
+
+1. **"The known classes are at zero, and a regression test pins them."** — name the test file.
+2. **"I read N samples this round and hit nothing new."** — name the sampling method, and whether the seed changed.
+
+⚠ **This does not demand a number on every sentence.** Where you did not measure, write **"not measured — discipline only, no gate"**. *A fabricated sample size is worse than "no problems", because it looks falsifiable.*
+
+⚠ And a disclaimer is not a defence: in both overturned cases the report *had* said "this is a heuristic, not a proof" — and still treated it as a signal to stop. **A hedge protects the record, not the judgement.**
 
 ## §4 Negative conclusions: a tool's silence is not evidence about the world
 
@@ -66,6 +81,21 @@ Checks lie most often by *passing*. Four failure classes, in rising order of dif
 **Summary coverage.** A passing summary states **what was and was not checked**. The trace proves you did it; the denominator proves how much of it you did. A summary without scope may not be cited downstream as a credential — an unscoped "no fabrications found" over a partial sample once functioned as a health certificate for exactly the region it had not read.
 
 New rules obey the same geometry in reverse: **a new fact becomes law in its source-of-truth file first**, and every mirror gets a pointer — a rule that exists only in a mirror is already drifting.
+
+## §6 A ruling is wider than its evidence
+
+Every gate in this file checks *work*. Nothing checks a **ruling**. "Decided not to fix", "decided not to build", "this one is priority zero" — once written, downstream treats the matter as handled, and no later check ever revisits it.
+
+> **A ruling is more dangerous than a claim: a claim gets challenged, a ruling gets skipped.**
+
+Four questions before a ruling ships:
+
+1. **How much does this conclusion cover?** When you write "mostly X", say how much "mostly" is and what the rest are. A defect class here was written off as "mostly typographic dashes — decided not to fix". The sentence was 89% true; the remaining 11% were priority-zero defects — and they entered the register twice wearing the *already-ruled* badge, which is exactly what stops anyone looking again. **This is not "failed to measure". This is measured, then filed under the wrong heading.**
+2. **Which version did the rejection reject?** Rejecting an *implementation* is not rejecting a *direction*. A repair technique was written off because comparing candidates against a corpus-wide dictionary produced almost nothing but false positives. Comparing them **within a single file** was a different question — a person's name does not appear twice in one document under two spellings — and it later drove thousands of correct repairs.
+3. **Does my evidence mean anything in *this* data?** A frequency signal that discriminated well in one setting inverted completely in another, because the corpus was overwhelmingly one language: a legitimate foreign phrase scored zero (nothing to corroborate it) while a genuine defect scored high (the defect had corroborated itself). **Ask whether the data can carry the evidence before you choose it.**
+4. **Is this criterion sufficient, or only necessary?** "The term is in the keyword list" was treated as sufficient to make a defect priority-zero. The missing step was the one that mattered: *is the term actually unfindable in this file?* It was not — the correct form appeared throughout — so the whole class was a lower priority than it had been ruled.
+
+**And a duty on the receiving side.** When a report contains two sentences that contradict each other, **ask** — do not pick one as a premise. A ruling here was made on a report that stated both "the original rationale does not hold" and "collapsing these is beneficial for phrase search". Neither the writer nor the ruler noticed; the ruling was overturned. *A contradiction the reporter missed becomes the foundation of the ruling unless the recipient looks for it.*
 
 ---
 

@@ -29,7 +29,7 @@ The two signature blocks are what make it a *report to someone* rather than a su
 
 ## 4. Quote layer: delegated, not copied
 
-Vault location for the body and the verbatim quote list come **from the Searcher** — source-tier discipline, real pages, complete passages, three-layer verification (`roles/searcher.md`). The report **does not restate quote rules**; it cites the Searcher's file as the single source. For large works, locate via the text layer, but quotes and page numbers always come from the source itself.
+Vault location for the body and the verbatim quote list come **from the Searcher** — source-tier discipline, real pages, complete passages, four-layer verification (`roles/searcher.md`). The report **does not restate quote rules**; it cites the Searcher's file as the single source. For large works, locate via the text layer, but quotes and page numbers always come from the source itself.
 
 ## 5. Style
 

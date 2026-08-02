@@ -30,7 +30,7 @@ One page to see the whole system: which roles and modes exist, where each rule's
 
 | Rule | Single source | Referenced by |
 |---|---|---|
-| Quotes/pages/emphasis from the source PDF only; text layer & notes locate only; three-layer verification; complete-passage presentation | `roles/searcher.md` §1–§2 | Writer, report mode, council, Librarian |
+| Quotes/pages/emphasis from the source PDF only; text layer & notes locate only; four-layer verification; complete-passage presentation | `roles/searcher.md` §1–§2 | Writer, report mode, council, Librarian |
 | Blind commitment + anti-sycophancy | `roles/critic.md` §1–§2 | Writer Phase 5, council |
 | Ingestion gates G1–G4; error taxonomy; completion protocol | `roles/librarian.md` | — |
 | Writer's two information sources; no PDF reading; no second-hand quotes | `roles/writer.md` §1 | summon templates |

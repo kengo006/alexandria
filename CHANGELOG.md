@@ -2,6 +2,17 @@
 
 The skeleton is extracted from a live production system; each release is a **curated snapshot**, not a mirror. Releases are named after the upstream snapshot they carry — the system was already in its third generation when first published, hence the repo's first release was tagged v0.1 and later releases adopt the upstream `v3.x` numbering.
 
+## v3.4 — 2026-07-31 · The ruling layer
+
+**Gates check work; nothing checks a ruling.** This release adds the fourth verification layer, the boundary of the page credential, and a governance section for the class of error no gate had been catching: a decision written down more confidently than its evidence supports.
+
+- **Searcher §2 is now four layers.** New **entity attribution** — is the passage's claim *about* the same subject the draft is about? It is the only layer that **flags rather than discards**, because a near-miss on entity is often the right passage with the wrong framing. With it, **the second cut**: separate what the author asserts from what is *presupposed by the subject the author describes*; an editor's note is not the author's words.
+- **claims-and-evidence §1**: the credential's **range**. A ✅ needs three things together — printed-number credential, **verbatim anchor**, and position on the page. *Seeing the page is not verifying the sentence*, and a verification never extrapolates to the next quote. Notation follows: `pp. 9, 11`, never `pp. 9–11`, when the evidence covers two pages and not the span.
+- **claims-and-evidence §3**: the **vocabulary rule** — "final state", "no problems", "all clean" are banned; say two falsifiable sentences instead (known classes at zero with a named regression test / N samples read with the sampling method stated). Where you did not measure, write *"not measured — discipline only, no gate"*: **a fabricated sample size is worse than "no problems", because it looks falsifiable.** And a self-declared convergence gets its final confirming round **ordered by the recipient**, not by the reporter — twice here a completion was announced, and twice one more round found real defects.
+- **New `claims-and-evidence` §6 — a ruling is wider than its evidence.** Four questions before a ruling ships (how much does it cover / which *version* did it reject / does the evidence mean anything in *this* data / is the criterion sufficient or only necessary), plus the receiving side's duty: **when a report contains two sentences that contradict each other, ask — do not pick one as a premise.**
+- **Librarian §8**: three additions — a repair whose wrong output is a **real word** must never be applied in bulk (the safest-looking case is the dangerous one); **intake runs the full ladder by default**, tiering decides how much a human reads, not what runs (file-level quality indicators measured almost no discriminating power; the producer string was the one that earned its place); and **register a defect type the round you name it, even when the ruling is "not fixing this"** — "new" is a judgement relative to a list, so the list's completeness is part of the criterion.
+- 41 files.
+
 ## v3.3 — 2026-07-20 · The corpus integrity layer
 
 **Your grep can lie.** A file can pass every size check and still be unsearchable — words split apart character by character, a font's private encoding storing `wkh` for `the`, OCR noise that leaves single words findable while every phrase is dead. Three failure families, each invisible to the others' detector. This release ships the counter-machinery.

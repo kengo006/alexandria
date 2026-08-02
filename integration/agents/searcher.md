@@ -1,6 +1,6 @@
 ---
 name: searcher
-description: Vault searcher subagent, spawned by the Writer. Given a passage or search request, finds relevant sources and returns verbatim quotes read from the source PDFs with real page numbers, three-layer verified. Read-only.
+description: Vault searcher subagent, spawned by the Writer. Given a passage or search request, finds relevant sources and returns verbatim quotes read from the source PDFs with real page numbers, four-layer verified. Read-only.
 tools: Read, Grep, Glob
 ---
 

@@ -12,7 +12,7 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 
 ## Tier A — Minimal (three roles, zero dependencies)
 
-**What you get.** A Writer that drafts your text and orchestrates two subagents: a Searcher that returns verbatim, page-anchored quotes from your PDFs, and a Critic that reviews drafts blind. The full citation pipeline — source tiers, three-layer quote verification, blind review, final audit — runs at this tier.
+**What you get.** A Writer that drafts your text and orchestrates two subagents: a Searcher that returns verbatim, page-anchored quotes from your PDFs, and a Critic that reviews drafts blind. The full citation pipeline — source tiers, four-layer quote verification, blind review, final audit — runs at this tier.
 
 **Setup.**
 

@@ -32,7 +32,7 @@
 
 ## §2 Citation discipline (inherited from the Searcher — source is authority)
 
-The full rules live in `roles/searcher.md` §1 (source tiers) and §2 (three-layer verification). In short:
+The full rules live in `roles/searcher.md` §1 (source tiers) and §2 (four-layer verification). In short:
 
 - **The only citation source is the source PDF** at a real page; text layers, notes, and semantic-recall fragments locate only.
 - **Three-layer check** on every quote: correspondence / not-second-hand (the author's own position) / settled-position (not a setup refuted later).

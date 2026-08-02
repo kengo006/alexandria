@@ -8,7 +8,7 @@
 
 1. **Grep the text layer corpus-wide** — find *which work, which passage*.
 2. **Check the note / MOC** — judge relevance, find the chapter.
-3. **Return to the PDF** — take verbatim + real page + emphasis from the page → three-layer verification.
+3. **Return to the PDF** — take verbatim + real page + emphasis from the page → four-layer verification.
 
 ## 0-bis. Semantic recall (optional layer, if the integration is present)
 

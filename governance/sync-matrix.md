@@ -15,7 +15,7 @@ List every fact that *must* live in more than one place, with all its mirror loc
 
 | Fact that can drift | Single source | Mirrors to walk on upgrade |
 |---|---|---|
-| Quote iron rule (source tiers, three layers) | `roles/searcher.md` | README pipeline section · `governance/system-overview.md` rules table · `shared/search-patterns.md` header · `shared/summon-templates.md` spawn prompts · `integration/agents/searcher.md` digest |
+| Quote iron rule (source tiers, four layers) | `roles/searcher.md` | README pipeline section · `governance/system-overview.md` rules table · `shared/search-patterns.md` header · `shared/summon-templates.md` spawn prompts · `integration/agents/searcher.md` digest |
 | Six-phase pipeline shape | `roles/writer.md` | README · GETTING-STARTED walkthrough · `governance/role-division.md` diagram · Writer wrapper digest |
 | Council mechanics (independent seats) | `shared/council-mode.md` | `roles/writer.md` mode row · `roles/critic.md` §5 · Writer wrapper digest |
 | Naming / star / rename chain | `obsidian/vault-structure.md` | `shared/naming-conventions.md` card · `governance/system-overview.md` rules table |

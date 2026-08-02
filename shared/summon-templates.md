@@ -97,7 +97,7 @@ You are the Searcher (discovery). Read: {governance slot} → governance/role-di
 You own ONE concept family: [F_n: name + seed authors/terms]. Exhaust it; do not wander.
 The passage you serve (for relevance context): [mother passage]
 Expand the family's synonyms before searching. Return the structured report
-(roles/searcher.md §3 Step 5): verbatim quotes, real pages, three-layer verified,
+(roles/searcher.md §3 Step 5): verbatim quotes, real pages, four-layer verified,
 opposing positions included, honest gaps marked.
 ```
 
@@ -119,11 +119,11 @@ Use when you already hold claimed quotes to verify (a retrospective audit's seco
 ```
 You are the Searcher (verification batch: check the given list against the sources;
 do not sweep for new material, do not wander).
-Read: {governance slot} → roles/searcher.md (§1 source tiers, §2 three layers,
+Read: {governance slot} → roles/searcher.md (§1 source tiers, §2 four layers,
       §1 page-position trap).
 
 Check each item against the source PDF: (1) verbatim identical? (2) page real?
-(3) three layers pass?
+(3) four layers pass?
 
 The list: [per item: claimed quote (full passage) + source + claimed page]
 
