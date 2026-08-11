@@ -110,4 +110,4 @@ Documented as interfaces, not shipped as dependencies: a **full-text corpus laye
 
 ## Status
 
-Extracted from a live system (2026). The upstream continues to evolve; this skeleton is a curated snapshot, not a mirror. Issues and adaptations are welcome; the licence is [MIT](LICENSE).
+Extracted from a live system (2026). The upstream continues to evolve; this skeleton is a curated snapshot, not a mirror. Release history, and the reasoning behind each change, is in [CHANGELOG.md](CHANGELOG.md). Issues and adaptations are welcome; the licence is [MIT](LICENSE).
