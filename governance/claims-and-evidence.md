@@ -67,14 +67,21 @@ Searches miss for three ordinary reasons: **OCR-mangled emphasis** (an italicise
 
 Sibling rule: **a spec sheet is a claim, not a measurement.** "The tool cannot do X" requires having tried X — a limitation copied from documentation and never tested once shipped here as a rule, and was overturned by the first actual test.
 
-## §5 Four ways a check dies — and the control-group principle
+Second sibling, pointing the other way: **a tool's first-hand source is its code; its output is second-hand.** Diagnosing *what a tool does* from the shape of what it emitted is inference, and inference about mechanism is where it breaks. A claim here about how another component classified its inputs was derived entirely from archived output, never from reading the source; three layers of verification sent it back. **The damage was not the wrong diagnosis — it was that two fixes were prescribed on top of it, and both were regressions.** ⇒ If the code is readable, read it. If it is not, report the behaviour and stop: no mechanism, and certainly no prescription.
 
-Checks lie most often by *passing*. Four failure classes, in rising order of difficulty to catch:
+## §5 Five ways a check dies — and the control-group principle
+
+Checks lie most often by *passing*. Five failure classes, in rising order of difficulty to catch. The first three are **the check is broken**; the fourth is **the check is fine and aimed at the wrong thing**; the fifth is **the check is fine, aimed correctly, and the defect falls outside what any of them can see** — which is why it comes last.
 
 1. **Empty sample** — the scan ran over nothing. The green of zero rows is not green; every "0 hits" claim should carry its denominator ("0 hits **across 39 files**").
 2. **Dead rule** — the pattern can never match anything. Prove a gate fires by injecting a fault it must catch.
 3. **Blind channel** — the pipeline eats the evidence: an error message swallowed by an unconditional "OK" fallback reads exactly like success.
-4. **Wrong object** — the check is healthy, and aimed at something other than what ships. The hardest to catch, because nothing is broken.
+4. **Wrong object** — the check is healthy, and aimed at something other than what ships. Nothing is broken, so nothing looks wrong.
+5. **Deletion is invisible** — every gate above hunts for *surplus* or *difference*. **A missing passage produces neither.** Text that was swallowed leaves no stray to sanitize, no mismatch to diff, no syntax to fail, and no anchor moved for an assertion to notice: it satisfies every gate's passing condition at once. Here, one lost filename in a changelog line — eaten by a shell command substitution during a patch — cleared six gates in a row, including a human line-by-line review.
+
+> 🔑 **The corollary is worth more than the rule: "the two copies match" is a *necessary* condition for completeness, never a sufficient one.** A loss caused by a single operation lands in both copies, so a checksum parity that proves the export did not drift proves nothing about whether the source was whole. Anyone treating parity as an integrity proof is making this mistake.
+>
+> **Landing it:** prose can carry a cheap missing-token lint (no whitespace before punctuation). **But the lint owes you a measured false-positive rate before you trust it** — the first version here fired on 16 of 16 aligned colons in code, so it was narrowed to prose files only; even narrowed, it kept two benign hits across 43 tracked markdown files, which are named rather than silently suppressed. **A claimed "zero false positives" with no scan command and no sample size is the same empty gesture as a "zero hits" with no denominator.**
 
 **The control-group principle.** A checker must not share the failure assumptions of the thing it checks. A layout-analysis extractor that silently drops a whole page will sail through every gate that counts pages; a plain text-flow extractor catches it at once — their failure modes are uncorrelated. When a check keeps agreeing with the thing it checks, ask what both would miss together.
 
@@ -96,6 +103,38 @@ Four questions before a ruling ships:
 4. **Is this criterion sufficient, or only necessary?** "The term is in the keyword list" was treated as sufficient to make a defect priority-zero. The missing step was the one that mattered: *is the term actually unfindable in this file?* It was not — the correct form appeared throughout — so the whole class was a lower priority than it had been ruled.
 
 **And a duty on the receiving side.** When a report contains two sentences that contradict each other, **ask** — do not pick one as a premise. A ruling here was made on a report that stated both "the original rationale does not hold" and "collapsing these is beneficial for phrase search". Neither the writer nor the ruler noticed; the ruling was overturned. *A contradiction the reporter missed becomes the foundation of the ruling unless the recipient looks for it.*
+
+## §7 What a gate structurally cannot see
+
+§5 lists ways a check *fails*. These are three ways a check can be healthy, correctly aimed, and still unable to report the thing you need — because the thing falls outside its definition domain.
+
+**Completeness can only be measured against the source, never against the product.** Every quality gate here asks whether *what is present* is correct. None asks whether *what should be present* is there — and an omission makes the remainder look **healthier**, not worse. One text file in the corpus had lost every printed page number, had its footnote markers mangled into malformed markup, and had paragraphs spanning a page break filed wholly under the page they started on. Two independent risk registers scored it *healthy, no action needed*: both measured glued words, control characters, ligatures, single-letter ratios — all of it readable from the product alone.
+
+> 🔑 **What broke thoroughly enough gets caught; what broke just enough to still look right goes straight through.** A page the extractor emitted *empty* trips the repair gate every time. A page it emitted at 2,500 plausible characters where the source holds 3,900 never trips anything.
+
+Two more of the same shape: an OCR wrapper whose default label filter discarded an entire class of elements — footnotes and page numbers — while everything it *did* emit was clean; and a sampling script whose segment-length filter silently excluded 817 segments totalling 78,150 characters, where every segment it did sample read as normal.
+
+⇒ **A gate that can only read the product measures the product's quality, never its completeness.** Completeness needs an external reference: the rendered image, the original file, a page count, an expected character range, or a second extractor whose failure modes are uncorrelated with the first. Without one, the honest sentence is *"the part that is present is healthy"* — not *"this batch is healthy"*.
+
+⚠ **And "against the source" is not yet precise enough.** Two measurements against the same source disagreed here — 4 of 7 pages misaligned, then 18 of 18 aligned — because one probe sampled each page's *first sentence* and the other sampled mid-page, and the first sentence is exactly where a paragraph continued from the previous page lands. Both numbers were right. **Say which face of the source you measured.**
+
+> **Executable form, and the only thing this rule demands:** before writing a detector, pull the target's **actual shape out of the file**; do not write the pattern from memory. A single detector was rewritten six times in one day — it required the page number to occupy its own line (it shares one with the running head), disallowed a form feed at line start (there is one), read only line starts (verso numbers sit left, recto right), searched for a version string in a format the file does not use, and mis-split on a trailing empty element, manufacturing 385 false positives. 🔑 **Every one of those versions returned "nothing found" — quietly, and "nothing" was the answer expected.** A broken detector and a detector correctly reporting an empty world produce identical output.
+
+**A gate that only checks presence rewards vagueness and punishes honesty.** An intake gate verified that an attestation field was *filled*, not what it said; a field reading `not sent` counted as attested. Whoever wrote a candid "not done" passed, and so did whoever wrote nothing meaningful. ⇒ **Presence checks are admissible as a necessary condition and never as a passing condition.** ⚠ The boundary is real, though: checking the *value* does not stop a false positive value either, because **an attestation is self-reported**.
+
+**Check the thing, not its signpost — the signpost is the thing's most convincing double.** An acceptance test confirmed 10 of 10 footnote markers present. Nobody checked whether the footnote text those markers point to was there; it had been missing for 34 days. The same shape appeared in a release check that verified a tag *exists* rather than what its tree contains. ⇒ **Ask: is what I verified only that thing's nameplate?**
+
+## §8 The half you did well is why the other half never happens
+
+When a piece of work has two halves and one is done thoroughly and honestly, **that quality itself signals *this matter has been handled*** — and the second half never happens. Three instances landed in a single day, from three different people, on three different objects:
+
+- A **retraction** so complete that it stated *"that recommendation was mine, and it was never once executed"* — while two other passages in the same document still instructed readers to do it. The standing rule to sweep for overturned claims already existed. Nobody ran it.
+- A **self-criticism** written out in full, naming a detector that had failed three times running — and that honesty made the section feel finished. Eight more errors of the same shape followed the same day, one of them inside the reconciliation arithmetic itself.
+- A **control group**: a new probe criterion validated against 14 negative controls with zero false positives — after which it emerged that the probe could not catch the case that had prompted writing it. 🔑 **Treating "will it misfire" as "is it right" answers one of the two questions.**
+
+⇒ **All this rule asks for: the better the finished half reads, the more it needs a last line — in the same document, written at that moment — stating what is still not done.** A thorough retraction ends with *"not yet swept tree-wide"*. An honest self-criticism ends with *"this section does not cover X"*. A clean negative control ends with *"positive control not run"*. It is not a reminder to yourself; it is a hole made visible to the next reader.
+
+📌 **This adds no check, deliberately.** A gate was considered and rejected — in all three cases nobody was unaware of the second half; each believed it was already done, and a rule nobody runs would not have changed that. **One line written for the next person is cheaper than one more gate nobody fires.**
 
 ---
 

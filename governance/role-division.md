@@ -44,7 +44,7 @@ Any handover artifact — a plan, a skeleton, a history file, a status report �
 
 **The receiver's first act is an existence check.** This exists because a handover once stated "three audit rounds, all green" as plain fact; it had been a conversational report, no file existed, and the next role built on it until a human grew suspicious. Marks cost one character and stop the class of error where an assertion silently becomes a citation.
 
-**Audit-summary coverage** (the marks' sibling rule): any audit or check **summary** states *what was and was not checked*. A trace proves the work happened; only the stated scope proves how much of it happened. **A summary without scope may not be cited downstream as a credential** — an unscoped "no fabrications found" over a partial sample once functioned as a health certificate for exactly the region it had not read. The claim-level machinery — the rendered-page credential, credential tiering, the negative-conclusion rule, the four ways a check dies — lives in [`claims-and-evidence.md`](claims-and-evidence.md).
+**Audit-summary coverage** (the marks' sibling rule): any audit or check **summary** states *what was and was not checked*. A trace proves the work happened; only the stated scope proves how much of it happened. **A summary without scope may not be cited downstream as a credential** — an unscoped "no fabrications found" over a partial sample once functioned as a health certificate for exactly the region it had not read. The claim-level machinery — the rendered-page credential, credential tiering, the negative-conclusion rule, the five ways a check dies — lives in [`claims-and-evidence.md`](claims-and-evidence.md).
 
 ### Why "only the Librarian writes the vault" (the five reasons)
 
