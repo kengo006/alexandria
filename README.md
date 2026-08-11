@@ -2,7 +2,7 @@
 
 **A citation-integrity-first academic writing system for Claude Code and Obsidian.**
 
-Large language models fabricate citations. A recent [cross-model audit](https://arxiv.org/abs/2603.03299) of ten models measured reference-fabrication rates between 11.4% and 56.8%, and most tooling attacks the problem *after* the text is written, by detecting hallucinated references. Alexandria attacks it *before*: it is a six-role writing system whose workflow makes fabrication structurally difficult. Every verbatim quote must be read back from the source PDF at a real page number, pass three verification layers, survive a blind review, and be audited line-by-line before a draft is allowed to call itself done.
+Large language models fabricate citations. A recent [cross-model audit](https://arxiv.org/abs/2603.03299) of ten models measured reference-fabrication rates between 11.4% and 56.8%, and most tooling attacks the problem *after* the text is written, by detecting hallucinated references. Alexandria attacks it *before*: it is a six-role writing system whose workflow makes fabrication structurally difficult. Every verbatim quote must be read back from the source PDF at a real page number, pass four verification layers, survive a blind review, and be audited line-by-line before a draft is allowed to call itself done.
 
 Alexandria is not a library or a server. It is a set of role definitions, methods, and governance files you drop into [Claude Code](https://claude.com/claude-code), pointed at your own [Obsidian](https://obsidian.md) vault.
 
@@ -60,7 +60,7 @@ This is the spine of the system, and the reason it exists.
 
 Positioning layers tell you *where to look*. Only the source itself tells you *what it says*. Quotes copied from notes are second-hand and carry every error the note ever made; Alexandria forbids them in final drafts.
 
-**2. Three-layer quote verification.** Every quote the Searcher returns must pass: (a) **correspondence**: the passage actually supports the claim it is attached to, not merely keyword-matches it; (b) **not second-hand**: the words are the author's own position, not the author quoting or summarising someone else; (c) **settled position**: the passage reflects the author's developed view, not a setup being torn down two pages later.
+**2. Four-layer quote verification.** Every quote the Searcher returns must pass: (a) **correspondence**: the passage actually supports the claim it is attached to, not merely keyword-matches it; (b) **not second-hand**: the words are the author's own position, not the author quoting or summarising someone else; (c) **settled position**: the passage reflects the author's developed view, not a setup being torn down two pages later; (d) **entity attribution**, when the passage names a specific subject: the claim is about the *same* subject the paragraph is about. Layers (a)–(c) discard on failure; (d) **flags instead**, because a near-miss on entity is often the right passage with the wrong framing — and that judgement belongs to you, not to the Searcher.
 
 **3. Blind review and anti-sycophancy.** The Critic commits to its evaluation criteria *before* reading the draft, and operates under a standing rule: criticism is not softened to please, and a weak rebuttal may not dismiss a valid objection.
 
