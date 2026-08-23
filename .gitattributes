@@ -1,0 +1,11 @@
+# GitHub Linguist leaves prose languages out of a repository's language bar by
+# default. This repository is 37 markdown files and 3 accessory scripts, so the
+# default reports it as "Python" — which is the one language it is least about,
+# and puts it in the wrong bucket for anyone browsing or filtering by language.
+#
+# The documents are the product. Count them.
+*.md linguist-detectable=true
+
+# Examples are documentation of output, not vendored or generated material;
+# keep them counted too rather than letting the default heuristics hide them.
+examples/*.md linguist-detectable=true
