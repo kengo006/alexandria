@@ -138,5 +138,6 @@ for x in ok:   print(f"  PASS  {x}")
 for x in warn: print(f"  WARN  {x}")
 for x in fail: print(f"  FAIL  {x}")
 print(f"result: {len(ok)} pass / {len(warn)} warn / {len(fail)} fail")
-print("(links & vault structure: run dead_link_scan.py / vault_verify.py)")
+print("(links: dead_link_scan.py — checks this repo's own document links always,"
+      " and a vault's wikilinks when you point it at one; structure: vault_verify.py)")
 sys.exit(1 if fail else 0)

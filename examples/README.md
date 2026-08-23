@@ -1,5 +1,7 @@
 # Examples
 
+> 🔴 **Everything in these files is fabricated.** Every work, author, quotation and page number below is invented — `Doe (2011)`, `Roe (1998)`, `Poe (2005)` and `Ives (2014)` are placeholders, not publications, and the sentences attributed to them were written for these files. **Copy the shape; never copy the content.** The longer version of why this warning comes before the table is at the bottom of this page.
+
 Three worked outputs, so you can see what the roles actually produce before deciding whether the discipline is worth adopting.
 
 | File | What it shows |
@@ -14,7 +16,7 @@ Read them in that order and you have seen the pipeline end to end.
 
 ## 🔴 Everything here is fabricated, on purpose
 
-**Every work, author, quotation, and page number below is invented.** `Doe (2011)`, `Roe (1998)`, `Poe (2005)` and `Ives (2014)` are placeholders in the style this repository uses throughout — they are not real publications, and the sentences attributed to them were written for these files.
+*(The short form of this is at the top of the page, above the table — because a reader who arrives, scans the table and clicks through has already left this section unread.)*
 
 This matters more here than in most repositories, because the system these examples demonstrate exists to stop exactly one thing: **text that looks like a citation and is not one.** A worked example of a citation pipeline is the last place that should ship a plausible-looking fake reference into someone's notes.
 
