@@ -57,8 +57,10 @@ VERSION_MIRRORS = {}
 # Check 3 asks whether the version number was copied everywhere. This asks whether the
 # change was *recorded* — a different question, and the one that failed. Measured while
 # preparing v3.6: of seven canonical rule files upstream, four carried a header version
-# that appeared nowhere in their own changelog — nineteen unrecorded rule changes, one
-# file fourteen versions behind — with every version mirror green the whole time.
+# that appeared nowhere in their own changelog — eighteen unrecorded rule changes, the
+# worst file thirteen of them — with every version mirror green the whole time.
+# (Eighteen is a count. The first figure written here was nineteen, from subtracting one
+#  version number from another; one number in that span had never been issued.)
 # ⚠ Range: this finds a header version missing from the log. It does NOT find a gap in
 # the middle of the log (v5 and v3 present, v4 never written) — that needs a different
 # check, and this one passing says nothing about it.
