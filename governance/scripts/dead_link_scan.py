@@ -34,6 +34,49 @@ def skip(p: str) -> bool:
     return any(x in p for x in EXCLUDE)
 
 
+def self_test() -> int:
+    """Prove the matcher discriminates, without trusting anyone's word for it.
+
+    Builds four fixtures in a temp directory and asserts the matcher's verdict on
+    each. Run it with --self-test; it touches nothing outside the temp directory.
+
+    ⚠ Range, stated because a green self-test invites the wrong conclusion: this
+    shows the matcher separates the cases *it was shown*. It says nothing about
+    link forms nobody thought to write down here — reference-style links, HTML
+    anchors, links split across a line. A passing self-test is evidence about the
+    four cases below and about nothing else.
+    """
+    import tempfile
+    nl = chr(10)
+    cases = [
+        ("live link",              "[ok](target.md)",              False),
+        ("dead link",              "[bad](missing.md)",            True),
+        ("dead link in code span", "`[bad](missing.md)`",          False),
+        ("dead link in a fence",   "```" + nl + "[bad](missing.md)" + nl + "```", False),
+    ]
+    tmp = Path(tempfile.mkdtemp(prefix="dls_selftest_"))
+    (tmp / "target.md").write_text("x", encoding="utf-8")
+    bad = 0
+    print("=== self-test ===")
+    for name, body, should_flag in cases:
+        p = tmp / "case.md"
+        p.write_text(body, encoding="utf-8")
+        flagged = False
+        for m in MD_LINK.finditer(strip_code(p.read_text(encoding="utf-8"))):
+            tgt = m.group(2).split("#")[0].strip()
+            if tgt and not tgt.startswith(("http://", "https://", "mailto:", "#")):
+                flagged = flagged or not (p.parent / tgt).resolve().exists()
+        ok = flagged == should_flag
+        bad += 0 if ok else 1
+        print("  %-24s expected flag=%-5s got=%-5s %s"
+              % (name, should_flag, flagged, "OK" if ok else "FAIL"))
+    print("  --")
+    print("  %s" % ("all four as expected" if not bad else "%d of 4 wrong" % bad))
+    print("  Range: proves separation on these four cases only. Link forms not")
+    print("  represented here are untested, and their absence is not evidence.")
+    return 1 if bad else 0
+
+
 fail = False
 
 # ── pass 1: document links (always runs) ────────────────────────────
@@ -48,6 +91,10 @@ CODESPAN = re.compile(r"`[^`]*`")
 
 def strip_code(text: str) -> str:
     return CODESPAN.sub("", FENCE.sub("", text))
+
+
+if "--self-test" in sys.argv:
+    sys.exit(self_test())
 
 
 docs = [p for p in sorted(DOC_ROOT.rglob("*.md")) if not skip(str(p))]

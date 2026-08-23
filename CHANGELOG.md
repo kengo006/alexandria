@@ -2,6 +2,19 @@
 
 The skeleton is extracted from a live production system; each release is a **curated snapshot**, not a mirror. Releases are named after the upstream snapshot they carry — the system was already in its third generation when first published, hence the repo's first release was tagged v0.1 and later releases adopt the upstream `v3.x` numbering.
 
+## v3.9 — 2026-08-23 · What the second reading found
+
+v3.8 was read once — while it was being written. Read again three hours later, its central new section had **one argument that was simply wrong** and three sentences that claimed more than the evidence. 🔑 **The mechanical audit found none of them, and could not have**: every one of them is internally coherent. A scan looks for two places that disagree; these were single sentences that agreed with themselves and were false.
+
+- 🔴🔴 **The reason given for not repairing a damaged word was the wrong reason.** v3.8 said: do not correct `inferiority` to `interiority` before quoting, because "the reader would be given a sentence that is in no edition of the book". **That is backwards.** The repaired sentence *is* the author's wording and *is* in every properly set edition. What it is not is *on the page being cited*. ⇒ the section now states the real shape, which is sharper than the mistake it replaces: **quote it as printed and the words are not the author's; repair it and the words are not on the page. Either way the pairing of quotation and page credential is false** — and that pairing is the whole product.
+- 🔴 **"A quotation that does not exist in the work"** — it does exist, in that copy, printed on that page. That is precisely what makes it dangerous. Now: *a string that is not the author's text*, with the distinction spelled out rather than blurred.
+- 🔴 **"The only defence available is a list"** — false. Replacing the copy is a defence, and a better one; it is simply a procurement problem rather than one the pipeline can solve. Now scoped: *the defence, for as long as this is the only copy you have*.
+- 🔴 **"The three routinely disagree, which is the entire reason the credential is worth anything"** — contradicted by the three reasons listed four lines above it. Now: *which is why a bare "p. 47" says nothing until you state which of them you mean*.
+- **`examples/README.md`: a dangling referent introduced by v3.8's own fix.** Moving the fabrication warning to the top left the section below opening with "This matters more here than in most repositories" — where "this" now pointed at a parenthetical about warning placement. **A repair that creates a smaller version of the defect it repaired.**
+- **`dead_link_scan.py --self-test`.** The previous release shipped a scanner whose discriminating power rested on the author having fault-injected it once, in private. It now carries four fixtures and asserts the verdict on each, so the claim is checkable by whoever is holding it rather than taken on trust. ⚠ Its range is printed with its result: **it proves separation on the four cases it was shown, and says nothing about link forms nobody thought to write down.** 📌 A note from building it: the first positive control "passed" because the broken build crashed — **a crash and a detection both exit 1**, and telling them apart needs the output, not the status code.
+- **`sync-matrix` gains the credential-floor row.** The upstream rule and the published §1 are separately worded, not one copied from the other — which is exactly the condition the matrix exists to track. It was added the day the second wording appeared, rather than the day it drifted.
+- 46 files.
+
 ## v3.8 — 2026-08-23 · The ground truth that can be wrong
 
 Three items the previous release listed as *not done* and one word that had never been defined. The largest is a limit on this repository's oldest rule: the rendered-page credential assumes the page is ground truth, and there is a class of source where it is not.

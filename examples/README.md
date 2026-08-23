@@ -18,7 +18,7 @@ Read them in that order and you have seen the pipeline end to end.
 
 *(The short form of this is at the top of the page, above the table — because a reader who arrives, scans the table and clicks through has already left this section unread.)*
 
-This matters more here than in most repositories, because the system these examples demonstrate exists to stop exactly one thing: **text that looks like a citation and is not one.** A worked example of a citation pipeline is the last place that should ship a plausible-looking fake reference into someone's notes.
+**That all of it is invented** matters more here than in most repositories, because the system these examples demonstrate exists to stop exactly one thing: **text that looks like a citation and is not one.** A worked example of a citation pipeline is the last place that should ship a plausible-looking fake reference into someone's notes.
 
 ⚠ **So: do not copy a quotation out of these files.** Copy the *shape* — the fields, the marks, the sections that must be written even when the answer is "none". The content is scaffolding.
 

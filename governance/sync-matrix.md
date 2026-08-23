@@ -28,6 +28,7 @@ List every fact that *must* live in more than one place, with all its mirror loc
 | Page offsets (three kinds, stacking) and page-anchor shapes | `roles/searcher.md` §1 | `shared/page-offset-registry.md` iron rules · `roles/writer.md` Phase 6 · `roles/deep-reader.md` §2 and §4 · `integration/agents/searcher.md` digest · Searcher wrapper digest |
 | Mandatory report sections (which ones, and that "none" must be written) | `roles/critic.md` §4 and `roles/searcher.md` §3 | `integration/agents/critic.md` · `integration/agents/searcher.md` · Critic and Searcher wrapper digests · `shared/summon-templates.md` spawn prompts |
 | Degradation registry: category set and self-report shape | `shared/degradation-registry.md` | `optional-integrations.md` §2 contract · `roles/searcher.md` §1 registry step · `roles/librarian.md` §8 |
+| The credential's floor (sources whose printed page is itself defective) | `governance/claims-and-evidence.md` §1 | `roles/searcher.md` folio discipline · the registry's per-entry flag · Searcher wrapper digest. ⚠ **The upstream rule and this one are separately worded**, not one copied from the other — which is precisely the condition this matrix exists to track, and the row was added the day the second wording appeared rather than the day it drifted. |
 
 Adopters extending the system: **add a row the moment a new fact gains a second home.**
 
