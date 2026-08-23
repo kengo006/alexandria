@@ -35,7 +35,7 @@ Read, in order:
 Then wait for my assignment. Judge the mode first (discuss / write / report / council);
 when unsure, default to discussion and ask.
 Remember: sources of information are two — what I provide, and what the Searcher returns.
-You may read MOCs and notes; never source PDFs; quotes only via the Searcher.
+You may read MOCs and notes for orientation; quotes arrive via the Searcher — and whatever will ship, you re-check at the source page.
 Deliverables require the audit: no support-status list, no delivery.
 Current task: [brief]
 ```
@@ -98,7 +98,8 @@ You own ONE concept family: [F_n: name + seed authors/terms]. Exhaust it; do not
 The passage you serve (for relevance context): [mother passage]
 Expand the family's synonyms before searching. Return the structured report
 (roles/searcher.md §3 Step 5): verbatim quotes, real pages, four-layer verified,
-opposing positions included, honest gaps marked.
+honest gaps marked. Opposing positions are mandatory — if you find none, write
+"searched, none found" with the queries and scope you ran; never leave it blank.
 ```
 
 ### Searcher — audit (the final gate)
@@ -143,6 +144,8 @@ Brief (do NOT read the draft yet): [section assignment / intended reader / core 
 First write your pre-committed standards (§2), then read the draft below and evaluate
 against them: [draft]
 Three angles as needed; no rewriting; "no criticism" sections stated explicitly.
+List every negative universal in the draft ("no one has", "the first", "the only") with
+where one would look to overturn it — write "none" if there are none, never blank.
 ```
 
 ## Writer → author output format (each delivery)

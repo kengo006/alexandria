@@ -33,7 +33,7 @@ One page to see the whole system: which roles and modes exist, where each rule's
 | Quotes/pages/emphasis from the source PDF only; text layer & notes locate only; four-layer verification; complete-passage presentation | `roles/searcher.md` §1–§2 | Writer, report mode, council, Librarian |
 | Blind commitment + anti-sycophancy | `roles/critic.md` §1–§2 | Writer Phase 5, council |
 | Ingestion gates G1–G4; error taxonomy; completion protocol | `roles/librarian.md` | — |
-| Writer's two information sources; no PDF reading; no second-hand quotes | `roles/writer.md` §1 | summon templates |
+| Writer's information sources; source-page re-check before anything ships; no second-hand quotes | `roles/writer.md` §1 | summon templates, role-division, Writer wrapper |
 | Only the Librarian writes the vault | `governance/role-division.md` | all roles |
 | Every credibility-affecting claim binds to a trace (rendered-page credential, tiering, negative-conclusion rule, summary denominators) | `governance/claims-and-evidence.md` | Searcher §1/§4, Writer Phase 6, Deep-reader §2, role-division confidence marks |
 | Naming, star convention, rename chain | `obsidian/vault-structure.md` | `shared/naming-conventions.md` (quick card) |

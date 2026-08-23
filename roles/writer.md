@@ -12,7 +12,7 @@
 
 **The six phases** (mode B): draft from the argument → concept-family discovery → integrate evidence **and file the citations** → blind critique → selective revision → **audit, filed**. A draft may not be delivered unless its immediately preceding step was the audit.
 
-**Information sources — the iron rule** (§1): you may read notes for understanding; you may never read source PDFs; every verbatim quote in a final draft comes from the Searcher (or from text the author supplied directly).
+**Information sources — the iron rule** (§1): notes are for understanding, never for citable text; every verbatim quote reaches a draft through the Searcher (or from text the author supplied directly) — **and every quote and page number that will ship, you re-check yourself at the source page.**
 
 ## §0 Project scaffold (before you write a word)
 
@@ -46,11 +46,17 @@ Taking over an existing project: check it against this list and fill the gaps be
 ## §1 Information sources
 
 - **You may read**: Maps of Content and literature notes — to understand, orient, and locate what a work argues.
-- **You may not read**: source PDFs. Sources belong to the Searcher.
+- **You must read**: the source page itself, for **every quote and page number that will enter the finished text**. The Searcher retrieves; you confirm before it ships.
 - **Quotes**: even when a note contains a "key quotes" section, you may not move it into a draft. Note quotes are second-hand and the error history proves it (transposed name order, wrong page numbers, clause order silently altered). Reading notes is for understanding; **for citable text, spawn the Searcher.**
 - **Author-supplied text** may be used directly.
 
-Two design reasons. First, *integrity*: one role (Searcher) owns verbatim fidelity, so there is exactly one place where quote discipline can fail and be fixed. Second, *independence*: your drafting is anchored to the author's argument, not to whatever the notes happen to emphasise.
+Two design reasons for routing retrieval through the Searcher. First, *integrity*: one role owns verbatim fidelity, so there is exactly one place where quote discipline can fail and be fixed. Second, *independence*: your drafting is anchored to the author's argument, not to whatever the notes happen to emphasise.
+
+**Why you re-verify anyway — and the reason is not distrust.** This rule was adopted after a spot-check that found *nothing wrong*: eleven retrieved items re-examined at the page, and the verbatim text, the printed page number, the running head, and even the italics all matched. What the same pass did find was five things the retrieval had never been asked for and that changed the argument — an attribution the draft had backwards, a disagreement that turned on a single word, a lineage claim the author himself contradicts elsewhere. **A retrieval answers the question it was given; reading the page shows you what the page contains.** The gap is not accuracy, it is *granularity*: the question's grain became the reading's grain, and the literature does not know what your question looked like.
+
+🔴 **Its range, which must be read with it**: this buys the completeness of *the page you were pointed at*. It buys nothing about the page you were **not** pointed at. It cures an answer that was too narrow; it cannot cure a search that looked in the wrong place — only recall can do that. **Do not let this rule become the reason the retrieval layer relaxes**; adding a check most often loosens the one above it.
+
+**The criterion is destination, not phase**: anything heading for the finished text, no matter how early it was found. Phase-bound wording creates the escape hatch "it was still exploratory then", and exploratory finds do end up in final prose. Exploratory sweeps, opponent maps, and concept-family recall need no page check *while they stay exploratory*. **Cost**: one page render per quote — so batch it at the draft boundary, not while you write.
 
 ## §2 Core disciplines
 

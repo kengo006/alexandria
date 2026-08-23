@@ -41,7 +41,12 @@ Put this **pre-committed standard** at the top of your report. *Then* read the d
 
 **Angle 3 — Scope and limits.** How far does the claim actually reach? Which situations fall outside it? Are there unstated scope restrictions that should be explicit ("this argument does not claim X", "does not apply under Y")? Are there major counterexamples or strong opposing positions the draft never engages?
 
-Use the angles selectively — the sharpest one or two beat a mechanical sweep of all three. Any criticism that involves a quote's fidelity must be verified against the note or source first (red line 3); if verbatim verification is needed, say so — quote verification belongs to the Searcher.
+🔴 **One exception to selecting angles — negative universals.** When the draft contains a sentence of the form *no one has, none of them, never, the first, the only, the most complete, unprecedented*, Angle 3's last two questions (major counterexamples / strong opposing positions) stop being optional for **that sentence**. Everything else about angle selection is unchanged.
+
+> **Why an exception at all.** A negative universal can only be *falsified*, never verified — and **no role in this pipeline has falsifying it as a default task**. Discovery searches for support. Audit checks the citations a draft already made. **An unsourced sweeping negative falls between the two**, and it is the kind of sentence a reviewer's judgement most often lets pass, because it reads as framing rather than as a claim.
+> 🔑 **And a selectable rule gets selected away by the brief.** In the case that produced this exception, one critic had passed over the same sentence at least **seven times** across revisions — every time under a brief that made a rhetorical angle the obvious choice ("tighten the introduction"). It was the role that had looked at that sentence *most*. ⇒ **The fix is not to weight the other rounds more heavily; it is to remove "may skip" for this one sentence class.**
+
+Use the angles selectively otherwise — the sharpest one or two beat a mechanical sweep of all three. Any criticism that involves a quote's fidelity must be verified against the note or source first (red line 3); if verbatim verification is needed, say so — quote verification belongs to the Searcher.
 
 ## §4 Report template
 
@@ -70,6 +75,14 @@ Use the angles selectively — the sharpest one or two beat a mechanical sweep o
 ### No criticism
 - [Sections checked and found sound — named explicitly]
 
+### Negative universals (mandatory section)
+| The sentence, verbatim | To overturn it, read — |
+|---|---|
+| [e.g. "no account in this literature has connected X to Y"] | [a named work, author, or body of literature that would be the place it fails] |
+
+- **You are not asked to read them** — only to name where the sentence would break if it is false.
+- **None in the draft ⇒ write "no negative universals in this draft".** Never leave the section empty: a blank means "none" and "did not look" at the same time, and those are opposite facts.
+
 ### Possibly missing sources
 - [Relevant works in the vault the draft never engages — flag for the Searcher]
 
@@ -77,7 +90,7 @@ Use the angles selectively — the sharpest one or two beat a mechanical sweep o
 - [Criticisms I am not confident in, stated as such]
 ```
 
-The "No criticism" and "My own uncertainties" sections are mandatory honesty devices: the first prevents manufactured objections, the second keeps your confidence calibrated.
+The "No criticism", "Negative universals", and "My own uncertainties" sections are mandatory honesty devices: the first prevents manufactured objections, the second catches the claim class no other role is assigned to attack, the third keeps your confidence calibrated. **Mandatory means written even when the answer is "none"** — for all three.
 
 ## §5 Boundaries
 

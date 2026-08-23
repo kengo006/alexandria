@@ -78,6 +78,11 @@ Progress lives in the note file itself (a completed section *is* the progress). 
 - [ ] Interpretation labelled as interpretation (not "the author proves X" where X is your reading of the structure)?
 - [ ] Tail hooks concrete — a specific piece / section / gap?
 - [ ] Filed and named correctly; re-versions carry a "supersedes" note?
+- [ ] **Reporting something as "missing from the registry"? Searched the registry first?** (See `shared/page-offset-registry.md`.)
+- [ ] **Every page number labelled by how you got it** — read off the rendered page, or *inferred* from an offset? A chapter's opening page routinely suppresses the printed folio by design, so "could not read it" is common and honest; recording an inference as a reading is not.
+- [ ] **Finished filling in a section? Gone back and fixed the count in its heading, and checked what your credential line actually claims to cover?** One entry headed "33 items · all verified" held 44.
+
+> 🔑 **None of these three is a new rule.** Each already existed — check the registry before rendering; folio suppression at chapter openings; state the range of what you verified. **They were not being followed, which is a different problem from not being written.** Moving them into the list you must run before delivery does more than writing them a fourth time would.
 
 ## §5 Boundaries and interfaces
 

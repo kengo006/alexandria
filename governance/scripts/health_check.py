@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """System health check — mechanises the sync matrix (see ../sync-matrix.md).
 
-Three checks, three-part output (pass / warn / fail):
+Four checks, three-part output (pass / warn / fail):
   1. required files present (roles, shared methods, obsidian layer)
   2. forbidden patterns absent from live files (e.g. a banned fallback creeping back,
      or an abolished mechanism still being taught somewhere)
   3. (optional) version mirrors consistent — if you version your files, list the
      source-of-truth header and every location that mirrors it
+  4. (optional) the version in a file's header also appears in that file's own
+     changelog section — check 3's sibling, and the one it cannot substitute for
 
 Run at logical boundaries (after upgrades, before releases). Delegates link and
 structure checks to dead_link_scan.py / vault_verify.py.
@@ -50,6 +52,17 @@ ALLOW_MARKERS = ("banned", "abolished", "ban on")   # a line containing the patt
 # here. In production a title version once drifted nine releases behind the front matter
 # while the gate stayed green — it was only comparing the one place it knew about.
 VERSION_MIRRORS = {}
+
+# optional: {"file": (header_regex, changelog_heading_regex)}
+# Check 3 asks whether the version number was copied everywhere. This asks whether the
+# change was *recorded* — a different question, and the one that failed. Measured while
+# preparing v3.6: of seven canonical rule files upstream, four carried a header version
+# that appeared nowhere in their own changelog — nineteen unrecorded rule changes, one
+# file fourteen versions behind — with every version mirror green the whole time.
+# ⚠ Range: this finds a header version missing from the log. It does NOT find a gap in
+# the middle of the log (v5 and v3 present, v4 never written) — that needs a different
+# check, and this one passing says nothing about it.
+CHANGELOG_PRESENT = {}
 # ────────────────────────────────────────────────────────────────────
 
 ok, warn, fail = [], [], []
@@ -98,6 +111,25 @@ for src, (src_re, mirrors) in VERSION_MIRRORS.items():
             bad = True
     if not bad:
         ok.append(f"{src} v{v}: mirrors consistent")
+
+# 4. changelog carries an entry for the current version (if configured)
+for f, (head_re, log_re) in CHANGELOG_PRESENT.items():
+    text = (SKELETON / f).read_text(encoding="utf-8")
+    m = re.search(head_re, text)
+    if not m:
+        fail.append(f"{f}: version header not found (pattern {head_re!r})")
+        continue
+    v = m.group(1)
+    lm = re.search(log_re, text)
+    if not lm:
+        fail.append(f"{f}: changelog section not found (pattern {log_re!r})")
+        continue
+    # only the changelog section counts — the header itself must not satisfy its own check
+    if v in text[lm.end():]:
+        ok.append(f"{f} v{v}: recorded in its changelog")
+    else:
+        warn.append(f"{f}: header says v{v}, and v{v} appears nowhere in its changelog "
+                    f"— the number was mirrored, the change was not written down")
 
 print("=== health check ===")
 for x in ok:   print(f"  PASS  {x}")

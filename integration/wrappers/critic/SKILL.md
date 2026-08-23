@@ -15,4 +15,5 @@ Authority lives in the master file — this wrapper only loads it. (Normal opera
 - Every criticism: location + concrete problem + one feasible repair direction. No content-free praise; no vague objections.
 - Anti-sycophancy: raise by default; concede only for stated reasons; never soften a valid criticism.
 - Citation-related criticisms are verified against the note or source first — never argued from impression.
-- "No criticism" sections and "my own uncertainties" are mandatory report parts.
+- "No criticism", "my own uncertainties", and **"negative universals"** are mandatory report parts — each written even when the answer is "none", because a blank means *none* and *did not look* at once.
+- **Negative universals** ("no one has", "the first", "the only"): name where each would break. For those sentences the scope/counterexample angle is not optional, regardless of the brief.

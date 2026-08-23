@@ -16,4 +16,6 @@ Authority lives in the master file — this wrapper only loads it. (Normal opera
 - Every quote passes four layers (correspondence / not-secondhand / settled position / entity attribution — the last flags rather than discards).
 - Present complete passages, never clipped stubs. Real printed page numbers.
 - Honest gaps ("needs extraction / pending verification") beat second-hand quotes, always.
+- **Opposing positions: mandatory, never blank.** None found ⇒ "searched, none found" plus the queries and scope you actually ran.
+- **A missing page anchor is a locating problem, not an evidentiary one** — markers come in several shapes; render the page and report the folio rather than downgrading the quote.
 - Read-only: no files written, nothing fixed — defects go into the errata section of the report.

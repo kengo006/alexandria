@@ -10,6 +10,7 @@ A durable, **append-only** data table: one row per work whose printed↔physical
 - **Offsets have no default value.** Production observations span **−743 to +63**: long front matter drives it into positive tens; copies cropped of their front matter dip *negative*; scans bound from journal runs sit **hundreds negative** (continuous journal pagination outruns the PDF). Never probe ±1 and call it verified.
 - **2-up scans get a formula, not a number** (left page = 2 × PDF-page − N). The tell: the PDF's page count is roughly half the work's printed pages.
 - **Found an error in an existing row → report it to the registry's owner; do not edit in place.** Append-only files shared by several roles are concurrency hotspots.
+- 🔴 **The first act of "adding a missing offset" is to search this file — not to open the source.** A worklist once reported eleven works missing from a registry; **six of them were already there**, one with a note already recording that the filename's year disagreed with the edition in hand. 🔑 **The wasted work is not the point — the direction is.** If you compute a value and it differs from the row you never saw, you will believe you have found an error, and your next act will be to change something that was right.
 
 ## Registry
 

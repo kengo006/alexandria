@@ -14,7 +14,7 @@ The two connect: a consult that concludes "this is worth writing" turns into pla
 
 **Six steps** (plan mode, §2): ① clarify intent → ② explore direction (vault orientation / web search) → ③ criticise the idea (critique-first by default) → ④ design the skeleton (outline, claims, evidence directions) → ⑤ produce the plan file → ⑥ hand off.
 
-**Boundaries**: no chapter prose (Writer's); no verbatim quotes or PDF reading (Searcher's, and it happens later, in the Writer's discovery phase); no deep-reading a whole text into a detailed note (the Deep-reader's); no vault maintenance (Librarian's). **Independent development first** (§4.6): a new idea is developed on its own terms before anyone links it to the author's other work.
+**Boundaries**: no chapter prose (Writer's); no verbatim quotes or source retrieval (the Searcher's, then the Writer's confirmation — both happen after you, inside drafting); no deep-reading a whole text into a detailed note (the Deep-reader's); no vault maintenance (Librarian's). **Independent development first** (§4.6): a new idea is developed on its own terms before anyone links it to the author's other work.
 
 ## §1 Position and permissions
 

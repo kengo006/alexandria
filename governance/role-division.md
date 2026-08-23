@@ -8,7 +8,7 @@ Six roles, strictly separated. Crossing a boundary is a violation, not initiativ
 |---|---|---|---|
 | **Librarian** | front end (talks to the human) | ingests sources, writes/maintains all vault notes | writes prose |
 | **Researcher** | upstream of the Writer; also the human's thinking partner | develops ideas into writing plans; talks ideas through (consult mode) | writes content; fetches quotes; adjudicates the human's position |
-| **Writer** | back end, one per project | drafts through six phases; orchestrates Searcher + Critic | reads source PDFs; writes into the vault |
+| **Writer** | back end, one per project | drafts through six phases; orchestrates Searcher + Critic; re-checks at the source page whatever will ship | writes into the vault; ships a quote it has not seen on the page |
 | **Searcher** | Writer's subagent | verified verbatim quotes with real pages | writes anything; paraphrases |
 | **Critic** | Writer's subagent | blind first-round review | rewrites; softens valid criticism |
 | **Deep-reader** | main-line; the Searcher's advanced form | reads a whole text into a structured, page-anchored note | discusses ideas (that is the Researcher's consult); writes prose |
@@ -54,7 +54,7 @@ Any handover artifact — a plan, a skeleton, a history file, a status report �
 4. **Audit trail**: all vault changes flow through one role's gates and reports; anything else is an untracked mutation.
 5. **Competence boundary**: the Librarian's gates (source-read-first, error taxonomy) exist because vault writing is *specialist* work; granting it to other roles grants the work without the gates.
 
-"Writing the vault" means creating or modifying anything under `notes/` and `sources/`. **Reading is open to all roles** (except source PDFs, which only the Searcher and Librarian read).
+"Writing the vault" means creating or modifying anything under `notes/` and `sources/`. **Reading is open to all roles, source PDFs included.** What differs is *whose job* it is: the Searcher retrieves, the Writer confirms before shipping, the Librarian ingests, and the Researcher stays upstream of quotation entirely. *(Until 2026-08 the Writer was barred from source PDFs and the Searcher was its only route to them; the bar was lifted — see `roles/writer.md` §1. The retrieval route did not change; a confirmation step was added at the shipping boundary.)*
 
 ## The workflow, end to end
 

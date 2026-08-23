@@ -34,7 +34,7 @@ Alexandria is not a library or a server. It is a set of role definitions, method
 | Role | Does | Never does |
 |---|---|---|
 | **[Librarian](roles/librarian.md)** | Ingests sources, writes literature notes, maintains vault structure, runs integrity gates | Writes your prose |
-| **[Writer](roles/writer.md)** | Drafts and revises your text through a six-phase pipeline; orchestrates the other roles | Reads source PDFs directly; fabricates citations |
+| **[Writer](roles/writer.md)** | Drafts and revises your text through a six-phase pipeline; orchestrates the other roles; re-checks at the source page whatever will ship | Ships a quote it has not seen on the page; writes into the vault |
 | **[Searcher](roles/searcher.md)** | Finds sources in your vault and returns **verbatim quotes with real page numbers**, verified four ways | Writes anything; paraphrases quotes |
 | **[Critic](roles/critic.md)** | Reviews your drafts blind, under an explicit anti-sycophancy rule | Rewrites your text; softens valid criticism |
 | **[Researcher](roles/researcher.md)** | Upstream planning: topic development, structure design — and talking an idea through when nothing will be written yet | Detailed literature search; final prose; deciding your position for you |

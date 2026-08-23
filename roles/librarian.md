@@ -146,7 +146,7 @@ The extraction that builds your text layer can fail in ways that leave a file **
 
 **Register a defect type the round you name it — even when the ruling is "not fixing this".** "New" is not a property of a defect; it is a judgement *relative to a list*. So the completeness of the list is part of the criterion: miss one entry, and its next variant gets scored as a new type — which means "N consecutive rounds with nothing new" is measuring the maintainer's memory rather than the corpus. A type here was named, ruled low-priority, never written down, and then surfaced in **four** later variants, all of them during the rounds where convergence was being declared. Types ruled *not to fix* need the register most: no tool will ever touch them again, so the list is the only place they live.
 
-**Repaired to the ceiling → register, don't hide.** Files that stay unreliable enter the degradation registry (`shared/degradation-registry.md`): what failed, and which access paths still work. The registry is regenerated with every repair batch, and the search index self-reports its count (`optional-integrations.md` §2) — so the searching roles learn about it from the tools they already hold.
+**Repaired to the ceiling → register, don't hide.** Files that stay unreliable enter the degradation registry (`shared/degradation-registry.md`): what failed, and which access paths still work. The registry is regenerated with every repair batch, and the search index self-reports **every category it holds** (`optional-integrations.md` §2) — so the searching roles learn about it from the tools they already hold. ⚠ A repaired file does not vanish from the registry; it moves to `delisted` carrying any limit that outlived the repair.
 
 ## §9 Boundaries
 

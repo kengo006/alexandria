@@ -57,4 +57,4 @@ You are the council's **assessor** (independent, read-only, analysis only).
 
 ## Output
 
-Chapter reviews and fix-lists go to the project's `_outputs/` or directly to the author. Evidence discipline is unchanged: anything factual traces to the source via the Searcher; no support points invented from impression. Seats spawn sequentially by default; the Searcher only on demand.
+Chapter reviews and fix-lists go to the project's `_outputs/` or directly to the author. Evidence discipline is unchanged: anything factual traces to the source via the Searcher, and whatever ships is re-checked by the lead at the source page; no support points invented from impression. Seats spawn sequentially by default; the Searcher only on demand.
