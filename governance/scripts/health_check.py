@@ -55,6 +55,9 @@ ALLOW_MARKERS = ("banned", "abolished", "ban on")   # a match near one of these 
 #    line contains a negation" is not "this match is negated." A match now passes only if a marker
 #    sits within NEAR characters of it, or the match is quoted or struck through.
 NEAR = 40
+# 40 is a heuristic, checked only against the upstream tree. It errs loudly: too small, and a
+# documented ban gets flagged (you see it); too large, and a live assertion slips through (you do
+# not). So when a documented ban is flagged, reword the line or move the marker closer; never raise NEAR.
 
 # optional: {"relative/path.md": max_bytes}. A file that every run reads in full costs its size
 # on every run. Upstream split such rulebooks into three layers — the rules, read in full; the
