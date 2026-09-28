@@ -37,42 +37,54 @@ def skip(p: str) -> bool:
 def self_test() -> int:
     """Prove the matcher discriminates, without trusting anyone's word for it.
 
-    Builds four fixtures in a temp directory and asserts the matcher's verdict on
-    each. Run it with --self-test; it touches nothing outside the temp directory.
+    Builds fixtures in a temp directory (document links for pass 1, wikilinks for
+    pass 2) and asserts the matcher's verdict on each. Run it with --self-test; it
+    touches nothing outside the temp directory.
 
     ⚠ Range, stated because a green self-test invites the wrong conclusion: this
     shows the matcher separates the cases *it was shown*. It says nothing about
     link forms nobody thought to write down here — reference-style links, HTML
     anchors, links split across a line. A passing self-test is evidence about the
-    four cases below and about nothing else.
+    cases below and about nothing else. (Until v4.0 it covered pass 1 only, so the
+    wikilink pattern had no test at all — which is how the double-escaped alias pipe
+    stayed invisible; see LINK_RE.)
     """
     import tempfile
     nl = chr(10)
     cases = [
-        ("live link",              "[ok](target.md)",              False),
-        ("dead link",              "[bad](missing.md)",            True),
-        ("dead link in code span", "`[bad](missing.md)`",          False),
-        ("dead link in a fence",   "```" + nl + "[bad](missing.md)" + nl + "```", False),
+        ("doc",  "live link",              "[ok](target.md)",              False),
+        ("doc",  "dead link",              "[bad](missing.md)",            True),
+        ("doc",  "dead link in code span", "`[bad](missing.md)`",          False),
+        ("doc",  "dead link in a fence",   "```" + nl + "[bad](missing.md)" + nl + "```", False),
+        ("wiki", "wikilink, live",         "[[target]]",                   False),
+        ("wiki", "wikilink, dead",         "[[missing]]",                  True),
+        ("wiki", "dead, alias escaped once",  "| [[missing\\|alias]] |",   True),
+        ("wiki", "dead, alias escaped twice", "| [[missing\\\\|alias]] |", True),
     ]
     tmp = Path(tempfile.mkdtemp(prefix="dls_selftest_"))
     (tmp / "target.md").write_text("x", encoding="utf-8")
     bad = 0
     print("=== self-test ===")
-    for name, body, should_flag in cases:
+    for kind, name, body, should_flag in cases:
         p = tmp / "case.md"
         p.write_text(body, encoding="utf-8")
+        text = p.read_text(encoding="utf-8")
         flagged = False
-        for m in MD_LINK.finditer(strip_code(p.read_text(encoding="utf-8"))):
-            tgt = m.group(2).split("#")[0].strip()
-            if tgt and not tgt.startswith(("http://", "https://", "mailto:", "#")):
-                flagged = flagged or not (p.parent / tgt).resolve().exists()
+        if kind == "doc":
+            for m in MD_LINK.finditer(strip_code(text)):
+                tgt = m.group(2).split("#")[0].strip()
+                if tgt and not tgt.startswith(("http://", "https://", "mailto:", "#")):
+                    flagged = flagged or not (p.parent / tgt).resolve().exists()
+        else:
+            for tgt in wikilink_targets(text):
+                flagged = flagged or not (tmp / (tgt.rsplit("/", 1)[-1] + ".md")).exists()
         ok = flagged == should_flag
         bad += 0 if ok else 1
-        print("  %-24s expected flag=%-5s got=%-5s %s"
+        print("  %-27s expected flag=%-5s got=%-5s %s"
               % (name, should_flag, flagged, "OK" if ok else "FAIL"))
     print("  --")
-    print("  %s" % ("all four as expected" if not bad else "%d of 4 wrong" % bad))
-    print("  Range: proves separation on these four cases only. Link forms not")
+    print("  %s" % ("all %d as expected" % len(cases) if not bad else "%d of %d wrong" % (bad, len(cases))))
+    print("  Range: proves separation on these %d cases only. Link forms not" % len(cases))
     print("  represented here are untested, and their absence is not evidence.")
     return 1 if bad else 0
 
@@ -91,6 +103,23 @@ CODESPAN = re.compile(r"`[^`]*`")
 
 def strip_code(text: str) -> str:
     return CODESPAN.sub("", FENCE.sub("", text))
+
+
+# ── wikilink pattern (pass 2; module level so the self-test exercises the real one) ──
+# Handles [[target]], [[target|alias]], [[target#heading]], and a table-escaped alias pipe.
+# 🔴 A wikilink written inside a Markdown table must escape its alias pipe, as `\|`, and
+#    Obsidian often writes it as `\\|`. Until v4.0 the alias branch allowed at most one
+#    backslash while the target class excludes backslashes, so `[[target\\|alias]]` did not
+#    match at all: the link was invisible to this scan, dead or alive. Upstream found it by
+#    reconciling two independent link counts that disagreed by ten; all ten targets happened
+#    to exist, which was luck and not a guarantee. 🔑 Two green reports need not be looking
+#    at the same set of links.
+LINK_RE = re.compile(r"\[\[([^\[\]\|#\\]+?)(?:#[^\[\]\|]+)?(?:\\{0,2}\|[^\[\]]+?)?\]\]")
+
+
+def wikilink_targets(content: str):
+    for m in LINK_RE.finditer(content):
+        yield m.group(1).strip().replace("\\", "/").removesuffix(".md")
 
 
 if "--self-test" in sys.argv:
@@ -140,16 +169,14 @@ else:
         existing_full.add(rel)
         existing_basename.setdefault(md.stem, []).append(rel)
 
-    # Handles [[target]], [[target|alias]], [[target\|alias]] (table-escaped), [[target#heading]]
-    LINK_RE = re.compile(r"\[\[([^\[\]\|#\\]+?)(?:#[^\[\]\|]+)?(?:\\?\|[^\[\]]+?)?\]\]")
+    # LINK_RE and wikilink_targets() are defined at module level (see above).
     dead, wrong, total = [], [], 0
     for md in root.rglob("*.md"):
         if skip(str(md)):
             continue
         content = md.read_text(encoding="utf-8")
         src = md.relative_to(root).as_posix()
-        for m in LINK_RE.finditer(content):
-            target = m.group(1).strip().replace("\\", "/").removesuffix(".md")
+        for target in wikilink_targets(content):
             bn = target.rsplit("/", 1)[-1]
             total += 1
             if bn not in existing_basename:
