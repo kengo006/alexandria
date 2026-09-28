@@ -14,9 +14,9 @@ The lesson is not "the tool broke". The lesson is that **"I verified it" is unfa
 >
 > That number is the **folio**, the term used throughout this repository: *the number printed on the leaf itself*, as opposed to the PDF viewer's physical page index or the position of a page block in an extracted text layer. The three routinely disagree, which is why a bare "p. 47" says nothing until you state which of them you mean.
 
-No printed number, no verification — the quote is downgraded honestly (the Searcher's source tiers say how). Why this works:
+No printed number, no verification — the quote is downgraded honestly (the source tiers in `shared/evidence-handbook.md` §1 say how). Why this works:
 
-- the printed number is **only producible by looking** — text-layer page numbers drift, and guessing gets it wrong (see the offset table in `roles/searcher.md` §1);
+- the printed number is **only producible by looking** — text-layer page numbers drift, and guessing gets it wrong (see the offset table in `shared/evidence-handbook.md` §1);
 - it costs **nothing** — it is right there on the rendered page;
 - it is **spot-checkable** — the receiving role can render the same page and compare.
 
@@ -166,4 +166,4 @@ When a piece of work has two halves and one is done thoroughly and honestly, **t
 
 ---
 
-*In the original deployment these rules bind every role through the constitution (`role-division.md` — see its confidence-marks section for the handover-level siblings); the Searcher, Writer and Deep-reader wire them into their own procedures. Mount them wherever your governance layer lives.*
+*In the original deployment these rules bind every role through the constitution (`role-division.md` — see its confidence-marks section for the handover-level siblings); the evidence handbook, and through it the Writer, the Critic, the Searcher and the Deep-reader, wire them into their own procedures. Mount them wherever your governance layer lives.*

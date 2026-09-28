@@ -2,7 +2,7 @@
 
 A durable, **append-only** data table: one row per work whose printed↔physical page offset has been verified on a rendered page. Roles consult it *before* taking page numbers from a work (compute the offset once, reuse it book-wide) and append a row after verifying a new work.
 
-**Why this file carries no version number — deliberately.** It is a *data table*, not a rules file: bumping a version per appended row would be absurd, and "how complete is this registry" is countable (count the rows). The *rules* about offsets live in `roles/searcher.md` and change under version control there; this file only accumulates verified facts.
+**Why this file carries no version number — deliberately.** It is a *data table*, not a rules file: bumping a version per appended row would be absurd, and "how complete is this registry" is countable (count the rows). The *rules* about offsets live in `shared/evidence-handbook.md` §1 and change under version control there; this file only accumulates verified facts.
 
 ## Iron rules
 

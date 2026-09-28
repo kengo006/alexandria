@@ -31,6 +31,7 @@ REQUIRED = [
     "shared/correction-report.md", "shared/search-patterns.md",
     "shared/naming-conventions.md", "shared/summon-templates.md",
     "shared/page-offset-registry.md", "shared/degradation-registry.md",
+    "shared/evidence-handbook.md",
     "obsidian/vault-structure.md", "obsidian/note-schema.md",
     "obsidian/wikilinks-and-mocs.md", "obsidian/vault-map-template.md",
     "governance/system-overview.md", "governance/role-division.md",

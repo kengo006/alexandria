@@ -36,10 +36,10 @@ A scanner or replacer tested only on format 1 will corrupt MOC tables. **In pros
 ## MOCs (Maps of Content)
 
 - **One MOC per taxonomy folder**, named after the folder: what this branch holds, its sub-branches, and its load-bearing works. Ingestion updates the folder's MOC in the same pass (a source filed without a MOC entry is invisible to MOC-first navigation).
-- The Searcher's second search path is MOC navigation; the Writer's orientation reading is MOCs. They pay for their upkeep.
+- MOC navigation is the second search path of whoever is searching — the Writer and the Critic, or a dispatched Searcher; the Writer's orientation reading is MOCs. They pay for their upkeep.
 - **Project-level overview MOCs** (mapping notes onto a project's chapters) are high-churn: update **on request only**, so they don't silently drift against a moving project.
 - MOC entries use the table-escaped link format; keep per-entry annotations to one line.
 
 ## Cross-work concept clusters
 
-When several works form a recognisable family (four takes on one regulation; three readings of one thinker), link them into a named cluster inside the relevant notes' "Related works" sections. Clusters are what turn a pile of notes into a map of a debate — the Searcher reports in terms of them.
+When several works form a recognisable family (four takes on one regulation; three readings of one thinker), link them into a named cluster inside the relevant notes' "Related works" sections. Clusters are what turn a pile of notes into a map of a debate — the searching roles report in terms of them.

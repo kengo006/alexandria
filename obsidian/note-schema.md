@@ -1,6 +1,6 @@
 # Literature note schema
 
-One consistent note format is what lets every role navigate the vault without reading sources: the Writer orients by it, the Searcher locates by it, the verification scripts check it. Two variants share one discipline: **ingest** (new source) and **upgrade** (rewriting an existing note against its source). Both presuppose the Librarian's gates — above all G1: the source was actually read.
+One consistent note format is what lets every role navigate the vault without reading sources: the Writer orients by it, the searching roles locate by it, the verification scripts check it. Two variants share one discipline: **ingest** (new source) and **upgrade** (rewriting an existing note against its source). Both presuppose the Librarian's gates — above all G1: the source was actually read.
 
 ## Ingest format (new sources)
 
@@ -38,7 +38,7 @@ Per item, 1–2 sentences of real content. Empty-shell entries ("this part addre
 1. "[verbatim quote]" (p. X)
 ````
 
-**Key-quote rules**: exactly three; chosen to represent the work's **conclusions and considered position** (not random highlights); real page numbers; kept in the original language, untranslated. These are *orientation* quotes — the Searcher still returns to the PDF for anything that enters a draft.
+**Key-quote rules**: exactly three; chosen to represent the work's **conclusions and considered position** (not random highlights); real page numbers; kept in the original language, untranslated. These are *orientation* quotes — whoever takes the evidence still returns to the PDF for anything that enters a draft.
 
 **Metadata discipline**: `source` and `read_scope` are mandatory honesty fields — they record where the text came from and how much was actually read. A note that reads everything says so; a note that read the TOC and two chapters says *that*.
 

@@ -1,6 +1,6 @@
 # Search patterns (corpus-first)
 
-> Teaching file, mainly for the Searcher; the Writer and Librarian use the same moves for locating. **The iron rule first** (single source: `roles/searcher.md` §1): the text layer, notes, and OCR output **locate only** — verbatim quotes, page numbers, and emphasis come from the source PDF at the page. Never full-read a PDF through the harness's built-in reader (silent truncation); compare reported page counts against `/Count` before viewing page images.
+> Teaching file for every role that searches: the Writer and the Critic taking their own evidence, a dispatched Searcher, and the Librarian locating. **The iron rule first** (single source: `shared/evidence-handbook.md` §1): the text layer, notes, and OCR output **locate only** — verbatim quotes, page numbers, and emphasis come from the source PDF at the page. Never full-read a PDF through the harness's built-in reader (silent truncation); compare reported page counts against `/Count` before viewing page images.
 >
 > Examples below use the synthetic `memory-studies` taxonomy from `obsidian/vault-map-template.md`. Invocation snippets are **pseudo-calls** for a Claude Code-style toolset (`Grep`/`Glob`/`Read`); adapt names and parameters to your harness.
 

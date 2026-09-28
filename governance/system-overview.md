@@ -9,9 +9,9 @@ One page to see the whole system: which roles and modes exist, where each rule's
 | Role | One line | Typical triggers |
 |---|---|---|
 | **Librarian** | ingestion, literature notes, vault integrity, errata | "ingest these PDFs", "fix dead links", "rewrite this note" |
-| **Writer** | drafting through six phases; orchestrates Searcher/Critic | "draft this section", "revise this", "polish" |
-| **Searcher** | verified verbatim quotes from vault sources (spawned by Writer) | — (not user-summoned) |
-| **Critic** | blind first-round review (spawned by Writer) | — (not user-summoned) |
+| **Writer** | drafting through six phases; takes its own evidence at the source page; spawns the Critic, dispatches the Searcher | "draft this section", "revise this", "polish", "find sources on X", "verify these quotes" |
+| **Searcher** | dispatched by the Writer, with the human's approval, for a large topic's complete corpus sweep or the final audit | — (not user-summoned; never for an everyday lookup) |
+| **Critic** | blind first-round review; takes its own counter-evidence (spawned by Writer) | — (not user-summoned) |
 | **Researcher** | idea → writing plan (upstream); also talking an idea through | "I want to write about…", "how should this be structured?", "let me think this through" |
 | **Deep-reader** | a whole text → a structured, page-anchored close-read note | "read this book closely", "give me a detailed note on this" |
 
@@ -30,12 +30,12 @@ One page to see the whole system: which roles and modes exist, where each rule's
 
 | Rule | Single source | Referenced by |
 |---|---|---|
-| Quotes/pages/emphasis from the source PDF only; text layer & notes locate only; four-layer verification; complete-passage presentation | `roles/searcher.md` §1–§2 | Writer, report mode, council, Librarian |
+| Quotes/pages/emphasis from the source PDF only; text layer & notes locate only; four-layer verification; complete-passage presentation | `shared/evidence-handbook.md` §1–§3 | Writer, Critic, Searcher, Deep-reader, report mode, council, Librarian |
 | Blind commitment + anti-sycophancy | `roles/critic.md` §1–§2 | Writer Phase 5, council |
 | Ingestion gates G1–G4; error taxonomy; completion protocol | `roles/librarian.md` | — |
-| Writer's information sources; source-page re-check before anything ships; no second-hand quotes | `roles/writer.md` §1 | summon templates, role-division, Writer wrapper |
+| Who takes evidence (the Writer its own, the Critic counter-evidence); when the Searcher is dispatched (two jobs, each approved); source-page re-check before anything ships; no second-hand quotes | `roles/writer.md` §1 | summon templates, role-division, Writer wrapper, Critic, Searcher |
 | Only the Librarian writes the vault | `governance/role-division.md` | all roles |
-| Every credibility-affecting claim binds to a trace (rendered-page credential, tiering, negative-conclusion rule, summary denominators) | `governance/claims-and-evidence.md` | Searcher §1/§4, Writer Phase 6, Deep-reader §2, role-division confidence marks |
+| Every credibility-affecting claim binds to a trace (rendered-page credential, tiering, negative-conclusion rule, summary denominators) | `governance/claims-and-evidence.md` | evidence handbook §1, Searcher §4, Writer Phase 6, Deep-reader §2, role-division confidence marks |
 | Naming, star convention, rename chain | `obsidian/vault-structure.md` | `shared/naming-conventions.md` (quick card) |
 
 **The referencing discipline**: any file other than the single source *links* to the rule, states at most a one-line digest, and never restates details or numbers. Details restated in two places will disagree within a month — see `sync-matrix.md`.

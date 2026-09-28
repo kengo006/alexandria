@@ -1,8 +1,8 @@
-# Example — Searcher, discovery mode
+# Example — Searcher, discovery mode (a dispatched family sweep)
 
 > 🔴 **Fabricated example.** Every work, quotation and page number here is invented; see [`README.md`](README.md). Copy the shape, never the content.
 
-**The request it answers** (what the Writer sent):
+**The request it answers** (what the Writer sent — one seat of a family-by-family sweep the author had approved; since v4.0 a single quote or a single page is the Writer's to take itself, and never reaches a Searcher):
 
 ```
 You are the Searcher (discovery). You own ONE concept family:

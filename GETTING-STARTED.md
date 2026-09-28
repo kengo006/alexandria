@@ -4,7 +4,7 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 
 | Tier | You get | You need |
 |---|---|---|
-| **A — Minimal** | Writer + Searcher + Critic: the citation integrity pipeline over a folder of PDFs and notes | Claude Code |
+| **A — Minimal** | Writer + Critic, with the Searcher for dispatched jobs: the citation integrity pipeline over a folder of PDFs and notes | Claude Code |
 | **B — Vault** | All six roles over a structured Obsidian vault: note schema, two-end mirror, ingestion gates | + an Obsidian vault |
 | **C — Full** | Governance: sync matrix, health checks, summon templates, style modules, optional integrations | + Python 3 for the scripts |
 
@@ -12,17 +12,18 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 
 ## Tier A — Minimal (three roles, zero dependencies)
 
-**What you get.** A Writer that drafts your text and orchestrates two subagents: a Searcher that returns verbatim, page-anchored quotes from your PDFs, and a Critic that reviews drafts blind. The full citation pipeline — source tiers, four-layer quote verification, blind review, final audit — runs at this tier.
+**What you get.** A Writer that drafts your text and takes its own evidence — verbatim, page-anchored quotes read from your PDFs — and two subagents: a Critic that reviews drafts blind and looks up its own counter-evidence, and a Searcher the Writer dispatches, with your approval, for the jobs too big or too independent for it: a complete sweep of a large topic, and the final audit. The full citation pipeline — source tiers, four-layer quote verification, blind review, final audit — runs at this tier.
 
 **Setup.**
 
 1. Copy the role files into your Claude Code skills directory:
    ```
    .claude/skills/writer/SKILL.md      ← from roles/writer.md
-   .claude/skills/searcher/SKILL.md    ← from roles/searcher.md
    .claude/skills/critic/SKILL.md      ← from roles/critic.md
    ```
-   Also copy `integration/agents/searcher.md` and `integration/agents/critic.md` into `.claude/agents/` so the Writer can spawn them as subagents with the right toolset (read-only).
+   Also copy `integration/agents/searcher.md` and `integration/agents/critic.md` into `.claude/agents/` so the Writer can spawn them as subagents with the right toolset (read-only). The Searcher has no skill of its own: nobody summons it directly, and it runs only when the Writer dispatches it.
+
+   Keep three shared files where all three roles can read them: `shared/evidence-handbook.md` (the evidence rules the Writer, the Critic and a dispatched Searcher all follow), `roles/searcher.md` (read by the Searcher agent at startup), and `governance/role-division.md`. The agent files list their startup reading; fix those paths to wherever you keep these files.
 
    *Two install patterns.* Copying the full role files (above) makes each skill self-contained — simplest for Tier A. The thin wrappers in `integration/wrappers/` are the alternative for Tier B+: the skill file stays a small pointer and the role's **master copy lives in your vault or a cloned repo**, so upgrading a role means editing one file, not re-copying. If you use the wrappers, fix their relative paths to wherever the master files live.
 
@@ -35,7 +36,7 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 3. Start a session and summon the Writer (see `shared/summon-templates.md` for the full template):
    > You are the Writer. Read `.claude/skills/writer/SKILL.md`, then wait for my assignment.
 
-**First session walkthrough.** Give the Writer a paragraph you want to develop. It will: draft from your argument first (without peeking at notes — your reasoning leads, evidence follows); spawn the Searcher to find supporting and opposing passages, returned as verbatim quotes with real page numbers; integrate; spawn the Critic for a blind review; revise with explicit reasons for every accepted or rejected criticism; and finish with a Searcher audit that walks every citation-bearing claim and returns a support-status list (✅/⚠️/❌). Nothing ❌ is quietly left in.
+**First session walkthrough.** Give the Writer a paragraph you want to develop. It will: draft from your argument first (without peeking at notes — your reasoning leads, evidence follows); search your notes and PDFs itself and bring back supporting and opposing passages as verbatim quotes with the printed page numbers (for a large topic it will instead propose dispatching Searchers, one per concept family, and wait for your go); integrate; spawn the Critic for a blind review, which fetches its own counter-evidence; revise with explicit reasons for every accepted or rejected criticism; and finish with the final audit — a Searcher it asks you to approve — that walks every citation-bearing claim and returns a support-status list (✅/⚠️/❌). Nothing ❌ is quietly left in.
 
 **What Tier A does not give you:** structured ingestion (new PDFs get notes by hand or not at all), vault hygiene, and upstream planning. That is Tiers B and C.
 

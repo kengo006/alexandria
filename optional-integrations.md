@@ -9,11 +9,11 @@ Three capabilities the upstream system runs as local tools. They are **documente
 **Contract**:
 - A `text-layer/` tree mirroring `sources/` file-for-file: `text-layer/<branch>/<same-name>.txt`.
 - Produced by any extractor (`pdftotext` works well for born-digital; OCR for scans); include page markers (e.g. `===== page N =====`) so hits map back to pages.
-- **Known trap — footer pagination shifts by one**: when a work prints its page numbers at the foot, extractors attribute the number to the *following* page's text flow, so the layer's "page N" is printed page N−1, consistently through the whole book. Header-paginated works are unaffected. The layer stays a *locator* either way (the page you cite is the one printed on the PDF page you opened — `roles/searcher.md` §1), but knowing the offset saves a batch of false "wrong page" audit failures.
+- **Known trap — footer pagination shifts by one**: when a work prints its page numbers at the foot, extractors attribute the number to the *following* page's text flow, so the layer's "page N" is printed page N−1, consistently through the whole book. Header-paginated works are unaffected. The layer stays a *locator* either way (the page you cite is the one printed on the PDF page you opened — `shared/evidence-handbook.md` §1), but knowing the offset saves a batch of false "wrong page" audit failures.
 - Git-ignored (derived data, and your sources' copyright stays local).
 - Re-extract on PDF replacement; rename together with the source (it is step 8 of the rename chain).
 
-**Plugs into**: Searcher step 1 (corpus grep), Librarian large-work reading, `shared/search-patterns.md` throughout. **Status in roles**: positioning only — never a citation source.
+**Plugs into**: every role that takes evidence — the Writer and the Critic directly, the Searcher when dispatched (corpus grep, `shared/search-patterns.md` throughout) — and the Librarian's large-work reading. **Status in roles**: positioning only — never a citation source.
 
 ## 2. Semantic recall
 
@@ -31,7 +31,7 @@ Three capabilities the upstream system runs as local tools. They are **documente
 
 **Reference recipe** (the upstream production stack, shared so you don't have to guess): [fastembed](https://github.com/qdrant/fastembed) running an ONNX multilingual model (`paraphrase-multilingual-MiniLM-L12-v2`) for embeddings — CPU-only, no PyTorch — over [LanceDB](https://github.com/lancedb/lancedb) as the vector store. Chunk the text layer with its page markers preserved, so every fragment maps back to `{file, page}`. In upstream production this combination indexes ~400k chunks on a 16 GB laptop, with incremental updates running in about 90 seconds. A minimal MCP server exposing a single `search(query, k)` tool is all the roles need.
 
-**Plugs into**: Searcher search path D; Researcher's coverage scans. Degrades to grep when absent — every role treats it as a bonus, not a dependency.
+**Plugs into**: the search of every role that takes evidence (the Writer and the Critic directly, the Searcher when dispatched — it is search path D in `roles/searcher.md` §3 and §0-bis of `shared/search-patterns.md`); the Researcher's coverage scans. A subagent sees it only if it is on the agent's `tools:` line (`integration/agents/`). Degrades to grep when absent — every role treats it as a bonus, not a dependency.
 
 ## 3. OCR escalation path
 
@@ -42,8 +42,8 @@ Three capabilities the upstream system runs as local tools. They are **documente
 - Tier 2 (optional): a stronger model (e.g. a vision-language OCR) for *selected hard pages* — dense footnotes, critical italics, complex layouts — invoked per page range, never as the bulk default. If your hardware is memory-constrained, batch pages in small chunks and **verify output page counts against the PDF** (silent page-dropping with a success exit code is a real failure mode; treat count mismatch as an error).
 - Output lands next to the source or in the text layer, marked as OCR.
 
-**Plugs into**: Librarian ingestion (G1 step 4) and the Searcher's scanned-source handling (verify quotes against page images; OCR text locates only).
+**Plugs into**: Librarian ingestion (G1 step 4) and scanned-source handling by whoever takes the evidence (verify quotes against page images; OCR text locates only).
 
 ## Adding your own
 
-Whatever you integrate, apply the same two tests the three above pass: **(a)** the roles must degrade gracefully without it, and **(b)** it must never become a citation source — the source-tier table (`roles/searcher.md` §1) admits only the source itself.
+Whatever you integrate, apply the same two tests the three above pass: **(a)** the roles must degrade gracefully without it, and **(b)** it must never become a citation source — the source-tier table (`shared/evidence-handbook.md` §1) admits only the source itself.

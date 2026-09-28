@@ -6,7 +6,7 @@ Three worked outputs, so you can see what the roles actually produce before deci
 
 | File | What it shows |
 |---|---|
-| [`searcher-discovery-report.md`](searcher-discovery-report.md) | What comes back when the Writer spawns the Searcher for evidence: verbatim quotes at real pages, four-layer verification marks, the mandatory opposing-positions section, and honest gaps |
+| [`searcher-discovery-report.md`](searcher-discovery-report.md) | What comes back from one seat of a family-by-family sweep the Writer dispatched, with the author's approval: verbatim quotes at real pages, four-layer verification marks, the mandatory opposing-positions section, and honest gaps |
 | [`critic-review.md`](critic-review.md) | A blind first-round review: standards pre-committed before the draft was read, located criticisms, the sections that are mandatory even when empty |
 | [`audit-support-list.md`](audit-support-list.md) | The final gate: every citation-bearing claim walked, with a support status and an anchor grade, and what happens to the ones that fail |
 

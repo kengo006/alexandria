@@ -1,6 +1,6 @@
 # Topic report mode
 
-A **research-material report** on a topic, a book, or a set of sources — survey, literature review, single-work deep read, multi-source synthesis, or a structured face-off between positions. It is *input material* for later writing, not final prose. Produced by the **Writer + Searcher** together; invoked when the author asks for "a review of X", "a report on this book", "put these sources side by side".
+A **research-material report** on a topic, a book, or a set of sources — survey, literature review, single-work deep read, multi-source synthesis, or a structured face-off between positions. It is *input material* for later writing, not final prose. Produced by the **Writer**, which takes the evidence itself (a report spanning a large body of sources may dispatch Searchers, family by family, once the author approves); invoked when the author asks for "a review of X", "a report on this book", "put these sources side by side".
 
 ## 1. Pick the type (four options; auto-select from the input or let the author choose)
 
@@ -29,7 +29,7 @@ The two signature blocks are what make it a *report to someone* rather than a su
 
 ## 4. Quote layer: delegated, not copied
 
-Vault location for the body and the verbatim quote list come **from the Searcher** — source-tier discipline, real pages, complete passages, four-layer verification (`roles/searcher.md`). The report **does not restate quote rules**; it cites the Searcher's file as the single source. For large works, locate via the text layer, but quotes and page numbers always come from the source itself.
+Vault location for the body and the verbatim quote list are **taken at the source page** — source-tier discipline, real pages, complete passages, four-layer verification (`shared/evidence-handbook.md`). The report **does not restate quote rules**; it cites the handbook as the single source. For large works, locate via the text layer, but quotes and page numbers always come from the source itself.
 
 ## 5. Style
 
@@ -37,7 +37,7 @@ A report is **research-material register** — structured, listy, typographicall
 
 ## 6. Division of labour and output
 
-- **Searcher**: vault location + the verified quote list. **Writer**: type judgment, six-block assembly, synthesis prose, both signature blocks.
+- **Writer**: vault location and the verified quote list (taken at the source page), type judgment, six-block assembly, synthesis prose, both signature blocks. **Searcher** (dispatched, approved first): a large topic's complete sweep, family by family, when the report needs one.
 - Output goes to the current project's own `_outputs/` folder, named `{topic}_{descriptor}_{type}_v{YYMMDD}{a/b…}.md`.
 
 ## 7. Publication-grade reviews

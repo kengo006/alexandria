@@ -12,7 +12,7 @@ Authority lives in the master file — this wrapper only loads it.
 3. Orient: `notes/vault-map.md`; existing sketches in the drafts folder if relevant.
 
 **Digest of red lines** (master wins):
-- No content writing, not even "just a sketch". No verbatim quotes (that is the Searcher, later).
+- No content writing, not even "just a sketch". No verbatim quotes (that is the Writer's, later, at the source page).
 - Orientation-level search only (vault coverage + shape of the public debate).
 - Critique-first; single-focus questions with options; the author's idea is the axis.
 - **Independent development first**: no volunteered links to the author's other work until the idea stands on its own or the author asks.

@@ -8,12 +8,14 @@ Six roles, strictly separated. Crossing a boundary is a violation, not initiativ
 |---|---|---|---|
 | **Librarian** | front end (talks to the human) | ingests sources, writes/maintains all vault notes | writes prose |
 | **Researcher** | upstream of the Writer; also the human's thinking partner | develops ideas into writing plans; talks ideas through (consult mode) | writes content; fetches quotes; adjudicates the human's position |
-| **Writer** | back end, one per project | drafts through six phases; orchestrates Searcher + Critic; re-checks at the source page whatever will ship | writes into the vault; ships a quote it has not seen on the page |
-| **Searcher** | Writer's subagent | verified verbatim quotes with real pages | writes anything; paraphrases |
-| **Critic** | Writer's subagent | blind first-round review | rewrites; softens valid criticism |
-| **Deep-reader** | main-line; the Searcher's advanced form | reads a whole text into a structured, page-anchored note | discusses ideas (that is the Researcher's consult); writes prose |
+| **Writer** | back end, one per project | drafts through six phases; takes its own evidence at the source page; spawns the Critic; dispatches the Searcher | writes into the vault; ships a quote it has not seen on the page |
+| **Searcher** | Writer's subagent, **dispatched only** | a large topic's complete corpus sweep; the final audit — verified verbatim quotes with real pages | writes anything; paraphrases; runs for an everyday lookup |
+| **Critic** | Writer's subagent | blind first-round review; takes its own counter-evidence at the source page | rewrites; softens valid criticism; fetches supporting evidence |
+| **Deep-reader** | main-line | reads a whole text into a structured, page-anchored note, under the same citation discipline | discusses ideas (that is the Researcher's consult); writes prose |
 
 **Writer-as-broker**: the Writer spawns its own subagents; the human never ferries messages between roles. The human faces at most four conversations: Librarian, Researcher (optional), Deep-reader (optional), and one Writer per project.
+
+**Who takes evidence (since v4.0).** The Writer takes its own, the Critic takes its own counter-evidence, both under one handbook (`shared/evidence-handbook.md`). The Searcher is **dispatched, not routine**: only for a large topic's complete corpus sweep while drafting, or for the final audit — and only after the human approves the job's scope and purpose. A subagent run costs far more than a lookup; the approval is the cost control.
 
 ## Write permissions
 
@@ -27,7 +29,7 @@ Six roles, strictly separated. Crossing a boundary is a violation, not initiativ
 
 **Two carve-outs, and why they are safe.** The single-writer rule (below) protects the vault; two roles get a bounded exception because they produce durable artifacts that are not vault notes:
 - The **Writer**'s project folder sits outside the vault entirely.
-- The **Deep-reader** writes only *new files of its own* into one dedicated folder. Each of the five reasons is met: close-reads are not part of the note system's chain (no rename/link chain hangs on them); a deep-note is not a working draft (it carries the same citation discipline as the Searcher); only new self-authored files means no write race; the header's date and version give the audit trail; and the role is trained for exactly this artifact.
+- The **Deep-reader** writes only *new files of its own* into one dedicated folder. Each of the five reasons is met: close-reads are not part of the note system's chain (no rename/link chain hangs on them); a deep-note is not a working draft (it carries the same citation discipline as every role that takes evidence); only new self-authored files means no write race; the header's date and version give the audit trail; and the role is trained for exactly this artifact.
 
 ## Project scaffold (a Writer's first act)
 
@@ -54,7 +56,7 @@ Any handover artifact — a plan, a skeleton, a history file, a status report �
 4. **Audit trail**: all vault changes flow through one role's gates and reports; anything else is an untracked mutation.
 5. **Competence boundary**: the Librarian's gates (source-read-first, error taxonomy) exist because vault writing is *specialist* work; granting it to other roles grants the work without the gates.
 
-"Writing the vault" means creating or modifying anything under `notes/` and `sources/`. **Reading is open to all roles, source PDFs included.** What differs is *whose job* it is: the Searcher retrieves, the Writer confirms before shipping, the Librarian ingests, and the Researcher stays upstream of quotation entirely. *(Until 2026-08 the Writer was barred from source PDFs and the Searcher was its only route to them; the bar was lifted — see `roles/writer.md` §1. The retrieval route did not change; a confirmation step was added at the shipping boundary.)*
+"Writing the vault" means creating or modifying anything under `notes/` and `sources/`. **Reading is open to all roles, source PDFs included.** What differs is *whose job* it is: the Writer takes its own evidence and the Critic its own counter-evidence, both under one handbook; a dispatched Searcher sweeps a large topic or audits a finished draft; the Librarian ingests; and the Researcher stays upstream of quotation entirely. *(History: until 2026-08 the Writer was barred from source PDFs and the Searcher was its only route to them. In 2026-08 the bar was lifted and a confirmation step added at the shipping boundary; in v4.0 (2026-09) the retrieval itself moved to the Writer, and the Searcher became dispatch-only — see `roles/writer.md` §1.)*
 
 ## The workflow, end to end
 
@@ -65,11 +67,12 @@ Any handover artifact — a plan, a skeleton, a history file, a status report �
 [Human] — Writer conversation (per project), with the plan as brief:
             Phase 0  build the project scaffold      ← no folder, no writing
             Phase 1  independent draft (placeholders; no notes)
-            Phase 2  per-family parallel Searcher spawns → merged evidence
+            Phase 2  evidence, family by family, taken at the source page by the Writer
+                     (a large topic's complete sweep: per-family Searchers, dispatched on approval)
             Phase 3  integrate; citations enter the ledger      ← filing is the exit gate
-            Phase 4  Critic (blind) → located criticisms
+            Phase 4  Critic (blind; takes its own counter-evidence) → located criticisms
             Phase 5  selective revision (rejections need reasons)
-            Phase 6  Searcher audit → support-status list, filed  ← delivery gate
+            Phase 6  audit by a dispatched Searcher (approved) → support-status list, filed  ← delivery gate
           → deliver: draft + support-status list + revision summary + asset delta
 ```
 
@@ -90,10 +93,12 @@ Any role asked to do another's work **flags it and names the right role** — si
 | Asked of the wrong role | Route to |
 |---|---|
 | Writer asked to create a literature note | Librarian |
-| Searcher asked to fix a note it found defective | Librarian (via errata) |
+| Any role asked to fix a note it found defective | Librarian (via errata) |
 | Critic asked to rewrite | Writer |
+| Critic asked to find supporting evidence | Writer (the Critic takes counter-evidence only) |
+| Searcher spawned for an everyday lookup | Writer (it takes its own evidence; a dispatch needs an approved job) |
 | Librarian asked to draft prose | Writer |
-| Researcher asked for verbatim quotes | Searcher (later, via the Writer's discovery phase) |
+| Researcher asked for verbatim quotes | Writer (later, at the source page, in its evidence phase) |
 | Researcher asked to read a whole book into a detailed note | Deep-reader |
 | Deep-reader asked to talk an idea through | Researcher (consult mode) |
-| Deep-reader asked to fetch a quote for a paragraph in progress | Searcher (via the Writer) |
+| Deep-reader asked to fetch a quote for a paragraph in progress | Writer (it takes its own evidence) |

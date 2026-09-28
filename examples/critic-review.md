@@ -54,12 +54,12 @@ For this opening to hold, it must:
 
 ### Negative universals (mandatory section)
 
-| The sentence, verbatim | To overturn it, read — |
-|---|---|
-| "No account in this literature has treated commemoration as a condition of memory rather than a record of it." | Roe (1998) argues the opposite thesis and, in doing so, characterises the position she is rejecting — which means someone held it. Also: the edited collections from the two decades before Doe, which this vault covers thinly. |
-| "This is the first study to read memorial practice and archival practice together." | Ives (2014) is a study of exactly that pairing; whether it counts as "together" in the draft's sense is arguable, but the sentence as written is falsified by it. |
+| The sentence, verbatim | To overturn it, read — | What I found there |
+|---|---|---|
+| "No account in this literature has treated commemoration as a condition of memory rather than a record of it." | Roe (1998) argues the opposite thesis and, in doing so, characterises the position she is rejecting — which means someone held it. Also: the edited collections from the two decades before Doe, which this vault covers thinly. | **In the vault, so read.** Roe (1998), printed p. 12 seen: she sets out the view before rejecting it — someone held it. The sentence breaks. The edited collections: not in the vault; named only. |
+| "This is the first study to read memorial practice and archival practice together." | Ives (2014) is a study of exactly that pairing; whether it counts as "together" in the draft's sense is arguable, but the sentence as written is falsified by it. | **In the vault, so read.** Ives (2014), printed p. 3 seen: the pairing is the study's announced subject. The sentence breaks as written. |
 
-- **Not asked to read them** — this section names where each sentence would break, and stops there.
+- **Read where the vault allows** (since v4.0 the Critic takes its own evidence): both places were in the vault, so both were read at the page. What lies outside the vault is named and left.
 - 🔑 Both sentences are unsourced, and both are the kind that only a counterexample can settle. **The second one I believe is simply false.**
 
 ### Possibly missing sources
@@ -69,4 +69,4 @@ For this opening to hold, it must:
 ### My own uncertainties
 
 - Criticism 1 depends on reading paragraph 3 as a conclusion rather than a restatement. If it is meant as a restatement, the criticism dissolves and the paragraph is merely unclear.
-- I did not verify the Doe (2011) p. 47 quotation against the source; I am taking the Searcher's credential for it. If the strong/weak distinction turns on that wording, it should be re-read.
+- I did not re-read the Doe (2011) p. 47 quotation at the source; I am taking the Writer's credential for it (its ledger row). If the strong/weak distinction turns on that wording, it should be re-read.

@@ -4,7 +4,7 @@ A machine-readable, honest list of text-layer files that have been **repaired to
 
 > **A file you could not fully fix is registered, never hidden.** Hiding it turns every future grep miss on that file into a confident, wrong "it's not in the vault."
 
-Some sources never yield a clean text layer — a hostile scan, a font with a private encoding, a language your OCR mishandles. Repair what can be repaired (see `roles/librarian.md` §8); what remains gets a registry entry stating exactly **which access paths still work**. The searching roles consult the registry before shipping any negative conclusion (`roles/searcher.md` §1).
+Some sources never yield a clean text layer — a hostile scan, a font with a private encoding, a language your OCR mishandles. Repair what can be repaired (see `roles/librarian.md` §8); what remains gets a registry entry stating exactly **which access paths still work**. The searching roles consult the registry before shipping any negative conclusion (`shared/evidence-handbook.md` §1).
 
 ## Schema
 

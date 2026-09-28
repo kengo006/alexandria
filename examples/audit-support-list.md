@@ -1,4 +1,4 @@
-# Example — Searcher, audit mode (the final gate)
+# Example — Searcher, audit mode (the final gate, dispatched)
 
 > 🔴 **Fabricated example.** Every work, quotation and page number here is invented; see [`README.md`](README.md). Copy the shape, never the content.
 

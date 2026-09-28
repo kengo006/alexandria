@@ -2,19 +2,50 @@
 
 **A citation-integrity-first academic writing system for Claude Code and Obsidian.**
 
+<!-- zh-intro -->
+
+[中文簡介](#中文簡介)
+
+<!-- /zh-intro -->
+
 Large language models fabricate citations. A recent [cross-model audit](https://arxiv.org/abs/2603.03299) of ten models measured reference-fabrication rates between 11.4% and 56.8%, and most tooling attacks the problem *after* the text is written, by detecting hallucinated references. Alexandria attacks it *before*: it is a six-role writing system whose workflow makes fabrication structurally difficult. Every verbatim quote must be read back from the source PDF at a real page number, pass four verification layers, survive a blind review, and be audited line-by-line before a draft is allowed to call itself done.
 
 Alexandria is not a library or a server. It is a set of role definitions, methods, and governance files you drop into [Claude Code](https://claude.com/claude-code), pointed at your own [Obsidian](https://obsidian.md) vault.
 
-> **In thirty seconds.** **You need**: Claude Code, and a folder with your PDFs in it. No server, no database, no key beyond the one you already have; Obsidian and the Python scripts are for later tiers. **You do**: copy three role files into `.claude/skills/`, two agent files into `.claude/agents/`, point them at `sources/` and `notes/`, and ask the Writer for a paragraph. That is Tier A, and the whole citation pipeline runs at it — [GETTING-STARTED.md](GETTING-STARTED.md) has the exact steps. **You see**: [`examples/`](examples/) — a Searcher report, a blind review, and the audit that refuses to sign off, all fabricated for illustration. **Everything below this line is why it is built this way**; if you would rather find out by running it, the two links above are the whole path in.
+> **In thirty seconds.** **You need**: Claude Code, and a folder with your PDFs in it. No server, no database, no key beyond the one you already have; Obsidian and the Python scripts are for later tiers. **You do**: copy two role files into `.claude/skills/` and two agent files into `.claude/agents/`, keep the evidence handbook where they can read it, point them at `sources/` and `notes/`, and ask the Writer for a paragraph. That is Tier A, and the whole citation pipeline runs at it — [GETTING-STARTED.md](GETTING-STARTED.md) has the exact steps. **You see**: [`examples/`](examples/) — a dispatched Searcher's report, a blind review, and the audit that refuses to sign off, all fabricated for illustration. **Everything below this line is why it is built this way**; if you would rather find out by running it, the two links above are the whole path in.
 
 **Where it comes from.** I am a graduate student in Taiwan working at the intersection of political philosophy and AI ethics. Alexandria is the system that carries that research in production — every gate in it was added because something actually went wrong. I am sharing the skeleton so that students in neighbouring humanities fields have a working reference for building their own. It is tuned for interpretive work: close reading, verbatim quotation, page-anchored citation of books and articles. If your research is quantitative or in the natural sciences, the role architecture may still serve you, but the evidence layer assumes texts rather than datasets — expect to study the framework and rework that layer yourself.
 
-**How it grew.** Alexandria was assembled at the end of May 2026 and has been in daily production ever since; the release date at the top of the changelog is how far that run had got when this snapshot was cut. Nothing here was designed on a whiteboard: every gate traces to a documented failure, every default to a measured comparison. The role files carry dated changelogs — the Librarian's rulebook stood at its fourth generation and 129 recorded revisions when v3.7 was cut — and the overhauls that mattered most are told inside the files where they happened: the source-tier rule (after the founding incident of quotes copied from notes), the ban on "reconstructing from general knowledge" (root cause of every serious fabrication), the full-text corpus layer, per-family parallel discovery (adopted after a head-to-head experiment), and the council's redesign from self-played review to independent blind seats.
+**How it grew.** Alexandria was assembled at the end of May 2026 and has been in daily production ever since; the release date at the top of the changelog is how far that run had got when this snapshot was cut. Nothing here was designed on a whiteboard: every gate traces to a documented failure, every default to a measured comparison. The role files carry dated changelogs — the Librarian's rulebook stood at its fourth generation and 129 recorded revisions when v3.7 was cut — and the overhauls that mattered most are told inside the files where they happened: the source-tier rule (after the founding incident of quotes copied from notes), the ban on "reconstructing from general knowledge" (root cause of every serious fabrication), the full-text corpus layer, per-family parallel discovery (adopted after a head-to-head experiment), the council's redesign from self-played review to independent blind seats, and — in v4.0 — the move of evidence-taking out of a dedicated Searcher and into the roles that use it.
 
 **Influences.** Two public projects left direct marks: [academic-research-skills](https://github.com/imbad0202/academic-research-skills) (quote anchors, the blind-review pre-commitment, anti-sycophancy) and [everything-claude-code](https://github.com/affaan-m/everything-claude-code) (the topic-report, council, and scholar-evaluation modes began as adaptations of its method prompts). What was evaluated and deliberately *not* adopted shaped the system just as much.
 
 **The wider system.** Alexandria is one domain of a larger personal multi-agent system, internally called *Chaos*. Around its members Chaos maintains a constitutional layer that every agent re-reads before regulated actions, file-based messaging that lets agents cooperate across sessions, mechanical drift detection, security vetting for anything external, a survival protocol for context compaction, and a standing habit of turning incidents into new gates. Much of what makes Alexandria dependable in production is this reinforcement from above: the roles supply the discipline, and the wider system keeps the discipline honest. Everything published here stands on its own without it — and what is published is Alexandria alone.
+
+<!-- zh-intro -->
+
+## 中文簡介
+
+**為 Claude Code 與 Obsidian 設計、以引文完整性為先的學術寫作系統。**
+
+大型語言模型會捏造引文。一份橫跨十個模型的[稽核研究](https://arxiv.org/abs/2603.03299)量到的參考文獻捏造率，落在 11.4% 到 56.8% 之間；多數工具在文字寫完之後才去偵測捏造。Alexandria 在寫的時候就處理：它是一套分成六個角色的寫作系統，由工作流程本身讓捏造變得困難。每一句逐字引文都要回到原始 PDF、在真實頁碼上讀出來，通過四層核對，經過盲審，並在草稿自稱完成之前逐條稽核。
+
+Alexandria 沒有函式庫或伺服器，只有一組角色定義、方法與治理文件：放進 [Claude Code](https://claude.com/claude-code)，指向你自己的 [Obsidian](https://obsidian.md) 知識庫就能運作。
+
+- **寫作員（Writer）**：依六個階段起草與修改，自己回到原始頁面取證。
+- **批評者（Critic）**：先寫下評判標準再讀草稿（盲審），並自己查反面證據。
+- **搜尋員（Searcher）**：經你核准後才派出，只負責兩件事：大主題的完整語料蒐集，以及交稿前的最終稽核。
+- **管理員（Librarian）**：入庫與撰寫文獻筆記，是唯一能寫入知識庫的角色。
+- **研究員（Researcher）**：動筆之前，把一個想法發展成寫作計畫。
+- **深讀員（Deep-reader）**：把一整本書讀成附頁碼錨點的結構化筆記。
+
+取證規則集中在一份共用的[取證手冊](shared/evidence-handbook.md)（英文）：自 v4.0 起，寫作員、批評者與派出的搜尋員都照同一套規則取證。
+
+我是台灣的研究生，研究政治哲學與 AI 倫理的交界。Alexandria 是承載這些研究的日常系統，裡面每一道關卡，都是因為真的出過錯才加上去的。分享這副骨架，是希望鄰近人文領域的學生有一個能運作的參考，用來打造自己的系統。它為詮釋性的工作而調校：細讀、逐字引用，以及書籍與論文的頁碼錨定。
+
+最小可用版（Tier A）只需要 Claude Code 和一個放 PDF 的資料夾，步驟見 [GETTING-STARTED.md](GETTING-STARTED.md)，各階段的示範輸出在 [`examples/`](examples/)。文件本體目前只有英文。
+
+<!-- /zh-intro -->
 
 ---
 
@@ -36,9 +67,9 @@ Alexandria is not a library or a server. It is a set of role definitions, method
 | Role | Does | Never does |
 |---|---|---|
 | **[Librarian](roles/librarian.md)** | Ingests sources, writes literature notes, maintains vault structure, runs integrity gates | Writes your prose |
-| **[Writer](roles/writer.md)** | Drafts and revises your text through a six-phase pipeline; orchestrates the other roles; re-checks at the source page whatever will ship | Ships a quote it has not seen on the page; writes into the vault |
-| **[Searcher](roles/searcher.md)** | Finds sources in your vault and returns **verbatim quotes with real page numbers**, verified four ways | Writes anything; paraphrases quotes |
-| **[Critic](roles/critic.md)** | Reviews your drafts blind, under an explicit anti-sycophancy rule | Rewrites your text; softens valid criticism |
+| **[Writer](roles/writer.md)** | Drafts and revises your text through a six-phase pipeline; **takes its own evidence** — verbatim quotes with real page numbers, read at the source page and verified four ways; orchestrates the other roles | Ships a quote it has not seen on the page; writes into the vault |
+| **[Searcher](roles/searcher.md)** | Dispatched, with your approval, for the two jobs too big or too independent for the Writer: a complete sweep of a large topic's sources, and the final audit | Writes anything; paraphrases quotes; runs for an everyday lookup |
+| **[Critic](roles/critic.md)** | Reviews your drafts blind, under an explicit anti-sycophancy rule, and looks up its own counter-evidence at the source page | Rewrites your text; softens valid criticism; fetches evidence *for* the draft |
 | **[Researcher](roles/researcher.md)** | Upstream planning: topic development, structure design — and talking an idea through when nothing will be written yet | Detailed literature search; final prose; deciding your position for you |
 | **[Deep-reader](roles/deep-reader.md)** | Reads a whole book or lecture series into a structured, page-anchored note — a map of the argument, not a summary | Discusses ideas (the Researcher's job); writes your prose |
 
@@ -60,13 +91,13 @@ This is the spine of the system, and the reason it exists.
 | Your literature notes | ❌ positioning only | Orientation: which work, which chapter |
 | Semantic search fragments | ❌ recall only | Cross-lingual discovery of candidates |
 
-Positioning layers tell you *where to look*. Only the source itself tells you *what it says*. Quotes copied from notes are second-hand and carry every error the note ever made; Alexandria forbids them in final drafts.
+Positioning layers tell you *where to look*. Only the source itself tells you *what it says*. Quotes copied from notes are second-hand and carry every error the note ever made; Alexandria forbids them in final drafts. These rules live in one [evidence handbook](shared/evidence-handbook.md) that every role taking evidence follows — the Writer for its own evidence, the Critic for counter-evidence, and a dispatched Searcher.
 
-**2. Four-layer quote verification.** Every quote the Searcher returns must pass: (a) **correspondence**: the passage actually supports the claim it is attached to, not merely keyword-matches it; (b) **not second-hand**: the words are the author's own position, not the author quoting or summarising someone else; (c) **settled position**: the passage reflects the author's developed view, not a setup being torn down two pages later; (d) **entity attribution**, when the passage names a specific subject: the claim is about the *same* subject the paragraph is about. Layers (a)–(c) discard on failure; (d) **flags instead**, because a near-miss on entity is often the right passage with the wrong framing — and that judgement belongs to you, not to the Searcher.
+**2. Four-layer quote verification.** Every quote that enters a draft must pass, whoever took it: (a) **correspondence**: the passage actually supports the claim it is attached to, not merely keyword-matches it; (b) **not second-hand**: the words are the author's own position, not the author quoting or summarising someone else; (c) **settled position**: the passage reflects the author's developed view, not a setup being torn down two pages later; (d) **entity attribution**, when the passage names a specific subject: the claim is about the *same* subject the paragraph is about. Layers (a)–(c) discard on failure; (d) **flags instead**, because a near-miss on entity is often the right passage with the wrong framing — and that judgement belongs to you, not to whoever retrieved the passage.
 
-**3. Blind review and anti-sycophancy.** The Critic commits to its evaluation criteria *before* reading the draft, and operates under a standing rule: criticism is not softened to please, and a weak rebuttal may not dismiss a valid objection.
+**3. Blind review and anti-sycophancy.** The Critic commits to its evaluation criteria *before* reading the draft, and operates under a standing rule: criticism is not softened to please, and a weak rebuttal may not dismiss a valid objection. It looks up its own counter-evidence, verbatim and page-anchored, under the same rules.
 
-**4. Final audit.** Before any draft is delivered, the Searcher re-enters in audit mode and walks every citation-bearing claim, producing a **support-status list**: ✅ supported / ⚠️ needs adjustment / ❌ unsupported. Unsupported claims are fixed, explicitly re-labelled as the writer's own position, or cut. They are never quietly left in.
+**4. Final audit.** Before any draft is delivered, a Searcher is dispatched in audit mode — a reader who did not write the text, approved by you like every dispatch — and walks every citation-bearing claim, producing a **support-status list**: ✅ supported / ⚠️ needs adjustment / ❌ unsupported. Unsupported claims are fixed, explicitly re-labelled as the writer's own position, or cut. They are never quietly left in.
 
 **5. The human is the last line of defence.** The pipeline reduces the error surface; it does not replace your eyes. Final verification against the source is a design assumption, not an afterthought. Every gate in this system was distilled from a real, post-mortemed failure, including entire fabricated summaries traced to "reconstructing from general knowledge", which is why that fallback is banned by name.
 
@@ -92,13 +123,13 @@ Prompt systems rot: definitions drift apart across copies, numbers go stale, "te
 
 ## Getting started
 
-**See it first** if you would rather: [`examples/`](examples/) carries one worked output per stage — a Searcher discovery report, a Critic's blind review, and the final audit (which, in the example, refuses to sign the draft off). Everything in them is fabricated on purpose; the file says so at the top.
+**See it first** if you would rather: [`examples/`](examples/) carries one worked output per stage — a dispatched Searcher's discovery report, a Critic's blind review, and the final audit (which, in the example, refuses to sign the draft off). Everything in them is fabricated on purpose; the file says so at the top.
 
 Three adoption tiers, in [GETTING-STARTED.md](GETTING-STARTED.md):
 
 | Tier | You get | You need |
 |---|---|---|
-| **A — Minimal** | Writer + Searcher + Critic: the citation pipeline on a folder of PDFs and notes | Claude Code only |
+| **A — Minimal** | Writer + Critic, with the Searcher for dispatched jobs: the citation pipeline on a folder of PDFs and notes | Claude Code only |
 | **B — Vault** | All six roles on a structured Obsidian vault with the note schema and two-end mirror | + an Obsidian vault |
 | **C — Full** | Governance layer, health checks, summon templates, optional integrations | + Python for the scripts |
 
