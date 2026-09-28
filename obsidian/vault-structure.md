@@ -39,11 +39,17 @@ Renaming one work touches, in one pass:
 
 Missing any one produces dead links, a stale text layer, or an orphaned mirror. **Before renaming**: glob both ends for the target name — same work already there → confirm with the human; same author, different work → disambiguate with the subtitle; never let a move silently overwrite.
 
+## The category list: one home, checked both ways
+
+The vault map's **Taxonomy** list (`notes/vault-map.md`; template in `vault-map-template.md`) is the one authoritative list of categories. Creating, renaming or retiring a category changes that list in the same pass as the folders, the MOC and both ends of the mirror.
+
+A hand-kept list falls behind without a sound. Upstream, the list had stopped at one date while five new top-level categories were created after it, and a pointer to "the authoritative list" led to a list that no longer existed. Nothing flagged it: the check that compares a note's category field with its folder asks whether each note sits where its metadata says, not whether the folders are the ones the map describes. ⇒ `vault_verify.py` check 6 reconciles the list with the folders under `notes/` **in both directions**: *listed but missing* (the list is stale, or a folder was removed by mistake) and *present but unlisted* (a category was created and never registered). It compares only as deep as the list reaches, so a map that deliberately stops at the second level is not flagged for the third.
+
 ## Mechanical verification
 
 Two scripts (in `governance/scripts/`), run after any large operation and at logical boundaries:
 
-- **`vault_verify.py`** — counts both ends; flags legacy-format remnants; checks every note's category field against its actual folder; checks filename year vs metadata year (respecting `year_note` exemptions); checks two-end filename alignment (star stripped). Listed ≠ wrong: known exemptions (companion translations, web-native sources) are judged by a human.
+- **`vault_verify.py`** — counts both ends; flags legacy-format remnants; checks every note's category field against its actual folder; checks filename year vs metadata year (respecting `year_note` exemptions); checks two-end filename alignment (star stripped); reconciles the vault map's taxonomy list with the folders, both ways (above). Listed ≠ wrong: known exemptions (companion translations, web-native sources) are judged by a human.
 - **`dead_link_scan.py`** — full-vault wikilink integrity: dead targets and wrong-path-but-resolvable links (see `wikilinks-and-mocs.md`).
 
 ## Deletion policy

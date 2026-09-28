@@ -4,6 +4,8 @@ The vault map is the one page describing your taxonomy: what branches exist, wha
 
 Copy, replace the synthetic example with your own taxonomy, save as `notes/vault-map.md`.
 
+The **Taxonomy** list is the one authoritative list of your categories. Keep its items in the shape below — `` - `name/` — description ``, nested by indentation — because `governance/scripts/vault_verify.py` check 6 reads that shape and reconciles the list with your folders in both directions (see `vault-structure.md`). An item in any other shape is invisible to that check.
+
 ````markdown
 ---
 title: "Vault map"

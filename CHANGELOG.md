@@ -2,6 +2,17 @@
 
 The skeleton is extracted from a live production system; each release is a **curated snapshot**, not a mirror. Releases are named after the upstream snapshot they carry — the system was already in its third generation when first published, hence the repo's first release was tagged v0.1 and later releases adopt the upstream `v3.x` numbering. v4.0 is the first major step taken here: the role design itself changed, not only its rules.
 
+## v4.1 — 2026-09-28 · A list nobody reconciled
+
+Same day as v4.0: what the upstream vault learned that afternoon, and one sentence v4.0 had to leave pessimistic.
+
+- 🔴 **The category list gets one home, and a check in both directions.** Upstream, the list of categories had stopped at one date while five new top-level categories were created after it, and a pointer to "the authoritative list" led to a list that no longer existed. No check noticed: the one that compares a note's category field with its folder asks whether each note sits where its metadata says, not whether the folders are the ones the map describes. The vault map's Taxonomy list is now declared the one home (`obsidian/vault-map-template.md`, `obsidian/vault-structure.md`), and `vault_verify.py` check 6 reconciles it with the folders under `notes/` both ways — *listed but missing* and *present but unlisted* — as deep as the list reaches. A map with nothing to read counts as a problem, not a pass. The sync matrix gains the row that ties the template's item shape to the pattern the check reads.
+- `vault_verify.py` no longer counts the vault map itself as a literature note (check 1) or lists it as a note without a PDF (check 5) — found while testing check 6.
+- **`claims-and-evidence.md` §9 gains three items**: take a key from the data, not from its display; count a report's classes before you filter it; a gate piped into `head` is not a gate.
+- `optional-integrations.md` §2: the companion alexandria-semantic-recall reports every category by name from its v0.5, published after v4.0, so the warning v4.0 carried now applies to v0.4 and earlier.
+- Check 6 was run on five synthetic vaults: an exact match (exit 0), one unlisted folder and one missing folder (each reported, exit 1), a folder deeper than the list reaches (not flagged), and no vault map (NOT RUN, exit 1).
+- 46 files.
+
 ## v4.0 — 2026-09-28 · The roles that use evidence now take it
 
 Until this release one role stood between the Writer and the sources: every quote reached a draft through the Searcher, and the Writer re-read the page before anything shipped. Upstream has moved evidence-taking to the roles that use it — **the Writer takes its own, the Critic takes its own counter-evidence** — and the Searcher is dispatched only for the two jobs where a separate context is the point. Two findings drove it. 🔑 **What a Searcher buys is a main context that is not flooded by intermediate material; at small scale — one quote, one page — that protection is not worth a spawn's fixed cost.** And two seats the Writer had dispatched on its own ran into a usage limit and returned nothing — so every dispatch now needs the human's approval.

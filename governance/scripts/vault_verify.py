@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """Vault structural verification — run after any large operation.
 
-Five checks:
+Six checks:
   1. counts on both ends (notes / source PDFs)
   2. legacy-format remnants (configurable heading patterns; should be 0)
   3. note category field vs actual folder
   4. filename year vs metadata year (year_note-annotated files exempt)
   5. two-end filename alignment (star stripped; configurable exemption marks)
+  6. the vault map's taxonomy list vs the folders under notes/, both ways
+     (listed but missing / present but unlisted), to the depth the list reaches
 
 Dead links are a separate scan (dead_link_scan.py).
 Configure the block below for your vault.
@@ -24,6 +26,7 @@ LEGACY_HEADINGS = r"## (Legacy Section A|Legacy Section B)"   # your pre-schema 
 # notes whose header carries any of these marks are design-exempt from two-end alignment
 EXEMPT_MARKS = ("no standalone PDF", "web-native", "book-level overview", "chapter-level note")
 COMPANION_MARK = "(companion)"         # PDF filename mark for translation companions etc.
+VAULT_MAP = NOTES / "vault-map.md"     # its "## Taxonomy" list is the one home of the category list (check 6)
 SHOW_MAX = 20
 # ────────────────────────────────────────────────────────────────────
 
@@ -32,6 +35,8 @@ def mds():
         p = str(md)
         if any(x in p for x in EXCLUDE) or any(x in p for x in NON_LITERATURE):
             continue
+        if md == VAULT_MAP:
+            continue   # the map is not a literature note: it has no PDF and is not counted
         yield md
 
 problems = 0
@@ -106,5 +111,50 @@ for d, s in only_note[:SHOW_MAX]:
 for d, s in only_pdf[:SHOW_MAX]:
     print(f"   [pdf  only] {d}/{s}")
 # note: listed ≠ wrong — pdf-only items may be unprocessed arrivals; judge before acting.
+
+# 6. taxonomy list vs folders, both ways
+# The vault map's Taxonomy list is the one home of the category list. A hand-kept list falls
+# behind without a sound: upstream it had stopped at one date while five new top-level
+# categories were created after it, and a pointer to "the authoritative list" led nowhere.
+# Check 3 cannot see this: it asks whether each note sits in the folder its metadata names,
+# not whether the folders are the ones the map describes. Items are read in the template's
+# shape, "- `name/` - description", nested by indentation; folders deeper than the list
+# reaches are not compared (a map may stop at the second level on purpose).
+ITEM = re.compile(r"^(\s*)[-*]\s+`([^`/]+)/`")
+try:
+    sec = re.search(r"^## Taxonomy[ \t]*$(.*?)(?=^## |\Z)", VAULT_MAP.read_text(encoding="utf-8"), re.M | re.S)
+except OSError:
+    sec = None
+listed, depth, stack = set(), 0, []
+for line in (sec.group(1).splitlines() if sec else []):
+    m = ITEM.match(line)
+    if not m:
+        continue
+    ind = len(m.group(1).expandtabs(4))
+    while stack and stack[-1][0] >= ind:
+        stack.pop()
+    stack.append((ind, m.group(2)))
+    listed.add("/".join(n for _, n in stack))
+    depth = max(depth, len(stack))
+if not listed:
+    # A check that read nothing has not passed: say so, and count it.
+    print(f"6) taxonomy vs folders: NOT RUN - no '## Taxonomy' items of the form \"- `name/`\" in {VAULT_MAP}")
+    problems += 1
+else:
+    actual = set()
+    for d in NOTES.rglob("*"):
+        rel = d.relative_to(NOTES).as_posix() if d.is_dir() else None
+        if not rel or len(rel.split("/")) > depth or any(p.startswith(".") for p in rel.split("/")) \
+                or any(x in rel for x in EXCLUDE) or rel.split("/")[0] in NON_LITERATURE:
+            continue
+        actual.add(rel)
+    stale, unlisted = sorted(listed - actual), sorted(actual - listed)
+    print(f"6) taxonomy vs folders (to depth {depth}): listed {len(listed)}, folders {len(actual)}; "
+          f"listed but missing {len(stale)}, present but unlisted {len(unlisted)}")
+    for x in stale[:SHOW_MAX]:
+        print(f"   [listed, no folder] {x}/")
+    for x in unlisted[:SHOW_MAX]:
+        print(f"   [folder, not listed] {x}/")
+    problems += len(stale) + len(unlisted)
 
 sys.exit(1 if problems else 0)

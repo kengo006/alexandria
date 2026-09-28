@@ -96,7 +96,7 @@ When other sessions may be editing the vault concurrently, check for in-flight c
 Before saying *done / all processed / zero remaining*, run five self-audits:
 
 1. **Sample re-read**: pick 2–3 outputs at random and actually re-read them against the requirement — never trust the memory of having written them.
-2. **Full mechanical verification**: dead links, schema compliance, two-end alignment, category-vs-folder, no empty shells.
+2. **Full mechanical verification**: dead links, schema compliance, two-end alignment, category-vs-folder, the vault map's taxonomy list vs the folders (both ways — `obsidian/vault-structure.md`), no empty shells.
 3. **Requirement checklist**: asked for N things, delivered N? Words like "all/every" require full-set verification, not sampling.
 4. **Source-derivation check** (the crucial one): for each item, did I actually read that source in this session? If the honest answer is "it came from the filename / training knowledge / analogy" → flag as suspected fabrication.
 5. **Three-part report** — the word "done" alone is banned:
