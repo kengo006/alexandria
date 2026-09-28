@@ -45,7 +45,7 @@ Risk flags: 🟢 trivial-reversible (glance and move on) · 🟡 please look (bo
 ## Per role
 
 - **Librarian**: main producer of A; over-threshold items go to B; reports may be folded into the errata queue.
-- **Writer** (narrowest A): own delivered outputs only; **A never touches quotes or page numbers.** The reason first given — no source access — lapsed in v4.0, when the Writer began taking its own evidence; the rule stays, for a reason that did not lapse: fixing a quote in place was safe while a second role had checked it, and a correction the Writer both checks and applies has no second reader. Quote doubts → go back to the page image yourself, and report the correction as B with the folio you saw; a note-level defect it reveals → B for the Librarian. Reports ride along with the section's delivery summary.
+- **Writer** (narrowest A): own delivered outputs only. **Quote and page-number corrections may be A**, on the general condition above — checked against the page image first — with the folio you saw in the Basis column and a risk flag of at least 🟡; if the correction changes whether the quote still supports its sentence, it touches meaning and is B. (Until v4.0 the Writer's A never touched quotes, because the Writer had no source access. It now takes its own evidence, so the general condition applies to it too.) Quote doubts → go back to the page image yourself: verified and meaning-neutral → A; not verifiable, or two defensible readings → B; a note-level defect it reveals → B for the Librarian. Reports ride along with the section's delivery summary.
 - **Searcher / Critic**: read-only, **B only**. The Searcher's errata section (see `roles/searcher.md` §6) *is* its B, in this format.
 
 ## Where reports go
