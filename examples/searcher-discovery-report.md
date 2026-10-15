@@ -62,7 +62,7 @@ The passage claims a **constitutive** relation, not a **preservative** one: the 
 
 | Dimension | Assessment |
 |---|---|
-| On-topic | Strong — all four cited works address the constitutive claim directly. |
+| On-topic | Strong — three of the four cited works address the constitutive claim directly; Ives (2014) supplies the vocabulary only. |
 | Diversity | Adequate — two supporting, one opposing, one definitional; single research tradition, however. |
 | Concreteness | Strong — three direct quotations at verified pages. |
 | Completeness | **Weak on one axis**: nothing here is empirical. Every source is conceptual, so the passage is currently supported only by other people's arguments, not by any case. |
@@ -70,4 +70,4 @@ The passage claims a **constitutive** relation, not a **preservative** one: the 
 ### Caveats
 
 - Searched: `sources/memory-studies/` and `sources/public-history/`, English and the other working language, with the variants `produce / constitute / performative / world-making / bring into being` and their nominal forms. **Not searched**: the periodicals folder (no page-anchored text layer at present).
-- The Poe (2005) quotation sits mid-page and is unaffected by the page-opening rule; the Doe (2011) quotation is also mid-page. **Neither is a page-block opening**, so neither carries the one-in-five chance of belonging to the previous page.
+- The Poe (2005) quotation sits mid-page and is unaffected by the page-opening rule; the Doe (2011) and Roe (1998) quotations are also mid-page. **None of the three is a page-block opening**, so none carries the one-in-five chance of belonging to the previous page.

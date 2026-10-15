@@ -1,6 +1,6 @@
 # Examples
 
-> 🔴 **Everything in these files is fabricated.** Every work, author, quotation and page number below is invented — `Doe (2011)`, `Roe (1998)`, `Poe (2005)` and `Ives (2014)` are placeholders, not publications, and the sentences attributed to them were written for these files. **Copy the shape; never copy the content.** The longer version of why this warning comes before the table is at the bottom of this page.
+> 🔴 **Everything in these files is fabricated.** Every work, author, quotation and page number below is invented — `Doe (2011)`, `Roe (1998)`, `Poe (2005)`, `Ives (2014)` and `Halvard (1987)` are placeholders, not publications, and the sentences attributed to them were written for these files. **Copy the shape; never copy the content.** The longer version of why this warning comes before the table is at the bottom of this page.
 
 Three worked outputs, so you can see what the roles actually produce before deciding whether the discipline is worth adopting.
 
