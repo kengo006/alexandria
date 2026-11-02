@@ -123,6 +123,9 @@ if "--self-test" in sys.argv:
     sys.exit(self_test())
 
 ok, warn, fail = [], [], []
+# An optional check left unconfigured is listed as SKIP. Before v4.2 it printed nothing at all,
+# so a run with all three unset looked exactly like a run where all three passed.
+skip = []
 
 # 1. required files
 missing = [f for f in REQUIRED if not (SKELETON / f).is_file()]
@@ -154,6 +157,8 @@ else:
     ok.append(f"forbidden-pattern scan clean ({len(FORBIDDEN)} patterns across {scanned} files)")
 
 # 3. version mirrors (if configured)
+if not VERSION_MIRRORS:
+    skip.append("version mirrors: not configured (set VERSION_MIRRORS at the top of this file)")
 for src, (src_re, mirrors) in VERSION_MIRRORS.items():
     m = re.search(src_re, (SKELETON / src).read_text(encoding="utf-8"))
     if not m:
@@ -170,6 +175,8 @@ for src, (src_re, mirrors) in VERSION_MIRRORS.items():
         ok.append(f"{src} v{v}: mirrors consistent")
 
 # 4. changelog carries an entry for the current version (if configured)
+if not CHANGELOG_PRESENT:
+    skip.append("changelog entries: not configured (set CHANGELOG_PRESENT at the top of this file)")
 for f, (head_re, log_re) in CHANGELOG_PRESENT.items():
     text = (SKELETON / f).read_text(encoding="utf-8")
     m = re.search(head_re, text)
@@ -189,6 +196,8 @@ for f, (head_re, log_re) in CHANGELOG_PRESENT.items():
                     f"— the number was mirrored, the change was not written down")
 
 # 5. size budgets (if configured)
+if not SIZE_BUDGET:
+    skip.append("size budgets: not configured (set SIZE_BUDGET at the top of this file)")
 for f, cap in SIZE_BUDGET.items():
     n = (SKELETON / f).stat().st_size
     (warn if n > cap else ok).append(f"{f}: {n:,} bytes {'>' if n > cap else '<='} budget {cap:,}")
@@ -211,7 +220,8 @@ print("=== health check ===")
 for x in ok:   print(f"  PASS  {x}")
 for x in warn: print(f"  WARN  {x}")
 for x in fail: print(f"  FAIL  {x}")
-print(f"result: {len(ok)} pass / {len(warn)} warn / {len(fail)} fail")
+for x in skip: print(f"  SKIP  {x}")
+print(f"result: {len(ok)} pass / {len(warn)} warn / {len(fail)} fail / {len(skip)} skipped")
 print("(links: dead_link_scan.py — this repo's own document links always, a vault's"
       " wikilinks when you point it at one, and --self-test to see it discriminate;"
       " structure: vault_verify.py)")

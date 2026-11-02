@@ -16,14 +16,18 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 
 **Setup.**
 
-1. Copy the role files into your Claude Code skills directory:
+1. Copy the role files into your Claude Code skills directory, and the two agent files into `.claude/agents/` so the Writer can spawn them as subagents with the right toolset (read-only). From your project folder, with this repository cloned at `../alexandria`:
+   ```bash
+   mkdir -p .claude/skills/writer .claude/skills/critic .claude/agents
+   cp ../alexandria/roles/writer.md .claude/skills/writer/SKILL.md
+   cp ../alexandria/roles/critic.md .claude/skills/critic/SKILL.md
+   cp ../alexandria/integration/agents/searcher.md ../alexandria/integration/agents/critic.md .claude/agents/
    ```
-   .claude/skills/writer/SKILL.md      ← from roles/writer.md
-   .claude/skills/critic/SKILL.md      ← from roles/critic.md
-   ```
-   Also copy `integration/agents/searcher.md` and `integration/agents/critic.md` into `.claude/agents/` so the Writer can spawn them as subagents with the right toolset (read-only). The Searcher has no skill of its own: nobody summons it directly, and it runs only when the Writer dispatches it.
+   The Searcher has no skill of its own: nobody summons it directly, and it runs only when the Writer dispatches it.
 
-   Keep three shared files where all three roles can read them: `shared/evidence-handbook.md` (the evidence rules the Writer, the Critic and a dispatched Searcher all follow), `roles/searcher.md` (read by the Searcher agent at startup), and `governance/role-division.md`. The agent files list their startup reading; fix those paths to wherever you keep these files.
+   `roles/*.md` carry no YAML front matter, so Claude Code may not register the copies as skills on its own. Step 3 tells the Writer to read its file directly, which works either way; if you want them registered, add `name` and `description` front matter, or use the wrappers described below, which have it.
+
+   Keep the clone where all three roles can read it, and fix the paths in the agent files' startup reading to point at it. Copying single files is not enough: the agents read `roles/critic.md`, `roles/searcher.md` and `shared/search-patterns.md` at startup, every role follows `shared/evidence-handbook.md` and `governance/role-division.md`, and the role files link to further files in `shared/` and `governance/` for particular modes.
 
    *Two install patterns.* Copying the full role files (above) makes each skill self-contained — simplest for Tier A. The thin wrappers in `integration/wrappers/` are the alternative for Tier B+: the skill file stays a small pointer and the role's **master copy lives in your vault or a cloned repo**, so upgrading a role means editing one file, not re-copying. If you use the wrappers, fix their relative paths to wherever the master files live.
 
@@ -52,14 +56,14 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
    ```
    your-vault/
    ├── notes/       ← literature notes, mirrored to sources/
-   ├── sources/     ← PDFs, mirrored to notes/
-   └── vault-map.md ← your taxonomy, described for the roles (template in obsidian/)
+   │   └── vault-map.md ← your taxonomy, described for the roles (template in obsidian/)
+   └── sources/     ← PDFs, mirrored to notes/
    ```
    The **two-end mirror** — matched folder structure between `notes/` and `sources/` — is what lets every note trace to its source and every source be discoverable from notes.
 
 2. Copy `roles/librarian.md`, `roles/researcher.md`, and (optionally) `roles/deep-reader.md` into your skills directory as in Tier A.
 
-3. Fill in `vault-map.md` from the template in `obsidian/vault-map-template.md` (a synthetic example is included — replace it with your own taxonomy).
+3. Fill in `notes/vault-map.md` from the template in `obsidian/vault-map-template.md` (a synthetic example is included — replace it with your own taxonomy).
 
 4. Ingest a first batch: summon the Librarian and hand it a few PDFs. Inspect the notes it produces against `obsidian/note-schema.md`; correct the schema file if your field needs different metadata. The schema is a contract between you and the roles, not a straitjacket.
 
@@ -79,7 +83,15 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 - **Style modules** (`style-modules/`) — plug in language- and voice-specific writing rules without touching the role skeletons.
 - **Optional integrations** (`optional-integrations.md`) — interfaces for a full-text corpus layer, semantic recall, and OCR escalation. Build them with your preferred tools; the roles already know how to use them if present, and degrade gracefully if absent.
 
-**Configuration.** The scripts take your role names, paths, and version locations from constants at the top of each file. Set them once; the checks are then mechanical.
+**Configuration.** The scripts take your role names, paths, and version locations from constants at the top of each file. Set them once; the checks are then mechanical. Three checks in `health_check.py` (version mirrors, changelog entries, size budgets) run only once you fill in their constants, and the report lists each unset one as `SKIP`.
+
+**Running them** (Python 3; each script also takes `--self-test`, which shows it telling known good cases from known bad ones):
+```bash
+python3 governance/scripts/health_check.py              # this repository's own files
+python3 governance/scripts/dead_link_scan.py notes/     # document links here, plus the wikilinks in a notes folder you name
+cd your-vault && python3 /path/to/alexandria/governance/scripts/vault_verify.py   # run from the vault root
+```
+`vault_verify.py` exits 1 when `notes/vault-map.md` has no `## Taxonomy` items in the template's form (``- `name/` ``): that list is what its folder check compares against, and a check that read nothing is counted as a problem, not as a pass.
 
 ---
 

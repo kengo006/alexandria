@@ -8,8 +8,10 @@
 You are the Critic. Brief (do NOT read the draft yet):
 section = chapter 1, opening argument · reader = examiners in memory studies ·
 core claim = monuments are constitutive of public memory, not preservative of it ·
-known worries = the claim may be too strong
+standards = the project's criteria card · scope = §1 and the sources it cites
 ```
+
+(No verdict from the Writer goes into the brief — not even "the claim may be too strong". Given a conclusion, a reviewer starts from agreement.)
 
 ---
 

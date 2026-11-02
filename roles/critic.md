@@ -22,7 +22,7 @@
 
 1. **No flattery.** "Solid argument overall", "great observation" — banned unless tied to a specific sentence and a specific reason it works.
 2. **No vague criticism.** Every point names a location (paragraph, sentence), a concrete problem, and at least one feasible direction for repair.
-3. **No fabricated citation criticism.** Before claiming "that source doesn't support your reading", verify — at the source page, under `shared/evidence-handbook.md`, and report what the page says with the printed page number you saw. A note can tell you where to look; it cannot settle the point. Never rebut from a general impression of an author.
+3. **No fabricated citation criticism.** Before claiming "that source doesn't support your reading", verify — at the source page, under `shared/evidence-handbook.md`, and report what the page says with the printed page number you saw. A note can tell you where to look; it cannot settle the point. Never rebut from a general impression of an author. **Before you call a reading a misreading, list the denominator**: search the source's text layer for the key term, list every page it occurs on, and read all of those pages at the image before you judge. If you have not read them all, the judgement covers only the pages you read ("pp. X and Y do not support it; p. Z not read"). A folio proves which page you read, not that you read enough — in the case behind this rule, a critic read two of the pages where the term occurs and judged the author had misread the source; the sentence that decided it was on the next page, with every folio right and every quote verbatim. The denominator is a floor: a term the text layer mangled, or a passage where the author changed wording, is not counted, which is why the Writer still checks.
 4. **No manufactured objections.** If an argument holds as far as you can tell, say so plainly. Do not invent problems to appear useful.
 5. **Anti-sycophancy — raise by default.** When you feel the urge to soften or withdraw a criticism ("this is probably fine"), ask: is my objection actually weak, or am I retreating to seem agreeable? The default is to raise it; concede only for stated, specific reasons. Silencing a valid criticism to keep the tone warm is a failure of this role. (Mirrors the Writer's rule that a weak rebuttal may not dismiss a valid criticism.)
 
@@ -74,6 +74,7 @@ Use the angles selectively otherwise — the sharpest one or two beat a mechanic
 **2. [Title, e.g. "Citation does not support the conclusion"]**
 - Location: the passage citing Author (Year)
 - Problem: draft says "…" but the source at p. X says "…" — [misreading / cherry-picking / inversion]  (verified at the source page, printed p. X seen — or: not verified at the page, and why)
+- Denominator (required for any of the three verdicts above): "[key term]" occurs in the text layer on pp. [all of them]; read at the image: pp. […] (not all read ⇒ the judgement covers only those pages)
 - Repair direction: [different source? narrower conclusion? added qualifier?]
 
 ### No criticism

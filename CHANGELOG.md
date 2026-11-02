@@ -2,6 +2,24 @@
 
 The skeleton is extracted from a live production system; each release is a **curated snapshot**, not a mirror. Releases are named after the upstream snapshot they carry — the system was already in its third generation when first published, hence the repo's first release was tagged v0.1 and later releases adopt the upstream `v3.x` numbering. v4.0 is the first major step taken here: the role design itself changed, not only its rules.
 
+## v4.2 — 2026-11-02 · Installs as written, and how much you read before you judge
+
+A clean-environment install, run by following the three READMEs word for word, found the places where the instructions assumed knowledge only upstream had. This release fixes those, and carries five weeks of citation discipline from upstream.
+
+**Installing as written**
+
+- **`GETTING-STARTED.md` Tier A** now creates the directories before copying into them and gives the actual `cp` commands; says that `roles/*.md` carry no front matter (the wrappers do); and asks you to keep the whole clone, because the agents read `roles/critic.md`, `roles/searcher.md`, `shared/search-patterns.md`, the evidence handbook and the role division at startup. **Tier C** gives the command for each of its three scripts and says when `vault_verify.py` exits 1.
+- **`governance/scripts/health_check.py`** printed nothing for the three optional checks you had not configured, so "none configured" and "all passed" looked the same. Each now prints `SKIP … not configured (set X at the top of this file)`, and the summary line counts them: `N pass / N warn / N fail / N skipped`.
+- **`GETTING-STARTED.md` Tier B** drew `vault-map.md` at the vault root, while every role, the templates and `vault_verify.py` read `notes/vault-map.md`, so a map placed as drawn was read by none of them. The layout now shows it under `notes/`.
+
+**How much you read before you judge**
+
+- 🔴 **The Critic lists the denominator before calling a reading a misreading** (`roles/critic.md` red line 3, the report template, the agent definition). Every page where the key term occurs in the text layer is read at the image first; if not all were read, the judgement covers only those pages. Upstream, a critic read two of the pages where the term occurs and judged the author had misread the source; the sentence that decided it was on the next page, with every folio right and every quote verbatim. A folio proves which page you read, not that you read enough.
+- **The Critic's brief no longer carries the Writer's verdict** (`roles/writer.md` Phase 4, `shared/summon-templates.md`, `examples/critic-review.md`). The "known worries" slot is gone: the brief is the draft, the standards to check against and the scope. Given a conclusion, a reviewer starts from agreement.
+- **Citation handling gains three rules** (`roles/writer.md` §5): fewest pages for the most precise content; one source unless the sentence surveys a field; and, after the author edits your draft, a check of what the edit did to the citations (vanished page numbers, the two-way bibliography check, page references read down to the statement). §7 gains two observed failure modes: adopting a Critic's paraphrase without reading the source, and a rewrite that drops a qualifier.
+- **A control group has to read something different** (`roles/librarian.md` §8). A scan with its own OCR layer gives every text extractor the same text, so their agreement says nothing about that layer; compare five pages against an independent re-OCR of the images before choosing a route.
+- `shared/evidence-handbook.md`: the built-in page-render path that once failed silently has been re-tested and now returns the page; the preference for a path whose failure is loud stands.
+
 ## v4.1 — 2026-09-28 · A list nobody reconciled
 
 Same day as v4.0: what the upstream vault learned that afternoon, and one sentence v4.0 had to leave pessimistic.

@@ -145,10 +145,13 @@ Split by source; the approval covers the seats. If a seat stalls, resume that ag
 
 ### Critic — blind review
 
+The brief carries the draft, the standards and the scope, and **not your own verdict on the draft** ("the argument holds", "the citations are verified", the weaknesses you already suspect): given a conclusion, a reviewer starts from agreement. Keep your self-assessment aside and compare it with the critique when it comes back.
+
 ```
 You are the Critic. Read: {governance slot} → roles/critic.md → shared/evidence-handbook.md
 → {PROJECT}/criteria-card.md (if attached — calibrate scope/criteria by it).
-Brief (do NOT read the draft yet): [section assignment / intended reader / core claim / known worries]
+Brief (do NOT read the draft yet): [section assignment / intended reader / core claim /
+standards to check against (rulings, evidence-handbook items) / scope to check]
 First write your pre-committed standards (§2), then read the draft below and evaluate
 against them: [draft]
 Three angles as needed; no rewriting; "no criticism" sections stated explicitly.
