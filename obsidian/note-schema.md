@@ -15,6 +15,7 @@ tags: [reconsolidation, "memory consolidation"]
 note: "Publication form (journal/monograph/chapter · volume·pages · DOI) · edition caveats · one-line positioning"
 source: "PDF provenance and pagination status · text-layer extraction record · citation-rule notes (e.g. no-pagination preprint → cite by section)"
 read_scope: "Ingest date · what was actually read and how deep · honest statement of unread parts · quote count and locator form"
+doi: ""                  # optional: only from a confident registry match (tools/crossref_lookup.py); the retraction screen matches on it
 ---
 
 # Author (Year): Title

@@ -19,7 +19,7 @@
 
 **On built-in PDF readers.** Agent-harness PDF readers can silently truncate documents with malformed cross-reference tables and then *misreport the page count* (a 300-page book presenting as 17 pages of front matter). Read PDF *content* through the text layer. For taking the final verbatim text, render the **individual page as an image** — and prefer a rendering path **whose failure is loud**. This system once ran for days on a built-in page-render path that failed *silently*: seats kept claiming image-verified quotes while receiving no images at all (the incident `governance/claims-and-evidence.md` exists for). A silent render failure reads exactly like a successful verification; the credential rule — **report the printed page number you saw** — is what makes the difference detectable. (That built-in path was later re-tested and now returns the page; the preference stands, because a tool that once failed silently is not proven by working again, and the credential costs nothing.)
 
-**Page offsets — there are three, and they stack.** What the text layer or the PDF viewer calls "page N" is routinely not the number printed on the page, for three independent reasons:
+**Page offsets — there are three, and they stack.** What the text layer or the PDF viewer calls "page N" is routinely not the number printed on the page, for three independent reasons (`tools/folio_probe.py` and `tools/measure_page_offset.py` measure the offset and test whether it is constant; `tools/split_2up.py` splits a two-up scan; none of them replaces the image check):
 
 | Offset | What differs | Size | Treatment |
 |---|---|---|---|

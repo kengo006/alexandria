@@ -36,6 +36,7 @@ REQUIRED = [
     "obsidian/wikilinks-and-mocs.md", "obsidian/vault-map-template.md",
     "governance/system-overview.md", "governance/role-division.md",
     "governance/sync-matrix.md", "governance/claims-and-evidence.md",
+    "tools/README.md",
 ]
 
 # pattern -> why it is banned (checked case-insensitively in all live .md files;
@@ -206,7 +207,7 @@ for f, cap in SIZE_BUDGET.items():
 # Check 1 asks whether every listed file exists. It cannot ask whether every file is listed,
 # and a hand-written list falls behind the tree without a sound: a file added to shared/ in
 # v3.6 was never added to REQUIRED, so check 1 has not been watching it since.
-COVERED_DIRS = ("roles", "shared", "governance", "obsidian")
+COVERED_DIRS = ("roles", "shared", "governance", "obsidian", "tools")
 present = sorted(p.relative_to(SKELETON).as_posix() for d in COVERED_DIRS for p in (SKELETON / d).rglob("*.md"))
 uncovered = [p for p in present if p not in REQUIRED]
 if not present:

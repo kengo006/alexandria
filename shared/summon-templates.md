@@ -31,7 +31,7 @@ Read, in order:
 5. {VAULT_ROOT}/notes/vault-map.md           ← if present (Tier B+; Tier A has no vault map)
 6. {PROJECT}/_entry.md                       ← project front door, if the project keeps one
 7. {PROJECT}/criteria-card.md                ← if present; attach to every Critic spawn and Searcher dispatch
-8. (ongoing projects) skim {PROJECT}/citation-ledger.md, opponent-map.md, terminology.md
+8. (ongoing projects) skim {PROJECT}/ledger.md, opponent-map.md, terminology.md
 
 Then wait for my assignment. Judge the mode first (discuss / write / report / council);
 when unsure, default to discussion and ask.
