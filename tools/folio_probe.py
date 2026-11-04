@@ -285,17 +285,14 @@ def probe(pdf: Path, show_all=False, vmax=2000, force_book=False) -> int:
 
 
 def _self_test() -> int:
-    bad = 0
     pos = {"Page 2 of 20": 2, "24   Page 2 of 24": 2, "Page 5 of 24 24": 5, "2 of 8": 2, "page 13 of 13": 13,
            "3 / 17": 3, "JOURNAL | https://doi.org/10.1/x  5 / 17": 5}
     neg = ["164", "Journal (2026) 208:164", "9 of 8", "one of the three", "x" * 60 + " 2 of 8",
            "2019/2020", "3/17", "18 / 17", "12 / 400"]
-    for s, k in pos.items():
-        bad += _k_of_m(s) != k
-    for s in neg:
-        bad += _k_of_m(s) is not None
-    print(("ok   " if not bad else "FAIL ") + f"'k of M' and 'k / M': {len(pos)} positive, {len(neg)} negative")
+    kofm_ok = all(_k_of_m(s) == k for s, k in pos.items()) and all(_k_of_m(s) is None for s in neg)
+    skipped = []
     checks = [
+        (f"'k of M' and 'k / M': {len(pos)} positive, {len(neg)} negative", kofm_ok),
         ("letter-spaced number joined", _join_spaced("1 5") == "15" and _join_spaced("3 1 1") == "311" and _join_spaced("12 34 5") == "12 34 5"),
         ("PUA digits decoded", _decode_pua(chr(PUA_BASE + 4) + chr(PUA_BASE + 2)) == "42"),
     ]
@@ -339,11 +336,14 @@ def _self_test() -> int:
         checks.append(("synthetic PDF, offsets +8 then +10: segmented", kind == "segmented"
                        and [s[0] for s in x["segments"]] == [8, 10]))
     except ImportError:
-        print("skip  synthetic PDF (PyMuPDF not installed)")
+        skipped.append("synthetic PDF (PyMuPDF not installed)")
+    bad = 0
     for name, ok in checks:
         bad += not ok
         print(("ok   " if ok else "FAIL ") + name)
-    print("all as expected" if not bad else f"{bad} unexpected")
+    for name in skipped:
+        print("skip  " + name)
+    print(f"{len(checks) - bad} of {len(checks)} as expected" + (f", {len(skipped)} skipped" if skipped else ""))
     return 1 if bad else 0
 
 

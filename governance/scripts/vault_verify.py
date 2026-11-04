@@ -11,11 +11,18 @@ Six checks:
      (listed but missing / present but unlisted), to the depth the list reaches
 
 Dead links are a separate scan (dead_link_scan.py).
-Configure the block below for your vault.
+Configure the block below for your vault. Run it from the vault root; it takes no arguments.
 """
 import re
 import sys
 from pathlib import Path
+
+if sys.argv[1:]:
+    # It has no --self-test and no options. Before this guard, `vault_verify.py --self-test` ran the real checks on
+    # whatever folder you stood in and exited 1, which read as a failed self-test.
+    print(f"vault_verify.py takes no arguments (got {' '.join(sys.argv[1:])}): configure the block at the top "
+          "and run it from the vault root. It has no --self-test.")
+    sys.exit(2)
 
 # ── config ──────────────────────────────────────────────────────────
 VAULT = Path(".")                      # vault root containing notes/ and sources/

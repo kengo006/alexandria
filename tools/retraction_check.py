@@ -105,9 +105,27 @@ def hit_line(row):
     return f"{row.get('RetractionNature', '?')} | {row.get('RetractionDate', '?')} | {(row.get('Reason', '?') or '?')[:110]}"
 
 
+def literature_notes(notes: Path):
+    """The notes in the denominator, and how many files were set aside: the vault map at the root and each folder's
+    MOC (named after its folder, as governance/scripts/vault_verify.py counts them), and anything under a folder
+    starting with _ or '.'. A map or a MOC has no DOI by design; counted as 'not checkable' it inflated the share
+    the screen could not see."""
+    keep, nav, hidden = [], 0, 0
+    for p in sorted(notes.rglob("*.md")):
+        rel = p.relative_to(notes)
+        if any(x.startswith(("_", ".")) for x in rel.parts):
+            hidden += 1
+        elif rel.as_posix() == "vault-map.md" or p.stem == p.parent.name:
+            nav += 1
+        else:
+            keep.append(p)
+    return keep, nav, hidden
+
+
 def library_mode(notes: Path, rw, rw_date):
     have, none, hits = [], 0, []
-    for f in sorted(notes.rglob("*.md")):
+    files, nav, hidden = literature_notes(notes)
+    for f in files:
         d = note_doi(f)
         if not d:
             none += 1
@@ -117,7 +135,8 @@ def library_mode(notes: Path, rw, rw_date):
             hits.append(f"  - {f.relative_to(notes)}\n    DOI {d} | {hit_line(rw[d])}")
     print("=== retraction screen (library) ===")
     print(f"Retraction Watch: {len(rw):,} DOIs (data of {rw_date})")
-    print(f"notes: {len(have)} checkable (with a DOI) / {none} NOT checkable (no DOI; not a clean bill)")
+    print(f"notes: {len(have)} checkable (with a DOI) / {none} NOT checkable (no DOI; not a clean bill)"
+          f"  (set aside: vault map and MOCs {nav}, under _ or . folders {hidden})")
     if not have:
         raise CannotRun("zero checkable notes: the screen has nothing to run on (file DOIs at ingestion first)")
     if hits:
@@ -203,6 +222,8 @@ def _self_test() -> int:
     (notes / "memory" / "★Roe_1998_Commemoration.md").write_text(
         '---\ntitle: "Commemoration"\nnote: "journal · DOI 10.5555/rw.77 · reprint"\n---\n', encoding="utf-8")
     (notes / "memory" / "Ives_2014_Practice.md").write_text('---\ntitle: "Practice"\nnote: "monograph"\n---\n', encoding="utf-8")
+    (notes / "vault-map.md").write_text("## Taxonomy\n- `memory/` - works on memory\n", encoding="utf-8")
+    (notes / "memory" / "memory.md").write_text("# memory\n- [[Doe_2011_Monuments and Memory]]\n", encoding="utf-8")
     (cache / "retraction_watch.csv").write_text(
         "Record ID,OriginalPaperDOI,RetractionNature,RetractionDate,Reason\n"
         "1,10.5555/RW.77,Retraction,2020-01-01,+Data fabrication\n2,unavailable,Retraction,2020,x\n3,10.9/other,Correction,2021,y\n",
@@ -230,6 +251,7 @@ def _self_test() -> int:
         code_proj = project_mode(proj, notes, rw, date, md=False)
     out = buf.getvalue()
     checks.append(("library mode: 1 hit, exit 1, denominator stated", code_lib == 1 and "2 checkable" in out and "1 NOT checkable" in out))
+    checks.append(("library mode: vault map and MOC set aside and counted, not 'NOT checkable'", "vault map and MOCs 2" in out))
     checks.append(("project mode: hit on Roe, 2 checkable / 1 no DOI / 1 no note", code_proj == 1 and "Roe 1998 | DOI 10.5555/rw.77" in out
                    and "checkable (DOI): 2" in out and "no DOI, mostly monographs): 1" in out and "no note found: 1" in out))
     try:

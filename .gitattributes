@@ -1,5 +1,5 @@
 # GitHub Linguist leaves prose languages out of a repository's language bar by
-# default. This repository is 37 markdown files and 3 accessory scripts, so the
+# default. This repository is mostly markdown with a few accessory scripts, so the
 # default reports it as "Python" — which is the one language it is least about,
 # and puts it in the wrong bucket for anyone browsing or filtering by language.
 #

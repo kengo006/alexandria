@@ -243,8 +243,10 @@ def _self_test() -> int:
     try:
         import pymupdf
     except ImportError:
-        print("skip  PyMuPDF not installed")
-        return 0
+        # every check needs PyMuPDF, and so does the tool: zero checks run is not a pass
+        print("skip  all checks (PyMuPDF not installed: pip install pymupdf)")
+        print("0 of 0 as expected, nothing was checked")
+        return 2
     tmp = pathlib.Path(tempfile.mkdtemp())
     src = tmp / "twoup.pdf"
     doc = pymupdf.open()

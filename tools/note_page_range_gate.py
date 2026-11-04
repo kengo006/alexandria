@@ -175,12 +175,16 @@ def _self_test() -> int:
                        and "registered not_citable" in o))
         shutil.rmtree(tmp, ignore_errors=True)
     except ImportError:
-        print("skip  end to end (PyMuPDF not installed)")
+        skipped = 2
+    else:
+        skipped = 0
     bad = 0
     for name, ok in checks:
         bad += not ok
         print(("ok   " if ok else "FAIL ") + name)
-    print(f"{len(checks) - bad} of {len(checks)} as expected")
+    if skipped:
+        print(f"skip  end to end, {skipped} checks (PyMuPDF not installed)")
+    print(f"{len(checks) - bad} of {len(checks)} as expected" + (f", {skipped} skipped" if skipped else ""))
     return 1 if bad else 0
 
 

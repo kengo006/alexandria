@@ -27,7 +27,7 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 
    `roles/*.md` carry no YAML front matter, so Claude Code may not register the copies as skills on its own. Step 3 tells the Writer to read its file directly, which works either way; if you want them registered, add `name` and `description` front matter, or use the wrappers described below, which have it.
 
-   Keep the clone where all three roles can read it, and fix the paths in the agent files' startup reading to point at it. Copying single files is not enough: the agents read `roles/critic.md`, `roles/searcher.md` and `shared/search-patterns.md` at startup, every role follows `shared/evidence-handbook.md` and `governance/role-division.md`, and the role files link to further files in `shared/` and `governance/` for particular modes.
+   Keep the clone where all three roles can read it, and fix the paths in the agent files' startup reading to point at it: the copies in `.claude/agents/` name files relative to the repository (`roles/critic.md`), so with the clone at `../alexandria` that line becomes `../alexandria/roles/critic.md`, and likewise for each repository file the two agents list (`notes/vault-map.md` is your vault's own file, not the repository's). Copying single files is not enough: the agents read `roles/critic.md`, `roles/searcher.md` and `shared/search-patterns.md` at startup, every role follows `shared/evidence-handbook.md` and `governance/role-division.md`, and the role files link to further files in `shared/` and `governance/` for particular modes.
 
    *Two install patterns.* Copying the full role files (above) makes each skill self-contained — simplest for Tier A. The thin wrappers in `integration/wrappers/` are the alternative for Tier B+: the skill file stays a small pointer and the role's **master copy lives in your vault or a cloned repo**, so upgrading a role means editing one file, not re-copying. If you use the wrappers, fix their relative paths to wherever the master files live.
 
@@ -86,10 +86,10 @@ Alexandria is adopted in tiers. Each tier is additive; start at A and stop where
 
 **Configuration.** The scripts take your role names, paths, and version locations from constants at the top of each file. Set them once; the checks are then mechanical. Three checks in `health_check.py` (version mirrors, changelog entries, size budgets) run only once you fill in their constants, and the report lists each unset one as `SKIP`.
 
-**Running them** (Python 3; each script also takes `--self-test`, which shows it telling known good cases from known bad ones):
+**Running them** (Python 3; `health_check.py` and `dead_link_scan.py` also take `--self-test`, which shows each telling known good cases from known bad ones; `vault_verify.py` has none and takes no arguments):
 ```bash
 python3 governance/scripts/health_check.py              # this repository's own files
-python3 governance/scripts/dead_link_scan.py notes/     # document links here, plus the wikilinks in a notes folder you name
+python3 governance/scripts/dead_link_scan.py /path/to/your-vault/notes/   # document links here, plus your vault's wikilinks
 cd your-vault && python3 /path/to/alexandria/governance/scripts/vault_verify.py   # run from the vault root
 ```
 `vault_verify.py` exits 1 when `notes/vault-map.md` has no `## Taxonomy` items in the template's form (``- `name/` ``): that list is what its folder check compares against, and a check that read nothing is counted as a problem, not as a pass.

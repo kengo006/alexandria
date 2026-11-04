@@ -20,9 +20,10 @@ Usage:
   python tools/citation_ledger_check.py --project <dir> [--text <glob>]... [--source-col N] [--md]
   python tools/citation_ledger_check.py --self-test
   --project     the project folder holding ledger.md
-  --text        the text to check (relative to the project or absolute; glob; repeatable). Default:
-                working-source.md if present, else every .md in the project except the ledger, _audit/,
-                history, finals/, the opponent map, the terminology table and the criteria card.
+  --text        the text to check (relative to the project or absolute; glob; repeatable). Default: the layout of
+                roles/writer.md §0, i.e. working-source.md, reading-copy.md and every .md under chapters/, those
+                that exist; if none does, every .md in the project except the ledger, _audit/, history, finals/,
+                the opponent map, the terminology table and the criteria card. The files read are listed.
   --source-col  which ledger column holds the source (0 = the ID column). Default: the column whose header
                 says source / citation / work / reference, else the first cell after the ID with an author-year.
 Exit codes: 0 = clean / 1 = orphan or page gap / 3 = cannot run
@@ -169,6 +170,13 @@ def extract_text_cites(text: str):
     return cites, unparsed
 
 
+def rel(f: Path, proj: Path) -> str:
+    try:
+        return f.resolve().relative_to(proj.resolve()).as_posix()
+    except ValueError:
+        return str(f)
+
+
 def check(proj: Path, texts=(), source_col=None):
     ledger = proj / "ledger.md"
     if not ledger.exists():
@@ -180,8 +188,12 @@ def check(proj: Path, texts=(), source_col=None):
     for t in texts:
         files += [Path(p) for p in glob.glob(t if Path(t).is_absolute() else str(proj / t), recursive=True)]
     if not texts:
-        files = [proj / "working-source.md"] if (proj / "working-source.md").exists() else \
-            [f for f in proj.rglob("*.md") if not any(x in str(f.relative_to(proj)).lower() for x in EXCLUDE)]
+        # the project layout in roles/writer.md §0: the working master, the mirror of the author's manuscript, and
+        # the drafts in chapters/. Reading working-source.md alone skipped every chapter draft.
+        files = [f for f in (proj / "working-source.md", proj / "reading-copy.md") if f.exists()] + \
+            sorted((proj / "chapters").rglob("*.md"))
+        if not files:
+            files = [f for f in proj.rglob("*.md") if not any(x in str(f.relative_to(proj)).lower() for x in EXCLUDE)]
     files = [f for f in dict.fromkeys(files) if f.exists() and f.suffix == ".md"]
     if not files:
         return 3, ["❌ no text found (point --text at it)"]
@@ -203,7 +215,8 @@ def check(proj: Path, texts=(), source_col=None):
                                  "add a 'source' column or pass --source-col")
     L = [f"=== text ⇄ ledger ({proj.name}) ===", f"source column: {mode}",
          f"ledger: {len(works)} distinct sources (rows not parsed: {len(l_unparsed)}) | text files {len(files)} | "
-         f"page-bearing citations {len(cites)} / {len(cite_keys)} distinct (author not parsed: {t_unparsed})"]
+         f"page-bearing citations {len(cites)} / {len(cite_keys)} distinct (author not parsed: {t_unparsed})",
+         "text read: " + ", ".join(rel(f, proj) for f in files)]
     if not cites:
         L.append("  ⚠ no page-bearing citation parsed: is --text pointing at the text?")
     L.append(f"  🔴 orphan (in the text, not in the ledger): {len(orphans)}")
@@ -254,6 +267,16 @@ def _self_test() -> int:
         ("another source between year and page is refused, not credited to it", "moe 2005" not in out.split("page gap")[0]),
     ]
     shutil.rmtree(tmp, ignore_errors=True)
+    lay = Path(tempfile.mkdtemp())
+    (lay / "chapters").mkdir()
+    (lay / "ledger.md").write_text("| ID | claim | source |\n|---|---|---|\n| L-1 | memory | Doe (2011) p. 47 |\n", encoding="utf-8")
+    (lay / "working-source.md").write_text("Doe (2011, p. 47) is settled.\n", encoding="utf-8")
+    (lay / "chapters" / "ch1.md").write_text("Kay (2020, p. 9) is not in the ledger yet.\n", encoding="utf-8")
+    code_l, L_l = check(lay)
+    out_l = "\n".join(L_l)
+    checks.append(("default text includes chapters/ next to working-source.md (orphan found there)",
+                   code_l == 1 and "kay 2020" in out_l and "text read: working-source.md, chapters/ch1.md" in out_l))
+    shutil.rmtree(lay, ignore_errors=True)
     empty = Path(tempfile.mkdtemp())
     code_e, _ = check(empty)
     checks.append(("no ledger → cannot run (3)", code_e == 3))

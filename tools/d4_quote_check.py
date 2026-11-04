@@ -23,7 +23,8 @@ Usage:
   python tools/d4_quote_check.py [--notes notes] [--text-layer text-layer] [name fragment ...]
   python tools/d4_quote_check.py --self-test
 A note maps to <text-layer>/<same relative path>.txt (a leading ★ on the note's name is dropped: the text layer
-mirrors sources/, which never carries it).
+mirrors sources/, which never carries it). The vault map (notes/vault-map.md) and each folder's MOC are not
+literature notes: they are set aside, and the count is printed.
 Exit codes: 0 = every probe found / 1 = some not found (a reading list, not a verdict) / 2 = nothing was checked
 """
 import re
@@ -136,8 +137,25 @@ def text_for(note: Path, notes: Path, layer: Path):
     return p if p.exists() else None
 
 
+def literature_notes(notes: Path):
+    """The notes to scan, and the files set aside: the vault map at the root and each folder's MOC (named after its
+    folder, as governance/scripts/vault_verify.py counts them), and anything under a folder starting with _ or '.'.
+    The map and the MOCs have no text layer by design; listed as 'without a text layer' they buried the notes that
+    really lack one."""
+    keep, nav, hidden = [], 0, 0
+    for p in notes.rglob("*.md"):
+        rel = p.relative_to(notes)
+        if any(x.startswith(("_", ".")) for x in rel.parts):
+            hidden += 1
+        elif rel.as_posix() == "vault-map.md" or p.stem == p.parent.name:
+            nav += 1
+        else:
+            keep.append(p)
+    return keep, nav, hidden
+
+
 def run(notes: Path, layer: Path, frags=()):
-    files = [p for p in notes.rglob("*.md") if not any(x.startswith(("_", ".")) for x in p.relative_to(notes).parts)]
+    files, nav, hidden = literature_notes(notes)
     if frags:
         files = [p for p in files if any(f.lower() in p.name.lower() for f in frags)]
     if not files:
@@ -160,7 +178,8 @@ def run(notes: Path, layer: Path, frags=()):
                     n_exact += bool(re.search(rx.replace(r"\s+", " "), txt))
                 else:
                     missing.append((note.name, ph))
-    print(f"=== quotation check · {len(files)} notes · {n_probe} probes")
+    print(f"=== quotation check · {len(files)} notes · {n_probe} probes  (set aside: vault map and MOCs {nav}, "
+          f"under _ or . folders {hidden})")
     if not n_probe:
         print("🔴 zero probes: this run checked nothing and is not a pass (no quotation blocks? the extractor broken?)")
         return 2, (n_probe, n_loose, n_exact, missing, no_text)
@@ -168,12 +187,14 @@ def run(notes: Path, layer: Path, frags=()):
           + ("✅" if n_loose == n_probe else "🔴 some quotations are not in the text layer"))
     print(f"    ② exact: {n_exact}/{n_probe} = {n_exact / n_probe:.1%}   (the gap is line breaks, not a red light)")
     if no_text:
-        print(f"    ⚠ {len(no_text)} note(s) without a text layer (web-native or not extracted): {no_text[:3]}")
+        print(f"    ⚠ {len(no_text)} note(s) without a text layer (web-native or not extracted):")
+        for f in no_text:
+            print(f"      - {f}")
     if missing:
         print(f"\n🔴 these {len(missing)} are a reading list, not a verdict. Known false positives: a quoted title (not body"
               " text); a web snapshot that is not the stored copy; two passages joined with the gap unmarked. Open each.")
-        for f, ph in missing[:12]:
-            print(f"    · {f[:44]}\n        not found: {ph[:90]}")
+        for f, ph in missing:                       # all of them: a cut list hides the ones past the cut
+            print(f"    · {f}\n        not found: {ph}")
     return (1 if missing else 0), (n_probe, n_loose, n_exact, missing, no_text)
 
 
@@ -200,10 +221,14 @@ def _self_test() -> int:
         '## Key quotes\n> "Public memory is not stored in monuments; it is produced by the practices that gather around them, '
         'and it changes when they do." (p. 4)\n\n1. ' + guil + ' (p. 5)\n\n'
         '> "Memory is a warehouse in which every object keeps its original meaning for ever and ever." (p. 9)\n', encoding="utf-8")
-    with contextlib.redirect_stdout(io.StringIO()):
+    (tmp / "notes" / "vault-map.md").write_text('## Taxonomy\n> "A map quotes nothing from a source, and has no text layer."\n', encoding="utf-8")
+    (tmp / "notes" / "m" / "m.md").write_text("# m\n- [[★Doe_2011_Monuments]]\n", encoding="utf-8")
+    with contextlib.redirect_stdout(io.StringIO()) as buf:
         code, r = run(tmp / "notes", tmp / "text-layer")
     n_probe, n_loose, n_exact, missing, no_text = r
-    checks.append(("starred note maps to its text layer", not no_text))
+    checks.append(("starred note maps to its text layer", "★Doe_2011_Monuments.md" not in no_text))
+    checks.append(("vault map and MOC set aside and counted, not 'without a text layer'",
+                   not no_text and "vault map and MOCs 2" in buf.getvalue()))
     checks.append(("present across a line break, not exact", n_loose > n_exact))
     checks.append(("curly apostrophe and accents compared under one policy", all("volont" not in ph for _, ph in missing)))
     checks.append(("an invented quotation is not found (exit 1)", code == 1 and any("warehouse" in ph for _, ph in missing)))
