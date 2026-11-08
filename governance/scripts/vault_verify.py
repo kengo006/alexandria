@@ -16,6 +16,11 @@ Configure the block below for your vault. Run it from the vault root; it takes n
 import re
 import sys
 from pathlib import Path
+# Redirected to a file or a pipe, Python on Windows writes in the code page (cp1252, cp950), which cannot print
+# the marks below or an accented file name, and the run dies with UnicodeEncodeError. Write UTF-8 instead.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8")
 
 if sys.argv[1:]:
     # It has no --self-test and no options. Before this guard, `vault_verify.py --self-test` ran the real checks on

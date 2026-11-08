@@ -2,6 +2,13 @@
 
 The skeleton is extracted from a live production system; each release is a **curated snapshot**, not a mirror. Releases are named after the upstream snapshot they carry — the system was already in its third generation when first published, hence the repo's first release was tagged v0.1 and later releases adopt the upstream `v3.x` numbering. v4.0 is the first major step taken here: the role design itself changed, not only its rules.
 
+## v4.3.2 — 2026-11-05 · Output that survives a pipe on Windows
+
+On Windows, when a script's output goes to a file or a pipe (the way an agent runs a tool), Python writes in the system code page: cp1252 on an English system, cp950 on a Traditional Chinese one. Neither has the marks these scripts print. Measured with the output redirected under each code page, `dead_link_scan.py`, `crossref_lookup.py` and `retraction_check.py` stopped with `UnicodeEncodeError` under both, and `vault_verify.py` under cp1252 as soon as it printed a starred note's path. Measured on v4.3.1; `dead_link_scan.py` failed the same way in v4.3. The review of v4.3.1 found it. Seven tools already wrote UTF-8.
+
+- **`health_check.py`, `dead_link_scan.py`, `vault_verify.py`, `crossref_lookup.py` and `retraction_check.py` now write UTF-8** to stdout and stderr, as the other seven tools do.
+- `tools/README.md`: PyMuPDF brings in networkx as well, the same list as the corpus-doctor README.
+
 ## v4.3.1 — 2026-11-04 · Read where the sentence points
 
 A second clean-environment install, run on v4.3 by following the documents word for word, found fourteen places across the three repositories where a sentence claimed more than the file it pointed at, or a default read less than the layout it served. This release fixes the main repository's share; corpus-doctor v0.5.1 and semantic-recall v0.5.2 carry theirs. Two of them, the self-test sentence and the ledger default, had passed two review rounds: the reviews read `GETTING-STARTED.md` and the ledger tool without opening `vault_verify.py` or the writer's project layout.

@@ -23,7 +23,7 @@ with its results so a quiet run is not read as a clean one.
 | `d4_quote_check.py` | the quotations in the notes are in the source's text layer (present / exactly findable) | `shared/evidence-handbook.md`: the text layer locates; `obsidian/note-schema.md`, key quotes | — |
 
 ¹ `pip install pymupdf`, or prefix the command with `uv run --with pymupdf`. It is not small: PyMuPDF 2.0 brings
-in onnxruntime, numpy and its own layout packages, about 290 MB in a fresh virtual environment with pip and
+in onnxruntime, numpy, networkx and its own layout packages, about 290 MB in a fresh virtual environment with pip and
 about 244 MB with uv (which does not compile `.pyc` files by default). The other tools use the standard library.
 ² Set `CROSSREF_MAILTO=you@example.org` to join CrossRef's polite pool. A rate-limited request (HTTP 429) exits
 3 like any network error: wait and run it again; nothing is filed on an error.
